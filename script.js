@@ -563,22 +563,24 @@ let currentFilters = {
     sort: 'latest' // latest, oldest, stipend-high, stipend-low
 };
 
-const getCompanyLogo = (company) => {
-    const slugMap = {
-        "goldman sachs": "goldmansachs", "jpmorgan chase": "jpmorgan", "govt of india": "india",
-        "walmart global tech": "walmart", "deloitte india": "deloitte", "taylor & francis group": "taylorandfrancis",
-        "aws / hack2skill": "amazonaws", "oist japan": "japan", "major league hacking": "mlh", "google": "google"
-    };
-    let slug = company.toLowerCase().trim();
-    if (slugMap[slug]) slug = slugMap[slug];
-    else slug = slug.replace(/[^a-z0-9]/g, '');
+const getCompanyLogo = (item) => {
+    // Strategy: Use Clearbit Logo API based on the link domain. 
+    // This is most accurate for "all" companies.
+    let domain = '';
+    try {
+        const urlObj = new URL(item.link);
+        domain = urlObj.hostname.replace('www.', '');
+    } catch (e) {
+        domain = item.company.toLowerCase().replace(/ /g, '') + ".com";
+    }
 
-    const initial = company.charAt(0);
-    // Use /white for dark mode visibility. CSS will invert for light mode.
-    return `<img src="https://cdn.simpleicons.org/${slug}/white" alt="${company}" 
+    const initial = item.company.charAt(0);
+
+    // Clearbit logo
+    return `<img src="https://logo.clearbit.com/${domain}" alt="${item.company}" 
                  class="company-logo-img" 
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-            <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">${initial}</div>`;
+            <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-weight:bold; color:var(--text-main); font-size:1.2rem;">${initial}</div>`;
 };
 
 function renderCards(data, container = grid) {
@@ -619,7 +621,7 @@ function renderCards(data, container = grid) {
             <div class="card-header">
                 <div style="display:flex; gap:12px; align-items:center;">
                     <div class="company-logo-wrapper" style="width:40px; height:40px; border-radius:8px; overflow:hidden; background:var(--bg-color); display:flex; align-items:center; justify-content:center; border:1px solid var(--border-color);">
-                        ${getCompanyLogo(item.company)}
+                        ${getCompanyLogo(item)}
                     </div>
                     <div>
                         <h3 class="role-title">${item.title}</h3>
@@ -806,19 +808,28 @@ if (isOpportunitiesPage) {
     const closeSearchModalBtn = document.getElementById('closeSearchModalBtn');
     const searchResultsGrid = document.getElementById('searchResultsGrid');
     const searchQueryDisplay = document.getElementById('searchQueryDisplay');
+    const searchSortSelect = document.getElementById('searchSortSelect');
 
     const handleHomeSearch = (overrideQuery) => {
         const query = overrideQuery || (searchInput ? searchInput.value.trim() : '');
-        if (!query) return;
+        if (!query && !overrideQuery) return; // Allow empty if just sorting? No, modal needs query.
 
         // Filter Logic
-        const filtered = internshipData.filter(item => {
+        let filtered = internshipData.filter(item => {
             const q = query.toLowerCase();
             return isFuzzyMatch(item.title, q) ||
                 isFuzzyMatch(item.company, q) ||
                 isFuzzyMatch(item.location, q) ||
                 item.tags.some(tag => isFuzzyMatch(tag, q));
         });
+
+        // Sorting Logic
+        const sortMode = searchSortSelect ? searchSortSelect.value : 'relevance';
+        if (sortMode === 'latest') {
+            filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+        } else if (sortMode === 'stipend') {
+            filtered.sort((a, b) => parseStipendValue(b.stipend) - parseStipendValue(a.stipend));
+        }
 
         // Populate Modal
         if (searchQueryDisplay) searchQueryDisplay.textContent = query;
@@ -861,6 +872,10 @@ if (isOpportunitiesPage) {
         });
     }
 
+    if (searchSortSelect) {
+        searchSortSelect.addEventListener('change', () => handleHomeSearch());
+    }
+
     // Handle "Popular" Tag Buttons on Home
     const tagBtns = document.querySelectorAll('.tag-btn');
     tagBtns.forEach(btn => {
@@ -899,6 +914,28 @@ window.openModal = function (title) {
 
     // Populate Data
     currentInternshipLink = item.link; // Critical: Update apply link
+
+    // Header Apply Button
+    const headerBtn = document.getElementById('headerApplyBtn');
+    if (headerBtn) {
+        headerBtn.onclick = () => window.open(item.link, '_blank');
+    }
+
+    // Logo Injection
+    const logoContainer = document.getElementById('modalIconContainer');
+    if (logoContainer) {
+        logoContainer.innerHTML = getCompanyLogo(item);
+        // Force larger size for modal? Or keep micro?
+        // User asked for "Micro mini logos" generally, but Modal header usually bigger. 
+        // But our helper uses specific class. We can override in CSS if needed.
+        // For now, Clearbit looks good.
+        logoContainer.style.background = 'white'; // Ensure transparency looks good if black logo
+        logoContainer.style.display = 'flex';
+        logoContainer.style.alignItems = 'center';
+        logoContainer.style.justifyContent = 'center';
+        logoContainer.style.overflow = 'hidden';
+    }
+
     document.getElementById('modalTitle').textContent = item.title;
     document.getElementById('modalCompany').textContent = item.company;
     document.getElementById('modalLocation').textContent = item.location;
@@ -1164,11 +1201,11 @@ function renderSearchResults(data, container) {
         else if (s.includes('closed')) statusClass += ' status-closed';
         else statusClass += ' status-pending';
 
-        const logoHTML = getCompanyLogo(item.company);
+        const logoHTML = getCompanyLogo(item);
 
         row.innerHTML = `
             <div class="search-item-left">
-                <div class="company-icon-sm" style="background:transparent; padding:0;">${logoHTML}</div>
+                <div class="company-icon-sm" style="background:white; padding:4px; overflow:hidden;">${logoHTML}</div>
                 <div class="search-info">
                     <h4>${item.title}</h4>
                     <span class="search-meta"><i class="fa-solid fa-building"></i> ${item.company} &bull; ${item.location}</span>
@@ -1255,16 +1292,31 @@ function handleChat() {
     const text = chatInput.value.trim().toLowerCase();
     if (!text) return;
 
-    addMessage(chatInput.value, 'user'); // Original case
+    addMessage(chatInput.value, 'user');
     chatInput.value = '';
 
-    // Simple matching
-    let response = botResponses["default"];
-    for (const key in botResponses) {
-        if (text.includes(key)) {
-            response = botResponses[key];
-            break;
-        }
+    let response = "I'm not sure about that. Try asking about **internships**, **stipends**, or a specific company like **Amazon**.";
+
+    // 1. Check for specific company existence
+    const foundCompany = internshipData.find(item => text.includes(item.company.toLowerCase()));
+    if (foundCompany) {
+        response = `Yes! We have an opening for **${foundCompany.company}** (${foundCompany.title}). <br>Status: <b>${foundCompany.status}</b>. Search for "${foundCompany.company}" to apply!`;
+    }
+    // 2. Common Conversational Intents
+    else if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
+        response = "Hello! 👋 I can help you find internships. Try typing a company name!";
+    }
+    else if (text === 'yes' || text.includes('sure') || text.includes('okay')) {
+        response = "Great! You can start by using the Search bar to find specific roles, or browse the latest cards.";
+    }
+    else if (text.includes('stipend') || text.includes('salary') || text.includes('pay')) {
+        response = "Stipends range from 10k to 1.5L+. Check specific cards for details. Amazon pays ~1.1L!";
+    }
+    else if (text.includes('resume') || text.includes('cv')) {
+        response = "We have a Resume Builder! Check the navigation menu.";
+    }
+    else if (text.includes('hackathon')) {
+        response = "We list Hackathons too! Look for the trophy icon 🏆.";
     }
 
     setTimeout(() => {
