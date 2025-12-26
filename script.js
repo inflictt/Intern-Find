@@ -580,7 +580,7 @@ const getCompanyLogo = (item) => {
     return `<img src="https://logo.clearbit.com/${domain}" alt="${item.company}" 
                  class="company-logo-img" 
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-            <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-weight:bold; color:var(--text-main); font-size:1.2rem;">${initial}</div>`;
+            <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-weight:bold; color:#fff; background:#333; font-size:1.2rem;">${initial}</div>`;
 };
 
 function renderCards(data, container = grid) {
@@ -751,7 +751,8 @@ function isFuzzyMatch(text, query) {
 
     // Allow for some typos based on length
     const distance = levenshtein(text, query);
-    const threshold = Math.max(3, Math.floor(query.length * 0.4)); // Adaptive threshold
+    // Stricter threshold: 0 for short strings (<4), else 30% of length
+    const threshold = query.length < 4 ? 0 : Math.floor(query.length * 0.3);
     return distance <= threshold;
 }
 
