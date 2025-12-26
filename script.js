@@ -315,7 +315,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.securonix.com/careers/",
         type: "Internship",
-        postedDate: "2024-12-22"
+        postedDate: "2024-12-22",
+        description: "Securonix offers cybersecurity internships working on SIEM and threat detection platforms.",
+        eligibility: "CS students with interest in Cyber Security and Networking.",
+        deadline: "May 2026"
     },
     {
         title: "Oracle Internship 2026",
@@ -342,7 +345,10 @@ const internshipData = [
         status: "Open",
         link: "https://careers.servicenow.com/",
         type: "Internship",
-        postedDate: "2024-12-18"
+        postedDate: "2024-12-18",
+        description: "ServiceNow interns work on enterprise cloud software that changes how people work.",
+        eligibility: "Pursuing a degree in Computer Science or related field.",
+        deadline: "Summer 2026"
     },
     {
         title: "IBM Internship 2026",
