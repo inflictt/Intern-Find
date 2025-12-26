@@ -759,6 +759,45 @@ footer {
     margin-bottom: 24px;
 }
 
+.modal-details-section {
+    margin-bottom: 24px;
+    text-align: left;
+    background: var(--bg-color);
+    /* Slight contrast background */
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.modal-details-section h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    margin-top: 16px;
+}
+
+.modal-details-section h3:first-child {
+    margin-top: 0;
+}
+
+.modal-details-section p {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.deadline-text {
+    color: #ef4444 !important;
+    /* Red for urgency */
+    font-weight: 600;
+}
+
+.highlight-tag {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+}
+
 .modal-stat {
     display: flex;
     align-items: center;

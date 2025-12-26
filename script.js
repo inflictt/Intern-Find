@@ -11,7 +11,10 @@ const internshipData = [
         status: "Open",
         link: "https://imaginecup.microsoft.com",
         type: "Hackathon",
-        postedDate: "2024-12-20"
+        postedDate: "2024-12-20",
+        description: "Microsoft Imagine Cup is the premier global student technology competition. Build AI-driven solutions with Microsoft Cloud technologies to address real-world challenges.",
+        eligibility: "Students aged 16+ enrolled in an accredited institution. Teams of 1-4 members.",
+        deadline: "May 2026"
     },
 
     {
@@ -24,7 +27,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://www.infosys.com/careers/hackwithinfy.html",
         type: "Hackathon",
-        postedDate: "2024-12-15"
+        postedDate: "2024-12-15",
+        description: "Infosys HackWithInfy is a coding competition for engineering students. Top performers get pre-placement interviews (PPIs) and cash prizes.",
+        eligibility: "B.E./B.Tech/M.E./M.Tech students graduating in 2026.",
+        deadline: "July 2026"
     },
     {
         title: "Engineering Campus Hiring 2026",
@@ -48,7 +54,10 @@ const internshipData = [
         status: "Closed",
         link: "https://walmart.converge.tech/content/converge/en_in/sparkathon.html",
         type: "Hackathon",
-        postedDate: "2024-11-10"
+        postedDate: "2024-11-10",
+        description: "Walmart Sparkathon involves building innovative retail tech solutions. Winners get huge cash prizes and interview opportunities.",
+        eligibility: "Open to all engineering students across India in teams of 3-4.",
+        deadline: "Sept 2025"
     },
     {
         title: "Code for Good 2026",
@@ -60,7 +69,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://careers.jpmorgan.com/US/en/students/programs/code-for-good",
         type: "Hackathon",
-        postedDate: "2024-12-05"
+        postedDate: "2024-12-05",
+        description: "JPMorgan's Code for Good is a 24-hour hackathon solving social good problems. Performers are hired for internships and FTE roles.",
+        eligibility: "Pre-final year students (2026 batch) with good coding fundamentals.",
+        deadline: "July 2026"
     },
     {
         title: "Smart India Hackathon 2026",
@@ -72,7 +84,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://sih.gov.in",
         type: "Hackathon",
-        postedDate: "2024-12-01"
+        postedDate: "2024-12-01",
+        description: "Smart India Hackathon (SIH) is a nationwide initiative to solve problem statements provided by government ministries.",
+        eligibility: "Teams of 6 members (at least 1 female member mandatory). College students only.",
+        deadline: "Dec 2026"
     },
     {
         title: "Flipkart GRiD 7.0",
@@ -84,7 +99,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://unstop.com/hackathons",
         type: "Hackathon",
-        postedDate: "2024-11-20"
+        postedDate: "2024-11-20",
+        description: "Flipkart GRiD is a flagship engineering campus challenge with tracks in Software Development, Robotics, and InfoSec.",
+        eligibility: "B.Tech/M.Tech/Ph.D. students from all batches (2025, 2026, 2027, 2028).",
+        deadline: "Aug 2025"
     },
     {
         title: "Adobe India Hackathon",
@@ -96,7 +114,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.adobe.com/in/careers.html",
         type: "Hackathon",
-        postedDate: "2024-12-10"
+        postedDate: "2024-12-10",
+        description: "Adobe India Hackathon for women in technology. Code, collaborate, and win internships + Apple products.",
+        eligibility: "Female students graduating in 2025 or 2026.",
+        deadline: "March 2026"
     },
     {
         title: "Summer Engineering Internship 2026",
@@ -120,7 +141,10 @@ const internshipData = [
         status: "Open",
         link: "https://education.github.com/students/octernships",
         type: "Internship",
-        postedDate: "2024-12-20"
+        postedDate: "2024-12-20",
+        description: "ServiceNow interns work on enterprise cloud software that changes how people work.",
+        eligibility: "Pursuing a degree in Computer Science or related field.",
+        deadline: "Summer 2026"
     },
     {
         title: "Uber She++ 2026",
@@ -132,7 +156,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.uber.com/in/en/careers/",
         type: "Internship",
-        postedDate: "2024-12-15"
+        postedDate: "2024-12-15",
+        description: "GSoC connects students with open source organizations. You write code for 3 months and get paid by Google.",
+        eligibility: "Students aged 18+ enrolled in a post-secondary institution.",
+        deadline: "Aug 2026"
     },
     {
         title: "Juspay Hiring Challenge",
@@ -216,7 +243,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://jobs.intuit.com/job-search-results/?keyword=Intern&location=India",
         type: "Internship",
-        postedDate: "2024-12-12"
+        postedDate: "2024-12-12",
+        description: "Autodesk's internship program focuses on 3D design software development. Work on products like AutoCAD and Fusion 360.",
+        eligibility: "Computer Science or related majors. Final year students preferred.",
+        deadline: "Jan 2026"
     },
     {
         title: "Cisco Technical Intern 2026",
@@ -240,7 +270,10 @@ const internshipData = [
         status: "Apply ASAP",
         link: "https://www.amazon.jobs/en/teams/internships-for-students",
         type: "Internship",
-        postedDate: "2024-12-25"
+        postedDate: "2024-12-25",
+        description: "Outreachy provides internships in open source and open science for underrepresented groups in tech.",
+        eligibility: "Women, non-binary people, and other underrepresented groups. Global.",
+        deadline: "Aug 2026"
     },
     {
         title: "Tech & Product Internship 2026",
@@ -288,7 +321,10 @@ const internshipData = [
         status: "check careers",
         link: "https://careers.oracle.com/",
         type: "Internship",
-        postedDate: "2024-12-05"
+        postedDate: "2024-12-05",
+        description: "Intuit Software Engineering Interns work on products used by millions of small businesses. Focus on full-stack development.",
+        eligibility: "Current undergraduate pursuing CS/IT degree.",
+        deadline: "Apply ASAP"
     },
     {
         title: "ServiceNow Internship 2026",
@@ -312,7 +348,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.ibm.com/in-en/careers",
         type: "Internship",
-        postedDate: "2024-12-14"
+        postedDate: "2024-12-14",
+        description: "Morgan Stanley Summer Analyst Program creates a pipeline for future leaders in financial technology.",
+        eligibility: "Students graduating between Dec 2026 and July 2027.",
+        deadline: "July 2026"
     },
     {
         title: "AI for Bharat Nationwide Program",
@@ -360,7 +399,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.atlassian.com/company/careers/students",
         type: "Women in Tech",
-        postedDate: "2024-12-24"
+        postedDate: "2024-12-24",
+        description: "Atlassian Women in Tech Internship is a tailored program to support female engineers. Work on Jira/Confluence/Trello.",
+        eligibility: "Female students graduating in 2026.",
+        deadline: "July 2025"
     },
     {
         title: "NXP Women in Tech Program",
@@ -502,9 +544,16 @@ function renderCards(data) {
             
             <div class="card-footer">
                 <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
-                <button onclick="openModal('${item.title}')" class="btn btn-primary apply-btn">View Details</button>
+                <button class="btn btn-primary apply-btn">View Details</button>
             </div>
         `;
+
+        // Attach Event Listener directly to the button
+        // This prevents quote escaping issues with inline onclick
+        const btn = card.querySelector('.apply-btn');
+        btn.addEventListener('click', () => {
+            openModal(item.title);
+        });
 
         grid.appendChild(card);
     });
