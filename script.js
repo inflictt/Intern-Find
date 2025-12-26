@@ -220,6 +220,72 @@ const internshipData = [
         status: "Apply ASAP",
         link: "https://www.amazon.jobs/en/teams/internships-for-students",
         type: "Internship"
+    },
+    {
+        title: "Tech & Product Internship 2026",
+        company: "Taylor & Francis Group",
+        tags: ["Internship", "Product", "Tech"],
+        location: "Bangalore",
+        duration: "Summer 2026",
+        stipend: "Competitive Stipend",
+        status: "Open (Apply by Jan 17)",
+        link: "https://careers.taylorandfrancisgroup.com/jobs",
+        type: "Internship"
+    },
+    {
+        title: "Cred Internship 2026",
+        company: "Cred",
+        tags: ["Internship", "Backend", "Web"],
+        location: "Bangalore",
+        duration: "Summer 2026",
+        stipend: "₹30k - ₹50k/month",
+        status: "Coming Soon",
+        link: "https://careers.cred.club/",
+        type: "Internship"
+    },
+    {
+        title: "Securonix SECUROTHON 2025",
+        company: "Securonix",
+        tags: ["Internship", "Cybersecurity", "SDE"],
+        location: "Bangalore / Pune",
+        duration: "Jan - May 2026",
+        stipend: "₹50,000/month",
+        status: "Open",
+        link: "https://www.securonix.com/careers/",
+        type: "Internship"
+    },
+    {
+        title: "Oracle Internship 2026",
+        company: "Oracle",
+        tags: ["Internship", "Cloud", "SDE"],
+        location: "Bangalore / Hyderabad / Pune",
+        duration: "Summer 2026",
+        stipend: "₹35k - ₹55k/month",
+        status: "check careers",
+        link: "https://careers.oracle.com/",
+        type: "Internship"
+    },
+    {
+        title: "ServiceNow Internship 2026",
+        company: "ServiceNow",
+        tags: ["Internship", "SaaS", "Cloud"],
+        location: "Hyderabad",
+        duration: "Summer 2026",
+        stipend: "₹70,000/month",
+        status: "Open",
+        link: "https://careers.servicenow.com/",
+        type: "Internship"
+    },
+    {
+        title: "IBM Internship 2026",
+        company: "IBM",
+        tags: ["Internship", "AI", "Cloud"],
+        location: "Bangalore / Gurgaon",
+        duration: "Summer 2026",
+        stipend: "₹30k - ₹43k/month",
+        status: "Open",
+        link: "https://www.ibm.com/in-en/careers",
+        type: "Internship"
     }
 ];
 
