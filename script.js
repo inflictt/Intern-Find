@@ -617,6 +617,17 @@ function renderCards(data, container = grid) {
             statusColor = '#ef4444'; // Default to Red
         }
 
+        // Urgency Logic
+        let urgencyBadge = '';
+        if (item.status.includes('ASAP') || item.deadline.includes('ASAP')) {
+            urgencyBadge = `<span class="urgency-badge"><i class="fa-solid fa-fire"></i> Closing Soon</span>`;
+        }
+
+        // Applied Logic
+        const appliedHTML = localStorage.getItem('applied_' + item.title)
+            ? `<div class="applied-badge"><i class="fa-solid fa-check"></i> Applied</div>`
+            : '';
+
         card.innerHTML = `
             <div class="card-header">
                 <div style="display:flex; gap:12px; align-items:center;">
@@ -917,9 +928,15 @@ window.openModal = function (title) {
     currentInternshipLink = item.link; // Critical: Update apply link
 
     // Header Apply Button
+    // Header Apply Button
     const headerBtn = document.getElementById('headerApplyBtn');
     if (headerBtn) {
-        headerBtn.onclick = () => window.open(item.link, '_blank');
+        headerBtn.onclick = () => {
+            window.open(item.link, '_blank');
+            localStorage.setItem('applied_' + item.title, 'true');
+            // Refresh to update badges if needed
+            if (currentFilters) performSearch();
+        };
     }
 
     // Logo Injection
