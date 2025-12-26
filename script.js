@@ -954,3 +954,48 @@ performSearch();
 
 
 
+
+// --- Handle Search Redirect from Home Page ---
+function handleHomeSearch() {
+    const query = searchInput.value.trim();
+    if (query) {
+        window.location.href = `opportunities.html?search=${encodeURIComponent(query)}`;
+    }
+}
+
+if (!isOpportunitiesPage) {
+    if (searchBtn) {
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent filtered render on home
+            handleHomeSearch();
+        });
+    }
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleHomeSearch();
+            }
+        });
+    }
+} else {
+    // We are ON the opportunities page
+    // 1. Check for URL params to auto-search
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+
+    if (searchParam) {
+        searchInput.value = decodeURIComponent(searchParam);
+        // Trigger search immediately
+        performSearch();
+    }
+
+    // 2. Normal Search Listeners
+    if (searchBtn) searchBtn.addEventListener('click', performSearch);
+    if (searchInput) {
+        searchInput.addEventListener('input', performSearch); // Real-time
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') e.preventDefault(); // Stop form submit if any
+        });
+    }
+}
