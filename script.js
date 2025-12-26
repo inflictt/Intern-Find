@@ -142,9 +142,9 @@ const internshipData = [
         link: "https://education.github.com/students/octernships",
         type: "Internship",
         postedDate: "2024-12-20",
-        description: "ServiceNow interns work on enterprise cloud software that changes how people work.",
-        eligibility: "Pursuing a degree in Computer Science or related field.",
-        deadline: "Summer 2026"
+        description: "GitHub Octernships connect students with real-world projects in partner organizations. Paid remote work.",
+        eligibility: "Students who are verifiable GitHub Education Scholars.",
+        deadline: "Rolling"
     },
     {
         title: "Uber She++ 2026",
@@ -157,9 +157,9 @@ const internshipData = [
         link: "https://www.uber.com/in/en/careers/",
         type: "Internship",
         postedDate: "2024-12-15",
-        description: "GSoC connects students with open source organizations. You write code for 3 months and get paid by Google.",
-        eligibility: "Students aged 18+ enrolled in a post-secondary institution.",
-        deadline: "Aug 2026"
+        description: "Uber She++ is a diversity initiative aimed at empowering women in technology through mentorship and networking.",
+        eligibility: "Female engineering students (2nd/3rd Year).",
+        deadline: "Apply ASAP"
     },
     {
         title: "Juspay Hiring Challenge",
@@ -244,9 +244,9 @@ const internshipData = [
         link: "https://jobs.intuit.com/job-search-results/?keyword=Intern&location=India",
         type: "Internship",
         postedDate: "2024-12-12",
-        description: "Autodesk's internship program focuses on 3D design software development. Work on products like AutoCAD and Fusion 360.",
-        eligibility: "Computer Science or related majors. Final year students preferred.",
-        deadline: "Jan 2026"
+        description: "Intuit Summer Internship offers hands-on experience in building financial products like TurboTax and QuickBooks.",
+        eligibility: "Undergraduate students in Computer Science or related fields.",
+        deadline: "Apply ASAP"
     },
     {
         title: "Cisco Technical Intern 2026",
@@ -271,9 +271,9 @@ const internshipData = [
         link: "https://www.amazon.jobs/en/teams/internships-for-students",
         type: "Internship",
         postedDate: "2024-12-25",
-        description: "Outreachy provides internships in open source and open science for underrepresented groups in tech.",
-        eligibility: "Women, non-binary people, and other underrepresented groups. Global.",
-        deadline: "Aug 2026"
+        description: "Amazon SDE Interns get to solve complex technical challenges at scale. Pipeline to full-time SDE roles.",
+        eligibility: "Pursuing B.Tech/M.Tech in CS. Knowledge of Java/C++ is a plus.",
+        deadline: "June 2026"
     },
     {
         title: "Tech & Product Internship 2026",
@@ -322,9 +322,9 @@ const internshipData = [
         link: "https://careers.oracle.com/",
         type: "Internship",
         postedDate: "2024-12-05",
-        description: "Intuit Software Engineering Interns work on products used by millions of small businesses. Focus on full-stack development.",
-        eligibility: "Current undergraduate pursuing CS/IT degree.",
-        deadline: "Apply ASAP"
+        description: "Oracle Cloud Infrastructure (OCI) interns work on building the next generation public cloud.",
+        eligibility: "Strong coding skills in C++/Java. Pre-final year students.",
+        deadline: "Summer 2026"
     },
     {
         title: "ServiceNow Internship 2026",
@@ -349,9 +349,9 @@ const internshipData = [
         link: "https://www.ibm.com/in-en/careers",
         type: "Internship",
         postedDate: "2024-12-14",
-        description: "Morgan Stanley Summer Analyst Program creates a pipeline for future leaders in financial technology.",
-        eligibility: "Students graduating between Dec 2026 and July 2027.",
-        deadline: "July 2026"
+        description: "IBM Research internships involve working on cutting-edge AI, Hybrid Cloud, and Quantum Computing.",
+        eligibility: "Master's or PhD students preferred, but strong undergrads considered.",
+        deadline: "Apply ASAP"
     },
     {
         title: "AI for Bharat Nationwide Program",
