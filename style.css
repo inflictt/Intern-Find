@@ -1528,3 +1528,203 @@ transform: translateY(-2px);
     color: white;
     border-color: var(--primary-color);
 }
+
+/* --- Search Feedback System --- */
+.search-feedback-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10, 10, 20, 0.95);
+    padding: 30px 50px;
+    border-radius: 16px;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.search-feedback-overlay.show {
+    opacity: 1;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.search-loader {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(59, 130, 246, 0.3);
+    border-radius: 50%;
+    display: inline-block;
+    border-top-color: var(--primary-color);
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.feedback-text {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.feedback-subtext {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: -10px;
+}
+
+/* Active Filter Chips Container */
+.active-filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+    min-height: 32px;
+}
+
+.active-chip {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: var(--primary-color);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.active-chip:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: var(--primary-color);
+}
+
+.active-chip .close-chip {
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.6;
+}
+
+.active-chip .close-chip:hover {
+    opacity: 1;
+}
+
+/* Result Summary Toast (Contextual) */
+.result-summary-card {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.result-summary-card.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.summary-content h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.summary-content p {
+    margin: 2px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Mini Card Tray (Preview) */
+.mini-tray {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(10, 10, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+    z-index: 9997;
+}
+
+.mini-tray.show {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+}
+
+.mini-card {
+    width: 180px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.mini-card img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.mini-card h5 {
+    font-size: 0.85rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-card p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+}

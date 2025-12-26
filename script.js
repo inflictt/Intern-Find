@@ -520,29 +520,43 @@ function getCurrencyIcon(stipend) {
     return 'fa-indian-rupee-sign'; // Default to Rupee
 }
 
-// Helper to parse stipend value for sorting (Returns annual estimate in INR)
+// Helper to parse stipend value for sorting (Returns monthly estimate in INR)
 function parseStipendValue(stipend) {
+    if (!stipend || stipend === "Unpaid") return 0;
+
+    // Normalize string
     const s = stipend.toLowerCase().replace(/,/g, '');
-    const numbers = s.match(/(\d+\.?\d*)/g);
-    if (!numbers) return 0;
 
-    let value = parseFloat(numbers[0]);
+    // Look for patterns like "80k", "1L", "1,00,000"
+    // We'll try to find the largest numeric value in the string to sort by "potential"
+    const parts = s.split(/[\s-]+/);
+    let maxVal = 0;
 
-    // Multipliers
-    if (s.includes('k')) value *= 1000;
-    if (s.includes('lakh') || s.includes('l')) value *= 100000;
-    if (s.includes('cr')) value *= 10000000;
+    parts.forEach(part => {
+        const numbers = part.match(/(\d+\.?\d*)/);
+        if (!numbers) return;
 
-    // Currency Conversion (Approx)
-    if (s.includes('$') || s.includes('usd')) value *= 83;
-    if (s.includes('jpy')) value *= 0.55;
+        let val = parseFloat(numbers[0]);
+
+        // Multipliers check per-part
+        if (part.includes('k')) val *= 1000;
+        if (part.includes('lakh') || part.includes('l')) val *= 100000;
+        if (part.includes('cr')) val *= 10000000;
+
+        // If it's a raw large number like 80000, keep it
+        if (val > maxVal) maxVal = val;
+    });
+
+    // Global multipliers / conversions
+    let finalValue = maxVal;
+    if (s.includes('$') || s.includes('usd')) finalValue *= 83;
+    if (s.includes('jpy')) finalValue *= 0.55;
 
     // Period estimation (normalize to Monthly)
-    if (s.includes('year') || s.includes('lpa') || s.includes('annum')) value /= 12;
-    if (s.includes('day')) value *= 22; // ~22 working days
-    // prize pools are one-time, treat as flat value
+    if (s.includes('year') || s.includes('lpa') || s.includes('annum')) finalValue /= 12;
+    if (s.includes('day')) finalValue *= 22;
 
-    return value;
+    return finalValue;
 }
 
 const grid = document.getElementById('internship-grid');
@@ -553,6 +567,13 @@ const companyFilter = document.getElementById('companyFilter');
 const sortSelect = document.getElementById('sortSelect');
 const resultsCount = document.getElementById('resultsCount');
 const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+const activeFiltersContainer = document.getElementById('activeFiltersContainer');
+const searchFeedbackOverlay = document.getElementById('searchFeedbackOverlay');
+const feedbackText = document.getElementById('feedbackText');
+const resultSummaryCard = document.getElementById('resultSummaryCard');
+const summaryTitle = document.getElementById('summaryTitle');
+const summaryText = document.getElementById('summaryText');
+const miniTray = document.getElementById('miniTray');
 
 
 // State for filters
@@ -563,37 +584,36 @@ let currentFilters = {
     sort: 'latest' // latest, oldest, stipend-high, stipend-low
 };
 
-const getCompanyLogo = (item) => {
-    // Extensive mapping to ensure ACCURATE logo domains
-    const domainMap = {
-        "Google": "google.com",
-        "Microsoft": "microsoft.com",
-        "Meta": "meta.com",
-        "Infosys": "infosys.com",
-        "Goldman Sachs": "goldmansachs.com",
-        "Walmart Global Tech": "walmart.com",
-        "JPMorgan Chase": "jpmorgan.com",
-        "Govt of India": "india.gov.in", // Will likely fallback to text, but try
-        "Flipkart": "flipkart.com",
-        "Adobe": "adobe.com",
-        "Shopify": "shopify.com",
-        "GitHub / Partners": "github.com",
-        "Uber": "uber.com",
-        "Juspay": "juspay.in",
-        "Major League Hacking": "mlh.io",
-        "Outreachy": "outreachy.org",
-        "Deloitte India": "deloitte.com",
-        "Morgan Stanley": "morganstanley.com",
-        "Intuit": "intuit.com",
-        "Cisco": "cisco.com",
-        "Amazon": "amazon.com",
-        "Taylor & Francis Group": "taylorandfrancis.com",
-        "Cred": "cred.club",
-        "Securonix": "securonix.com",
-        "Oracle": "oracle.com"
-    };
+const GLOBAL_DOMAIN_MAP = {
+    "Google": "google.com",
+    "Microsoft": "microsoft.com",
+    "Meta": "meta.com",
+    "Infosys": "infosys.com",
+    "Goldman Sachs": "goldmansachs.com",
+    "Walmart Global Tech": "walmart.com",
+    "JPMorgan Chase": "jpmorgan.com",
+    "Govt of India": "india.gov.in",
+    "Flipkart": "flipkart.com",
+    "Adobe": "adobe.com",
+    "Shopify": "shopify.com",
+    "GitHub / Partners": "github.com",
+    "Uber": "uber.com",
+    "Juspay": "juspay.in",
+    "Major League Hacking": "mlh.io",
+    "Outreachy": "outreachy.org",
+    "Deloitte India": "deloitte.com",
+    "Morgan Stanley": "morganstanley.com",
+    "Intuit": "intuit.com",
+    "Cisco": "cisco.com",
+    "Amazon": "amazon.com",
+    "Taylor & Francis Group": "taylorandfrancis.com",
+    "Cred": "cred.club",
+    "Securonix": "securonix.com",
+    "Oracle": "oracle.com"
+};
 
-    let domain = domainMap[item.company];
+const getCompanyLogo = (item) => {
+    let domain = GLOBAL_DOMAIN_MAP[item.company];
 
     if (!domain) {
         // Fallback: Try to guess from link or name
@@ -613,13 +633,38 @@ const getCompanyLogo = (item) => {
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
             <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-weight:bold; color:#fff; background:#333; font-size:1.2rem;">${initial}</div>`;
 };
-
+window.triggerSearch = function (q) {
+    if (searchInput) searchInput.value = q;
+    if (typeof handleHomeSearch === 'function') {
+        handleHomeSearch(q);
+    } else {
+        performSearch();
+    }
+};
 function renderCards(data, container = grid) {
     if (!container) return;
     container.innerHTML = '';
 
     if (data.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 20px;">No opportunities found matching your criteria.</p>';
+        container.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; background: rgba(255,255,255,0.02); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.1);">
+            <div style="background: rgba(239, 68, 68, 0.1); padding: 25px; border-radius: 50%; margin-bottom: 24px;">
+                <i class="fa-solid fa-filter-circle-xmark" style="font-size: 3rem; color: #ef4444; opacity: 0.8;"></i>
+            </div>
+            <h3 style="color: var(--text-main); margin-bottom: 12px; font-size: 1.5rem;">No matches found</h3>
+            <p style="max-width: 400px; margin: 0 auto 30px; line-height: 1.6; font-size: 1rem;">We couldn't find any opportunities matching your request. Try broader keywords or adjust your filters.</p>
+            
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px;">
+                <span style="color: grey; font-size: 0.9rem; align-self: center;">Popular Searches:</span>
+                <button onclick="triggerSearch('Software')" class="filter-chip">Software</button>
+                <button onclick="triggerSearch('Google')" class="filter-chip">Google</button>
+                <button onclick="triggerSearch('MLH')" class="filter-chip">MLH</button>
+            </div>
+
+            <button onclick="document.getElementById('clearFiltersBtn').click()" class="btn btn-primary" style="padding: 12px 30px; border-radius: 10px;">
+                <i class="fa-solid fa-rotate-left"></i> Clear All Filters
+            </button>
+        </div>`;
         return;
     }
 
@@ -706,10 +751,12 @@ function renderCards(data, container = grid) {
         // This prevents quote escaping issues with inline onclick
         const btn = card.querySelector('.apply-btn');
         btn.addEventListener('click', () => {
-            openModal(item.title);
+            if (typeof openModal === 'function') {
+                openModal(item.title);
+            }
         });
 
-        grid.appendChild(card);
+        container.appendChild(card);
     });
 }
 // Note: We'll use title as ID for simplicity in this MVP, 
@@ -905,22 +952,31 @@ if (isOpportunitiesPage) {
             filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
         } else if (sortMode === 'stipend-high') {
             filtered.sort((a, b) => parseStipendValue(b.stipend) - parseStipendValue(a.stipend));
-        } else if (sortMode === 'stipend-low') { // Handle low stipend too
+        } else if (sortMode === 'stipend-low') {
             filtered.sort((a, b) => parseStipendValue(a.stipend) - parseStipendValue(b.stipend));
         }
 
-        // Populate Modal
-        if (searchQueryDisplay) searchQueryDisplay.textContent = query || "All Opportunities";
-        renderSearchResults(filtered, searchResultsGrid);
+        // --- ADD FEEDBACK FOR HOME SEARCH ---
+        showSearchingUI(query);
 
-        // Show Modal
-        if (searchModal) {
-            searchModal.classList.remove('hidden');
-            // Force reflow
-            void searchModal.offsetWidth;
-            searchModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
+        setTimeout(() => {
+            hideSearchingUI();
+
+            // Populate Modal
+            if (searchQueryDisplay) searchQueryDisplay.textContent = query || "All Opportunities";
+            renderSearchResults(filtered, searchResultsGrid);
+
+            // Show Modal
+            if (searchModal) {
+                searchModal.classList.remove('hidden');
+                void searchModal.offsetWidth;
+                searchModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            showResultSummary(filtered.length, query);
+            updateMiniTray(filtered);
+        }, 500);
     };
 
     // Close Logic
@@ -983,6 +1039,7 @@ const confirmRedirectBtn = document.getElementById('confirmRedirectBtn');
 const cancelRedirectBtn = document.getElementById('cancelRedirectBtn');
 
 let currentInternshipLink = '';
+let currentInternshipTitle = '';
 
 // Open Modal
 window.openModal = function (title) {
@@ -990,6 +1047,7 @@ window.openModal = function (title) {
     if (!item) return;
 
     currentInternshipLink = item.link;
+    currentInternshipTitle = item.title;
 
     // Reset View
     detailsView.classList.remove('hidden');
@@ -997,18 +1055,6 @@ window.openModal = function (title) {
 
     // Populate Data
     currentInternshipLink = item.link; // Critical: Update apply link
-
-    // Header Apply Button
-    // Header Apply Button
-    const headerBtn = document.getElementById('headerApplyBtn');
-    if (headerBtn) {
-        headerBtn.onclick = () => {
-            window.open(item.link, '_blank');
-            localStorage.setItem('applied_' + item.title, 'true');
-            // Refresh to update badges if needed
-            if (currentFilters) performSearch();
-        };
-    }
 
     // Logo Injection
     const logoContainer = document.getElementById('modalIconContainer');
@@ -1088,7 +1134,10 @@ proceedBtn.addEventListener('click', () => {
 // Confirm Redirect
 confirmRedirectBtn.addEventListener('click', () => {
     window.open(currentInternshipLink, '_blank');
+    localStorage.setItem('applied_' + currentInternshipTitle, 'true');
     closeModal();
+    // Refresh UI to show "Applied" badge
+    performSearch();
 });
 
 // Cancel Redirect
@@ -1099,8 +1148,22 @@ cancelRedirectBtn.addEventListener('click', () => {
 });
 
 // --- Search Logic ---
+let searchTimeout;
+
 function performSearch() {
+    // 1. Show Feedback UI Start
     const query = searchInput.value.trim();
+    showSearchingUI(query);
+
+    // 2. Delay for UX Feel (300-500ms)
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        const filtered = executeSearchLogic(query);
+        renderMainSearchResults(filtered, query);
+    }, 400);
+}
+
+function executeSearchLogic(query) {
     const filtered = internshipData.filter(item => {
         // Multi-facet filtering logic
 
@@ -1133,6 +1196,131 @@ function performSearch() {
         return typeMatch && statusMatch && companyMatch && searchMatch;
     });
 
+    return filtered;
+}
+
+// --- Feedback Helper Functions ---
+
+function showSearchingUI(query) {
+    if (searchFeedbackOverlay) {
+        feedbackText.textContent = query ? `Searching for "${query}"...` : `Scanning all opportunities...`;
+        searchFeedbackOverlay.classList.add('show');
+    }
+}
+
+function hideSearchingUI() {
+    if (searchFeedbackOverlay) {
+        searchFeedbackOverlay.classList.remove('show');
+    }
+}
+
+function showResultSummary(count, query) {
+    if (!resultSummaryCard) return;
+
+    if (count > 0) {
+        summaryTitle.innerHTML = `<i class="fa-solid fa-circle-check" style="color:#22c55e;"></i> Results Found`;
+        summaryText.textContent = query
+            ? `Found ${count} internships related to "${query}"`
+            : `Showing ${count} active opportunities.`;
+    } else {
+        summaryTitle.innerHTML = `<i class="fa-solid fa-circle-xmark" style="color:#ef4444;"></i> No Results Found`;
+        summaryText.textContent = `We couldn't find matches for "${query}". Try broadening your keywords.`;
+    }
+
+    resultSummaryCard.classList.add('show');
+    setTimeout(() => {
+        resultSummaryCard.classList.remove('show');
+    }, 3500);
+}
+
+function updateFilterChips(query) {
+    if (!activeFiltersContainer) return;
+    activeFiltersContainer.innerHTML = '';
+
+    // Add Query Chip
+    if (query) {
+        addChip(`Search: "${query}"`, () => {
+            searchInput.value = '';
+            performSearch();
+        });
+    }
+
+    // Add Type Chip
+    if (currentFilters.type !== 'all') {
+        addChip(`Type: ${currentFilters.type}`, () => {
+            currentFilters.type = 'all';
+            updateActiveButtons();
+            performSearch();
+        });
+    }
+
+    // Add Status Chip
+    if (currentFilters.status !== 'all' && currentFilters.status !== 'Open') {
+        addChip(`Status: ${currentFilters.status}`, () => {
+            currentFilters.status = 'all';
+            updateActiveButtons();
+            performSearch();
+        });
+    }
+
+    // Add Company Chip
+    if (currentFilters.company !== 'all') {
+        addChip(`Company: ${currentFilters.company}`, () => {
+            currentFilters.company = 'all';
+            companyFilter.value = 'all';
+            performSearch();
+        });
+    }
+}
+
+function addChip(text, onClear) {
+    const chip = document.createElement('div');
+    chip.className = 'active-chip';
+    chip.innerHTML = `
+        <span>${text}</span>
+        <i class="fa-solid fa-circle-xmark close-chip"></i>
+    `;
+    chip.addEventListener('click', () => {
+        onClear();
+    });
+    activeFiltersContainer.appendChild(chip);
+}
+
+function updateMiniTray(data) {
+    if (!miniTray) return;
+    if (data.length === 0 || !searchInput.value) {
+        miniTray.classList.remove('show');
+        return;
+    }
+
+    const items = data.slice(0, 3);
+    miniTray.innerHTML = `
+        <div style="padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: var(--primary-color);">
+            <i class="fa-solid fa-bullseye"></i> Top Matches
+        </div>
+        <div style="display: flex; gap: 10px; padding: 10px;">
+            ${items.map(item => `
+                <div class="mini-card">
+                    <img src="https://logo.clearbit.com/${getCompanyLogoDomain(item)}" alt="${item.company}" onerror="this.src='https://ui-avatars.com/api/?name=${item.company}&background=random'">
+                    <h5>${item.title}</h5>
+                    <p>${item.company}</p>
+                </div>
+            `).join('')}
+        </div>
+        <div style="padding: 10px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); cursor:pointer;" onclick="performSearch()">
+            <span style="color: var(--primary-color); font-size: 0.85rem;">View all ${data.length} results ↓</span>
+        </div>
+    `;
+
+    miniTray.classList.add('show');
+    setTimeout(() => miniTray.classList.remove('show'), 6000);
+}
+
+function getCompanyLogoDomain(item) {
+    return GLOBAL_DOMAIN_MAP[item.company] || "placeholder.com";
+}
+
+function renderMainSearchResults(filtered, query) {
     // --- Sort Logic ---
     const sortValue = sortSelect.value;
     if (sortValue === 'latest') {
@@ -1146,7 +1334,6 @@ function performSearch() {
     }
 
     // If on Home Page and NO filters/text are active, limit to 4
-    // Defaults: type='all', status='Open', company='all', query=''
     if (!isOpportunitiesPage) {
         const isDefaultFilters =
             currentFilters.type === 'all' &&
@@ -1156,16 +1343,20 @@ function performSearch() {
 
         if (isDefaultFilters) {
             renderCards(filtered.slice(0, 5));
-            // Also update count to show "Showing Top 5"
-            if (document.getElementById('resultsCount')) {
-                document.getElementById('resultsCount').textContent = `Showing 5 featured opportunities`;
+            if (resultsCount) {
+                resultsCount.textContent = `Showing 5 featured opportunities`;
             }
+            hideSearchingUI();
+            updateFilterChips(query);
             return;
         }
     }
 
     renderCards(filtered);
     updateResultsCount(filtered.length);
+    hideSearchingUI();
+    showResultSummary(filtered.length, query);
+    updateFilterChips(query);
 }
 
 function updateResultsCount(count) {
@@ -1174,9 +1365,10 @@ function updateResultsCount(count) {
     }
 }
 
+// --- Event Listeners and Setup ---
 const headerApplyBtn = document.getElementById('headerApplyBtn');
 
-// Proceed to Confirmation (New Button)
+// Proceed to Confirmation
 if (headerApplyBtn) {
     headerApplyBtn.addEventListener('click', () => {
         detailsView.classList.add('hidden');
@@ -1185,7 +1377,7 @@ if (headerApplyBtn) {
 }
 
 // Proceed to Confirmation (Old Button - kept for safety)
-if (proceedBtn) {
+if (typeof proceedBtn !== 'undefined' && proceedBtn) {
     proceedBtn.addEventListener('click', () => {
         detailsView.classList.add('hidden');
         confirmView.classList.remove('hidden');
@@ -1239,21 +1431,35 @@ if (clearFiltersBtn) {
         // Reset State
         currentFilters = {
             type: 'all',
-            status: 'Open', // Reset to default strict view
-            company: 'all'
+            status: 'Open',
+            company: 'all',
+            sort: 'latest'
         };
         searchInput.value = '';
 
-        // Reset UI
-        filterBtns.forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.dataset.filter === 'all' && btn.dataset.type === 'type') btn.classList.add('active');
-            if (btn.dataset.filter === 'Open' && btn.dataset.type === 'status') btn.classList.add('active');
-        });
+        // Reset UI Buttons
+        updateActiveButtons();
 
         if (companyFilter) companyFilter.value = 'all';
+        if (sortSelect) sortSelect.value = 'latest';
+
+        // Clear URL Params
+        window.history.replaceState({}, document.title, window.location.pathname);
 
         performSearch();
+    });
+}
+
+function updateActiveButtons() {
+    filterBtns.forEach(btn => {
+        const filterType = btn.dataset.type;
+        const filterValue = btn.dataset.filter;
+
+        if (currentFilters[filterType] === filterValue) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
     });
 }
 

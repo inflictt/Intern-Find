@@ -137,6 +137,9 @@
                     <button id="clearFiltersBtn" class="btn-text">Clear Filters</button>
                 </div>
 
+                <!-- Active Filters & Summary -->
+                <div class="active-filters-container" id="activeFiltersContainer"></div>
+
                 <div id="internship-grid" class="internship-grid">
                     <!-- Cards will be injected here by JS -->
                     <div class="card skeleton-card"></div>
@@ -319,7 +322,8 @@
         </div>
         <div class="chat-body" id="chatBody">
             <div class="chat-msg bot">Hi! I'm InternBot 🤖. Try searching for <strong>'Google'</strong>,
-                <strong>'Microsoft'</strong>, or <strong>'High Stipend'</strong>.</div>
+                <strong>'Microsoft'</strong>, or <strong>'High Stipend'</strong>.
+            </div>
             <!-- Messages go here -->
         </div>
         <div class="chat-input-area">
@@ -330,6 +334,24 @@
 
     <!-- Toast Container -->
     <div id="toast-container"></div>
+
+    <!-- Contextual Search Feedback Overlays -->
+    <div id="searchFeedbackOverlay" class="search-feedback-overlay">
+        <span class="search-loader"></span>
+        <div class="feedback-text" id="feedbackText">Searching internships...</div>
+        <div class="feedback-subtext">Scanning companies and roles</div>
+    </div>
+
+    <div id="resultSummaryCard" class="result-summary-card">
+        <div class="summary-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <div class="summary-content">
+            <h4 id="summaryTitle">Search Results</h4>
+            <p id="summaryText">Found 0 internships matching your query.</p>
+        </div>
+    </div>
+
+    <!-- Mini Card Tray for Previews -->
+    <div id="miniTray" class="mini-tray"></div>
 
     <script src="script.js"></script>
 </body>
