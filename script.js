@@ -911,23 +911,23 @@ if (isOpportunitiesPage) {
         searchInput.addEventListener('input', () => {
             handleHomeSearch();
         });
-    });
-}
 
-if (searchSortSelect) {
-    searchSortSelect.addEventListener('change', () => handleHomeSearch());
-}
+    }
 
-// Handle "Popular" Tag Buttons on Home
-const tagBtns = document.querySelectorAll('.tag-btn');
-tagBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const category = btn.dataset.category;
-        if (category) {
-            handleHomeSearch(category);
-        }
+    if (searchSortSelect) {
+        searchSortSelect.addEventListener('change', () => handleHomeSearch());
+    }
+
+    // Handle "Popular" Tag Buttons on Home
+    const tagBtns = document.querySelectorAll('.tag-btn');
+    tagBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            if (category) {
+                handleHomeSearch(category);
+            }
+        });
     });
-});
 
 
 }
