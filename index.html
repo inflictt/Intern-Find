@@ -114,20 +114,30 @@
                             <!-- Options will be populated by JS -->
                         </select>
                     </div>
-                </div>
+                    <div class="filters-bar">
+                        <div class="filter-group">
+                            <span class="filter-label">Sort By:</span>
+                            <select id="sortSelect" class="filter-select">
+                                <option value="latest">Latest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="stipend-high">High Stipend</option>
+                                <option value="stipend-low">Low Stipend</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <div class="filters-summary">
-                    <span id="resultsCount" class="results-count">Showing all opportunities</span>
-                    <button id="clearFiltersBtn" class="btn-text">Clear Filters</button>
-                </div>
+                    <div class="filters-summary">
+                        <span id="resultsCount" class="results-count">Showing all opportunities</span>
+                        <button id="clearFiltersBtn" class="btn-text">Clear Filters</button>
+                    </div>
 
-                <div id="internship-grid" class="internship-grid">
-                    <!-- Cards will be injected here by JS -->
-                    <div class="card skeleton-card"></div>
-                    <div class="card skeleton-card"></div>
-                    <div class="card skeleton-card"></div>
+                    <div id="internship-grid" class="internship-grid">
+                        <!-- Cards will be injected here by JS -->
+                        <div class="card skeleton-card"></div>
+                        <div class="card skeleton-card"></div>
+                        <div class="card skeleton-card"></div>
+                    </div>
                 </div>
-            </div>
         </section>
 
         <!-- How it works (Simple 3 steps) -->

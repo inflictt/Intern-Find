@@ -10,7 +10,8 @@ const internshipData = [
         stipend: "$100,000 Prize + Mentorship",
         status: "Open",
         link: "https://imaginecup.microsoft.com",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-20"
     },
     {
         title: "HackWithInfy 2026",
@@ -21,7 +22,8 @@ const internshipData = [
         stipend: "PPO + ₹2L Prize (Winner)",
         status: "Coming Soon",
         link: "https://www.infosys.com/careers/hackwithinfy.html",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-15"
     },
     {
         title: "Engineering Campus Hiring 2026",
@@ -32,7 +34,8 @@ const internshipData = [
         stipend: "₹1,00,000/mo + FTE Offer",
         status: "Coming Soon",
         link: "https://www.goldmansachs.com/careers",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-18"
     },
     {
         title: "Walmart Sparkathon",
@@ -43,7 +46,8 @@ const internshipData = [
         stipend: "₹2.9L Winning Prize + Interviews",
         status: "Closed",
         link: "https://walmart.converge.tech/content/converge/en_in/sparkathon.html",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-11-10"
     },
     {
         title: "Code for Good 2026",
@@ -54,7 +58,8 @@ const internshipData = [
         stipend: "Internship + FTE Opportunity",
         status: "Coming Soon",
         link: "https://careers.jpmorgan.com/US/en/students/programs/code-for-good",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-05"
     },
     {
         title: "Smart India Hackathon 2026",
@@ -65,7 +70,8 @@ const internshipData = [
         stipend: "₹1.5 Lakh Winning Prize/team",
         status: "Coming Soon",
         link: "https://sih.gov.in",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-01"
     },
     {
         title: "Flipkart GRiD 7.0",
@@ -76,7 +82,8 @@ const internshipData = [
         stipend: "PPO + ₹1.5L Prize (Rank 1)",
         status: "Coming Soon",
         link: "https://unstop.com/hackathons",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-11-20"
     },
     {
         title: "Adobe India Hackathon",
@@ -87,7 +94,8 @@ const internshipData = [
         stipend: "Internship + Products",
         status: "Open",
         link: "https://www.adobe.com/in/careers.html",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-10"
     },
     {
         title: "Summer Engineering Internship 2026",
@@ -98,7 +106,8 @@ const internshipData = [
         stipend: "Competitive Salary (USD/CAD)",
         status: "Open",
         link: "https://www.shopify.com/careers/interns",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-22"
     },
     {
         title: "GitHub Octernships",
@@ -109,7 +118,8 @@ const internshipData = [
         stipend: "$500 - $1000/month",
         status: "Open",
         link: "https://education.github.com/students/octernships",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-20"
     },
     {
         title: "Uber She++ 2026",
@@ -120,7 +130,8 @@ const internshipData = [
         stipend: "Mentorship + Interview Opportunity",
         status: "Open",
         link: "https://www.uber.com/in/en/careers/",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-15"
     },
     {
         title: "Juspay Hiring Challenge",
@@ -131,7 +142,8 @@ const internshipData = [
         stipend: "₹40k/mo Internship + ₹21-27 LPA FTE",
         status: "Coming Soon",
         link: "https://juspay.io/careers",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-08"
     },
     {
         title: "Google Summer of Code 2026",
@@ -142,7 +154,8 @@ const internshipData = [
         stipend: "$1500 - $3000+ (PPP Adjusted)",
         status: "Coming Soon",
         link: "https://summerofcode.withgoogle.com",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-11-30"
     },
     {
         title: "MLH Fellowship 2026",
@@ -153,7 +166,8 @@ const internshipData = [
         stipend: "Up to $5,000 (PPP Adjusted)",
         status: "Open",
         link: "https://fellowship.mlh.io",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-23"
     },
     {
         title: "Outreachy May 2026",
@@ -164,7 +178,8 @@ const internshipData = [
         stipend: "$7,000 Total ($3k + $4k)",
         status: "Coming Soon",
         link: "https://www.outreachy.org",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-11-25"
     },
     {
         title: "Deloitte Internship 2026",
@@ -175,7 +190,8 @@ const internshipData = [
         stipend: "Competitive + PPO",
         status: "Check Careers",
         link: "https://www2.deloitte.com/in/en/pages/careers/articles/life-at-deloitte-india-careers.html",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-10"
     },
     {
         title: "Morgan Stanley Summer Analyst",
@@ -186,7 +202,8 @@ const internshipData = [
         stipend: "₹87k - ₹1.2L/month",
         status: "Open",
         link: "https://www.morganstanley.com/people-opportunities/students-graduates",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-24"
     },
     {
         title: "Intuit Summer Internship 2026",
@@ -197,7 +214,8 @@ const internshipData = [
         stipend: "₹80k - ₹1L/month",
         status: "Coming Soon",
         link: "https://jobs.intuit.com/job-search-results/?keyword=Intern&location=India",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-12"
     },
     {
         title: "Cisco Technical Intern 2026",
@@ -208,7 +226,8 @@ const internshipData = [
         stipend: "₹60k - ₹95k/month",
         status: "Open (Job ID 1449112)",
         link: "https://jobs.cisco.com/jobs/SearchJobs",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-19"
     },
     {
         title: "Amazon SDE Internship 2026",
@@ -219,7 +238,8 @@ const internshipData = [
         stipend: "₹80k - ₹1.1L/month",
         status: "Apply ASAP",
         link: "https://www.amazon.jobs/en/teams/internships-for-students",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-25"
     },
     {
         title: "Tech & Product Internship 2026",
@@ -230,7 +250,8 @@ const internshipData = [
         stipend: "Competitive Stipend",
         status: "Open (Apply by Jan 17)",
         link: "https://careers.taylorandfrancisgroup.com/jobs",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-21"
     },
     {
         title: "Cred Internship 2026",
@@ -241,7 +262,8 @@ const internshipData = [
         stipend: "₹30k - ₹50k/month",
         status: "Coming Soon",
         link: "https://careers.cred.club/",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-16"
     },
     {
         title: "Securonix SECUROTHON 2025",
@@ -252,7 +274,8 @@ const internshipData = [
         stipend: "₹50,000/month",
         status: "Open",
         link: "https://www.securonix.com/careers/",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-22"
     },
     {
         title: "Oracle Internship 2026",
@@ -263,7 +286,8 @@ const internshipData = [
         stipend: "₹35k - ₹55k/month",
         status: "check careers",
         link: "https://careers.oracle.com/",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-05"
     },
     {
         title: "ServiceNow Internship 2026",
@@ -274,7 +298,8 @@ const internshipData = [
         stipend: "₹70,000/month",
         status: "Open",
         link: "https://careers.servicenow.com/",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-18"
     },
     {
         title: "IBM Internship 2026",
@@ -285,7 +310,8 @@ const internshipData = [
         stipend: "₹30k - ₹43k/month",
         status: "Open",
         link: "https://www.ibm.com/in-en/careers",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-14"
     },
     {
         title: "AI for Bharat Nationwide Program",
@@ -296,7 +322,8 @@ const internshipData = [
         stipend: "₹40 Lakh Prize Pool",
         status: "Open",
         link: "https://vision.hack2skill.com/event/ai-for-bharat",
-        type: "Hackathon"
+        type: "Hackathon",
+        postedDate: "2024-12-24"
     },
     {
         title: "OIST Research Internship Fall 2026",
@@ -307,7 +334,8 @@ const internshipData = [
         stipend: "2,400 JPY/day + Travel + Stay",
         status: "Open (Apply by Apr 15)",
         link: "https://admissions.oist.jp/apply-research-internship",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-23"
     },
     {
         title: "Autodesk Internship 2026",
@@ -318,14 +346,64 @@ const internshipData = [
         stipend: "Competitive + Perks",
         status: "Check Careers",
         link: "https://www.autodesk.com/careers",
-        type: "Internship"
+        type: "Internship",
+        postedDate: "2024-12-10"
+    }    postedDate: "2023-11-18"
     }
 ];
+
+// Helper to get currency icon
+function getCurrencyIcon(stipend) {
+    const s = stipend.toLowerCase();
+    if (s.includes('$') || s.includes('usd')) return 'fa-dollar-sign';
+    if (s.includes('€') || s.includes('eur')) return 'fa-euro-sign';
+    if (s.includes('£') || s.includes('gbp')) return 'fa-pound-sign';
+    if (s.includes('yen') || s.includes('jpy')) return 'fa-yen-sign';
+    if (s.includes('₹') || s.includes('inr')) return 'fa-indian-rupee-sign';
+    return 'fa-money-bill-wave'; // Default
+}
+
+// Helper to parse stipend value for sorting (Returns annual estimate in INR)
+function parseStipendValue(stipend) {
+    const s = stipend.toLowerCase().replace(/,/g, '');
+    const numbers = s.match(/(\d+\.?\d*)/g);
+    if (!numbers) return 0;
+
+    let value = parseFloat(numbers[0]);
+
+    // Multipliers
+    if (s.includes('k')) value *= 1000;
+    if (s.includes('lakh') || s.includes('l')) value *= 100000;
+    if (s.includes('cr')) value *= 10000000;
+
+    // Currency Conversion (Approx)
+    if (s.includes('$') || s.includes('usd')) value *= 83;
+    if (s.includes('jpy')) value *= 0.55;
+
+    // Period estimation (normalize to Monthly)
+    if (s.includes('year') || s.includes('lpa') || s.includes('annum')) value /= 12;
+    if (s.includes('day')) value *= 22; // ~22 working days
+    // prize pools are one-time, treat as flat value
+
+    return value;
+}
 
 const grid = document.getElementById('internship-grid');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const companyFilter = document.getElementById('companyFilter');
+const sortSelect = document.getElementById('sortSelect');
+const resultsCount = document.getElementById('resultsCount');
+const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
+// State for filters
+let currentFilters = {
+    type: 'all',
+    status: 'Open',
+    company: 'all',
+    sort: 'latest' // latest, oldest, stipend-high, stipend-low
+};
 
 function renderCards(data) {
     grid.innerHTML = '';
@@ -341,6 +419,9 @@ function renderCards(data) {
 
         // Tags rendering
         const tagsHtml = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+
+        // Dynamic Icon
+        const currencyIconClass = getCurrencyIcon(item.stipend);
 
         // Status Color Logic
         let statusColor;
@@ -380,7 +461,7 @@ function renderCards(data) {
                      <i class="fa-regular fa-calendar"></i> ${item.duration}
                 </div>
                 <div class="info-item">
-                    <i class="fa-solid fa-indian-rupee-sign"></i> ${item.stipend}
+                    <i class="fa-solid ${currencyIconClass}"></i> ${item.stipend}
                 </div>
                 <div class="info-item" style="color: ${statusColor}">
                     <i class="fa-solid fa-circle-check"></i> ${item.status}
@@ -388,6 +469,7 @@ function renderCards(data) {
             </div>
             
             <div class="card-footer">
+                <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
                 <a href="${item.link}" target="_blank" class="btn btn-primary apply-btn">View Details</a>
             </div>
         `;
