@@ -719,6 +719,7 @@ window.openModal = function (title) {
     confirmView.classList.add('hidden');
 
     // Populate Data
+    currentInternshipLink = item.link; // Critical: Update apply link
     document.getElementById('modalTitle').textContent = item.title;
     document.getElementById('modalCompany').textContent = item.company;
     document.getElementById('modalLocation').textContent = item.location;
