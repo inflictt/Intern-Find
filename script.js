@@ -297,6 +297,28 @@ const internshipData = [
         status: "Open",
         link: "https://vision.hack2skill.com/event/ai-for-bharat",
         type: "Hackathon"
+    },
+    {
+        title: "OIST Research Internship Fall 2026",
+        company: "OIST Japan",
+        tags: ["Internship", "Research", "Fully Funded"],
+        location: "Okinawa, Japan",
+        duration: "Oct 2026 - March 2027",
+        stipend: "2,400 JPY/day + Travel + Stay",
+        status: "Open (Apply by Apr 15)",
+        link: "https://admissions.oist.jp/apply-research-internship",
+        type: "Internship"
+    },
+    {
+        title: "Autodesk Internship 2026",
+        company: "Autodesk",
+        tags: ["Internship", "SDE", "Cloud"],
+        location: "Pune / Bengaluru",
+        duration: "Summer 2026",
+        stipend: "Competitive + Perks",
+        status: "Check Careers",
+        link: "https://www.autodesk.com/careers",
+        type: "Internship"
     }
 ];
 
