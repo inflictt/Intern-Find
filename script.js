@@ -563,6 +563,13 @@ function performSearch() {
     });
 
     renderCards(filtered);
+    updateResultsCount(filtered.length);
+}
+
+function updateResultsCount(count) {
+    if (resultsCount) {
+        resultsCount.textContent = `Showing ${count} opportunit${count !== 1 ? 'ies' : 'y'}`;
+    }
 }
 
 searchBtn.addEventListener('click', performSearch);
@@ -591,12 +598,51 @@ filterBtns.forEach(btn => {
 });
 
 // --- Company Dropdown Logic ---
+const resultsCount = document.getElementById('resultsCount');
+const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
 if (companyFilter) {
     companyFilter.addEventListener('change', (e) => {
         currentFilters.company = e.target.value;
         performSearch();
     });
 }
+
+// Category Buttons Logic
+document.querySelectorAll('.tag-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const category = e.target.dataset.category;
+        searchInput.value = category;
+        performSearch();
+    });
+});
+
+// Clear Filters Logic
+if (clearFiltersBtn) {
+    clearFiltersBtn.addEventListener('click', () => {
+        // Reset State
+        currentFilters = {
+            type: 'all',
+            status: 'Open', // Reset to default strict view
+            company: 'all'
+        };
+        searchInput.value = '';
+
+        // Reset UI
+        filterBtns.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.filter === 'all' && btn.dataset.type === 'type') btn.classList.add('active');
+            if (btn.dataset.filter === 'Open' && btn.dataset.type === 'status') btn.classList.add('active');
+        });
+
+        if (companyFilter) companyFilter.value = 'all';
+
+        performSearch();
+    });
+}
+
+// Initial Render (Use performSearch to respect default 'Open' filter)
+performSearch();
 
 // Category Buttons Logic
 document.querySelectorAll('.tag-btn').forEach(btn => {
