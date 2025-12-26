@@ -683,12 +683,64 @@ const isOpportunitiesPage = window.location.pathname.includes('opportunities.htm
 if (isOpportunitiesPage) {
     // Show ALL on opportunities page
     renderCards(internshipData);
+
+    // 1. Check for URL params to auto-search
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+
+    if (searchParam && searchInput) {
+        searchInput.value = decodeURIComponent(searchParam);
+        // Trigger search immediately
+        performSearch();
+    }
+
+    // 2. Normal Search Listeners for Opportunities Page
+    if (searchBtn) searchBtn.addEventListener('click', performSearch);
+
+    if (searchInput) {
+        searchInput.addEventListener('input', performSearch); // Real-time
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') e.preventDefault();
+        });
+    }
 } else {
     // Show only 5 on Home page (User requested 5)
     renderCards(internshipData.slice(0, 5));
 
-    // Hide View All btn if searching
-    // Search listener handled via dedicated redirect logic below
+    // --- Home Page Search Redirect Logic ---
+    const handleHomeSearch = () => {
+        const query = searchInput ? searchInput.value.trim() : '';
+        if (query) {
+            window.location.href = `opportunities.html?search=${encodeURIComponent(query)}`;
+        }
+    };
+
+    if (searchBtn) {
+        searchBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            handleHomeSearch();
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleHomeSearch();
+            }
+        });
+    }
+
+    // Handle "Popular" Tag Buttons on Home
+    const tagBtns = document.querySelectorAll('.tag-btn');
+    tagBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.dataset.category;
+            if (category) {
+                window.location.href = `opportunities.html?search=${encodeURIComponent(category)}`;
+            }
+        });
+    });
 
 }
 
