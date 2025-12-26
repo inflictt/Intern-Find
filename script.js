@@ -1177,21 +1177,8 @@ function renderSearchResults(data, container) {
     if (!container) return;
     container.innerHTML = '';
 
-    if (data.length === 0) {
-        container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-                <i class="fa-solid fa-cloud-moon" style="font-size: 3rem; margin-bottom: 16px; opacity: 0.5;"></i>
-                <p>No matches found.</p>
-                <p style="font-size: 0.85rem;">Try "Amazon", "Hackathon", or "Internship"</p>
-            </div>
-        `;
-        return;
-    }
-
-    const list = document.createElement('div');
-    list.className = 'search-list';
-
-    data.forEach(item => {
+    // Helper to create a row
+    const createRow = (item) => {
         const row = document.createElement('div');
         row.className = 'search-item';
 
@@ -1230,10 +1217,36 @@ function renderSearchResults(data, container) {
                 window.openModal(item.title);
             }, 200);
         });
+        return row;
+    };
 
-        list.appendChild(row);
-    });
+    if (data.length === 0) {
+        // Recommendations
+        const recommended = [...internshipData]
+            .filter(i => i.status.includes('Open'))
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 2);
 
+        container.innerHTML = `
+            <div style="text-align: center; padding: 20px; color: var(--text-muted);">
+                <i class="fa-solid fa-lightbulb" style="font-size: 2rem; margin-bottom: 12px; opacity: 0.5; color: var(--accent-color);"></i>
+                <p>No exact matches found.</p>
+                <p style="font-size: 0.85rem; margin-bottom: 20px;">You might be interested in these:</p>
+            </div>
+        `;
+
+        const list = document.createElement('div');
+        list.className = 'search-list';
+        recommended.forEach(item => {
+            list.appendChild(createRow(item));
+        });
+        container.appendChild(list);
+        return;
+    }
+
+    const list = document.createElement('div');
+    list.className = 'search-list';
+    data.forEach(item => list.appendChild(createRow(item)));
     container.appendChild(list);
 }
 
@@ -1280,12 +1293,35 @@ const botResponses = {
     "default": "I'm not sure about that. Try asking about internships, hackathons, or stipends!"
 };
 
-function addMessage(text, sender) {
+function addMessage(text, sender, actions = []) {
     if (!chatBody) return;
     const msg = document.createElement('div');
     msg.className = `chat-msg ${sender}`;
-    msg.textContent = text;
+    msg.innerHTML = text; // Use innerHTML to support bold/links
     chatBody.appendChild(msg);
+
+    // Render Quick Actions (Chips) if any
+    if (actions.length > 0 && sender === 'bot') {
+        const actionsContainer = document.createElement('div');
+        actionsContainer.className = 'chat-actions';
+        actions.forEach(action => {
+            const btn = document.createElement('button');
+            btn.className = 'chat-action-chip';
+            btn.textContent = action.text;
+            btn.onclick = () => {
+                // If handler provided, use it. Else treat as input.
+                if (action.handler) {
+                    action.handler();
+                } else {
+                    chatInput.value = action.text;
+                    handleChat();
+                }
+            };
+            actionsContainer.appendChild(btn);
+        });
+        chatBody.appendChild(actionsContainer);
+    }
+
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
@@ -1297,6 +1333,10 @@ function handleChat() {
     chatInput.value = '';
 
     let response = "I'm not sure about that. Try asking about **internships**, **stipends**, or a specific company like **Amazon**.";
+    let actions = [
+        { text: "Browse Internships", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } },
+        { text: "Check High Stipend", handler: () => { handleHomeSearch('stipend'); } }
+    ];
 
     // 1. Check for specific company existence (Fuzzy Match for Typos!)
     // We check if any company name fuzzy matches the input text
@@ -1308,27 +1348,44 @@ function handleChat() {
     });
 
     if (foundCompany) {
-        response = `Yes! We have an opening for **${foundCompany.company}** (${foundCompany.title}). <br>Status: <b>${foundCompany.status}</b>. Search for "${foundCompany.company}" to apply!`;
+        response = `Yes! We have an opening for **${foundCompany.company}** (${foundCompany.title}). <br>Status: <b>${foundCompany.status}</b>.`;
+        actions = [
+            { text: `Apply to ${foundCompany.company}`, handler: () => { window.openModal(foundCompany.title); } },
+            { text: "Search Similar", handler: () => { handleHomeSearch(foundCompany.type); } }
+        ];
     }
     // 2. Common Conversational Intents
     else if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
         response = "Hello! 👋 I can help you find internships. Try typing a company name like 'Google' or 'Amazon'!";
+        actions = [
+            { text: "Show All Jobs", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } },
+            { text: "Hackathons 🏆", handler: () => { handleHomeSearch('Hackathon'); } }
+        ];
     }
     else if (['yes', 'yeah', 'sure', 'yup', 'okay'].some(word => text.includes(word))) {
         response = "Great! You can start by using the Search bar to find specific roles, or browse the latest cards.";
+        actions = [{ text: "Open Search", handler: () => { document.getElementById('searchBtn').click(); } }];
     }
     else if (text.includes('stipend') || text.includes('salary') || text.includes('pay') || text.includes('money')) {
         response = "Stipends range from 10k to 1.5L+. Check specific cards for details. Amazon pays ~1.1L!";
+        actions = [{
+            text: "Sort by Stipend", handler: () => {
+                const select = document.getElementById('searchSortSelect');
+                if (select) { select.value = 'stipend'; handleHomeSearch(); }
+            }
+        }];
     }
     else if (text.includes('resume') || text.includes('cv')) {
         response = "We have a Resume Builder! Check the navigation menu.";
+        actions = [{ text: "Go to Resume", handler: () => { window.location.href = 'resume.html'; } }];
     }
     else if (text.includes('hackathon')) {
         response = "We list Hackathons too! Look for the trophy icon 🏆.";
+        actions = [{ text: "Find Hackathons", handler: () => { handleHomeSearch('Hackathon'); } }];
     }
 
     setTimeout(() => {
-        addMessage(response, 'bot');
+        addMessage(response, 'bot', actions);
     }, 500);
 }
 

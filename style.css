@@ -1328,3 +1328,29 @@ footer {
     height: 100%;
     border: 0;
 }
+
+/* --- Chatbot Quick Replies --- */
+.chat-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    justify-content: flex-start;
+}
+
+.chat-action-chip {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.chat-action-chip:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
