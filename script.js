@@ -742,6 +742,18 @@ function performSearch() {
         return typeMatch && statusMatch && companyMatch && searchMatch;
     });
 
+    // --- Sort Logic ---
+    const sortValue = sortSelect.value;
+    if (sortValue === 'latest') {
+        filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
+    } else if (sortValue === 'oldest') {
+        filtered.sort((a, b) => new Date(a.postedDate) - new Date(b.postedDate));
+    } else if (sortValue === 'stipend-high') {
+        filtered.sort((a, b) => parseStipendValue(b.stipend) - parseStipendValue(a.stipend));
+    } else if (sortValue === 'stipend-low') {
+        filtered.sort((a, b) => parseStipendValue(a.stipend) - parseStipendValue(b.stipend));
+    }
+
     renderCards(filtered);
     updateResultsCount(filtered.length);
 }
