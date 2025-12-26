@@ -573,22 +573,7 @@ function renderCards(data) {
 // Note: We'll use title as ID for simplicity in this MVP, 
 // ideally would use a unique ID field. for safety we'll fuzzy match in openModal if needed.
 
-// Initial placeholder render (will be cleared when real data comes)
-/*
-renderCards([
-    {
-        title: "Software Engineer Intern",
-        company: "Google",
-        tags: ["Java", "Python"],
-        location: "Bangalore",
-        duration: "3 Months",
-        stipend: "45k/month",
-        status: "Open",
-        link: "#",
-        type: "Internship"
-    }
-]);
-*/
+// Initial Render handled below based on page context
 
 // --- Theme Toggle Logic ---
 const themeToggle = document.getElementById('themeToggle');
