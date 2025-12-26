@@ -692,8 +692,24 @@ function populateCompanyDropdown() {
 }
 populateCompanyDropdown();
 
-// Initial Render
-renderCards(internshipData);
+// Initial Render Logic based on Page
+const isOpportunitiesPage = window.location.pathname.includes('opportunities.html');
+
+if (isOpportunitiesPage) {
+    // Show ALL on opportunities page
+    renderCards(internshipData);
+} else {
+    // Show only 6 on Home page
+    renderCards(internshipData.slice(0, 6));
+
+    // Hide View All btn if searching
+    if (searchBtn) {
+        searchBtn.addEventListener('click', () => {
+            // If search is active, we might want to show all matches or keep limiting? 
+            // For simple UX, let's allow search to show matches from FULL list using performSearch
+        });
+    }
+}
 
 // --- Modal Logic ---
 const modal = document.getElementById('internshipModal');
@@ -734,14 +750,28 @@ window.openModal = function (title) {
     tagsContainer.innerHTML = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
 
     // Show Modal
-    modal.classList.add('active');
+    modal.classList.remove('hidden'); // Fix: Remove hidden class
+    // Force reflow to enable transition if needed, though usually not strictly necessary if we wait a tick
+    // but for now just removing hidden + adding active is enough to show it
+    // slightly delayed adding 'active' allows transition if display:none was used
+
+    // Use a small timeout to allow display:block to apply before opacity transition
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+
     document.body.style.overflow = 'hidden'; // Prevent scrolling
 };
 
 // Close Modal
 function closeModal() {
     modal.classList.remove('active');
-    document.body.style.overflow = '';
+
+    // Wait for transition to finish before hiding
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }, 300); // Matches CSS transition duration
 }
 
 closeModalBtn.addEventListener('click', closeModal);
@@ -814,6 +844,11 @@ function performSearch() {
     } else if (sortValue === 'stipend-low') {
         filtered.sort((a, b) => parseStipendValue(a.stipend) - parseStipendValue(b.stipend));
     }
+
+    // If on Home Page and NO filters/text are active, limit to 6
+    // But if filters ARE active involved, show all matches?
+    // User request: "Show only 6 opportunities on the main page INITIALLY"
+    // Interpretation: Search results can show more.
 
     renderCards(filtered);
     updateResultsCount(filtered.length);

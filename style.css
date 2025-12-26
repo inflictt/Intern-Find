@@ -26,7 +26,8 @@
     /* Classic Black for primary actions */
     --primary-hover: #333333;
     --text-main: #111111;
-    --text-muted: #555555;
+    --text-muted: #52525b;
+    /* Darker grey for better contrast */
     --border-color: #dddddd;
     --radius-md: 8px;
     /* Sharper corners */
@@ -473,8 +474,8 @@ ul {
 
 .internship-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    /* Allows 3-4 cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Reduced min-width slightly for better fit */
     gap: 24px;
 }
 
@@ -721,6 +722,10 @@ footer {
     transform: translateY(20px);
     transition: transform 0.3s ease;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    max-height: 90vh;
+    /* Prevent it from being taller than screen */
+    overflow-y: auto;
+    /* Enable scrolling if content is too long */
 }
 
 .modal-overlay.active .modal-content {
