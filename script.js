@@ -657,7 +657,7 @@ function renderCards(data, container = grid) {
                     <i class="fa-solid ${currencyIconClass}"></i> ${item.stipend}
                 </div>
                 <div class="info-item" style="color: ${statusColor}">
-                    <i class="fa-solid fa-circle-check"></i> ${item.status}
+                    <i class="fa-solid fa-circle-check"></i> ${item.status} ${urgencyBadge}
                 </div>
             </div>
             
@@ -665,6 +665,7 @@ function renderCards(data, container = grid) {
                 <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
                 <button class="btn btn-primary apply-btn">View Details</button>
             </div>
+            ${appliedHTML}
         `;
 
         // Attach Event Listener directly to the button
