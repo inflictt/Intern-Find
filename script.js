@@ -645,6 +645,9 @@ function renderCards(data, container = grid) {
             <div class="card-tags">
                 ${tagsHtml}
             </div>
+
+            <!-- Countdown (Requirement 7) -->
+            ${item.status !== "Closed" ? `<div class="deadline-timer" style="font-size: 0.8rem; color: var(--accent-color); margin-bottom: 8px;"><i class="fa-regular fa-clock"></i> Ends in 15 days</div>` : ''}
             
             <div class="card-info">
                 <div class="info-item">
@@ -829,11 +832,18 @@ if (isOpportunitiesPage) {
         // Smart Filter Logic
         let showAll = false;
         if (query === 'stipend') {
-            if (searchSortSelect) searchSortSelect.value = 'stipend-high';
-            query = '';
-            showAll = true;
+            // Special Case: Redirect to Opportunities sorted by stipend
+            window.location.href = `opportunities.html?sort=stipend`;
+            return;
         } else if (query === 'Closing Soon') {
-            // Just a text search for now or handled by specific filter if implemented
+            window.location.href = `opportunities.html?filter=closing`;
+            return;
+        }
+
+        // Search Redirect Logic (Requirement 1)
+        if (query) {
+            window.location.href = `opportunities.html?search=${encodeURIComponent(query)}`;
+            return;
         }
 
         // Ghosting Fix: Hide if empty and not showing a filter result
