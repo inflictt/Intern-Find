@@ -564,19 +564,50 @@ let currentFilters = {
 };
 
 const getCompanyLogo = (item) => {
-    // Strategy: Use Clearbit Logo API based on the link domain. 
-    // This is most accurate for "all" companies.
-    let domain = '';
-    try {
-        const urlObj = new URL(item.link);
-        domain = urlObj.hostname.replace('www.', '');
-    } catch (e) {
-        domain = item.company.toLowerCase().replace(/ /g, '') + ".com";
+    // Extensive mapping to ensure ACCURATE logo domains
+    const domainMap = {
+        "Google": "google.com",
+        "Microsoft": "microsoft.com",
+        "Meta": "meta.com",
+        "Infosys": "infosys.com",
+        "Goldman Sachs": "goldmansachs.com",
+        "Walmart Global Tech": "walmart.com",
+        "JPMorgan Chase": "jpmorgan.com",
+        "Govt of India": "india.gov.in", // Will likely fallback to text, but try
+        "Flipkart": "flipkart.com",
+        "Adobe": "adobe.com",
+        "Shopify": "shopify.com",
+        "GitHub / Partners": "github.com",
+        "Uber": "uber.com",
+        "Juspay": "juspay.in",
+        "Major League Hacking": "mlh.io",
+        "Outreachy": "outreachy.org",
+        "Deloitte India": "deloitte.com",
+        "Morgan Stanley": "morganstanley.com",
+        "Intuit": "intuit.com",
+        "Cisco": "cisco.com",
+        "Amazon": "amazon.com",
+        "Taylor & Francis Group": "taylorandfrancis.com",
+        "Cred": "cred.club",
+        "Securonix": "securonix.com",
+        "Oracle": "oracle.com"
+    };
+
+    let domain = domainMap[item.company];
+
+    if (!domain) {
+        // Fallback: Try to guess from link or name
+        try {
+            const urlObj = new URL(item.link);
+            domain = urlObj.hostname.replace('www.', '');
+        } catch (e) {
+            domain = item.company.toLowerCase().replace(/ /g, '') + ".com";
+        }
     }
 
     const initial = item.company.charAt(0);
 
-    // Clearbit logo
+    // Using Clearbit (User requested "find accurate ones on browser", Clearbit is best for this)
     return `<img src="https://logo.clearbit.com/${domain}" alt="${item.company}" 
                  class="company-logo-img" 
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
