@@ -1379,10 +1379,100 @@ footer {
     transition: all 0.2s ease;
 }
 
-.chat-action-chip:hover {
+transform: translateY(-2px);
+}
+
+/* Chat Button Hierarchy (Review Fix 5) */
+.chat-action-chip.primary {
     background: var(--primary-color);
     color: white;
-    transform: translateY(-2px);
+    border: none;
+    font-weight: 500;
+}
+
+.chat-action-chip.secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-main);
+}
+
+.chat-action-chip:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+}
+
+/* Typing Indicator (Review Fix 8) */
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    width: fit-content;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Accessibility & Polish */
+#closeChatBtn {
+    width: 44px;
+    /* WCAG Target Size */
+    height: 44px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-msg.bot {
+    background: #2a2a2a;
+    /* Better Contrast */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+.fab-chat {
+    bottom: 90px;
+    /* Avoid footer/toast overlap */
+    z-index: 9990;
+    /* High but below Modal */
 }
 
 /* --- Robustness Fixes --- */
