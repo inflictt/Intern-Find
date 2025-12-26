@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InternHub - Find Your Next Internship</title>
+    <meta name="description" content="Discover top tech internships and hackathons for BTech students.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo"><i class="fa-solid fa-code-branch"></i> InternHub</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#internships">Internships</a></li>
+                    <li><a href="#about">How it works</a></li>
+                </ul>
+            </nav>
+            <a href="#internships" class="btn btn-primary">Browse Jobs</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <div class="badge">🚀 Connecting talent with opportunity</div>
+                <h1>Find your next <span class="text-gradient">internship</span></h1>
+                <p class="hero-subtitle">Discover curated internship opportunities and hackathons from top tech
+                    companies. Start building your career today.</p>
+
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="searchInput"
+                        placeholder="Search internships (e.g., 'Google', 'Hackathon')...">
+                    <button class="btn btn-primary" id="searchBtn">Search</button>
+                </div>
+
+                <div class="tags-container">
+                    <span>Popular:</span>
+                    <button class="tag-btn" data-category="Software Engineering">Software Engineering</button>
+                    <button class="tag-btn" data-category="Data Science">Data Science</button>
+                    <button class="tag-btn" data-category="Hackathon">Hackathons</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container stats-grid">
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Top Companies</p>
+                </div>
+                <div class="stat-item">
+                    <h3>₹1Cr+</h3>
+                    <p>Total Prize Pools</p>
+                </div>
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <p>Active Opportunities</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Verified Links</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Internships -->
+        <section id="internships" class="internships-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Opportunities</h2>
+                    <p>Hand-picked opportunities top global companies</p>
+                </div>
+
+                <div class="filters-bar">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="Internship">Internships</button>
+                    <button class="filter-btn" data-filter="Hackathon">Hackathons</button>
+                    <button class="filter-btn" data-filter="Global">Global</button>
+                    <button class="filter-btn" data-filter="India">India</button>
+                </div>
+
+                <div id="internship-grid" class="internship-grid">
+                    <!-- Cards will be injected here by JS -->
+                    <div class="card skeleton-card"></div>
+                    <div class="card skeleton-card"></div>
+                    <div class="card skeleton-card"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works (Simple 3 steps) -->
+        <section id="about" class="process-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How it works</h2>
+                    <p>Three simple steps to launch your career</p>
+                </div>
+                <div class="process-grid">
+                    <div class="process-card">
+                        <div class="icon-box"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3>Search & Discover</h3>
+                        <p>Browse through our curated list of hackathons and internships.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="icon-box"><i class="fa-regular fa-file-lines"></i></div>
+                        <h3>Read Details</h3>
+                        <p>Check eligibility, stipend details, and deadlines.</p>
+                    </div>
+                    <div class="process-card">
+                        <div class="icon-box"><i class="fa-solid fa-rocket"></i></div>
+                        <h3>Apply Directly</h3>
+                        <p>Click the link to go straight to the official application page.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo"><i class="fa-solid fa-code-branch"></i> InternHub</a>
+                <p>Connecting talented students with amazing opportunities worldwide.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Resume Guide</a></li>
+                    <li><a href="#">Interview Prep</a></li>
+                </ul>
+            </div>
+            <div class="footer-subscribe">
+                <h4>Stay Updated</h4>
+                <p>New opportunities added weekly.</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2025 InternHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
