@@ -684,8 +684,8 @@ if (isOpportunitiesPage) {
     // Show ALL on opportunities page
     renderCards(internshipData);
 } else {
-    // Show only 6 on Home page
-    renderCards(internshipData.slice(0, 6));
+    // Show only 4 on Home page (User requested 3-5)
+    renderCards(internshipData.slice(0, 4));
 
     // Hide View All btn if searching
     if (searchBtn) {
