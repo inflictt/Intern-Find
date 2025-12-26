@@ -243,6 +243,19 @@ function renderCards(data) {
         // Tags rendering
         const tagsHtml = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
 
+        // Status Color Logic
+        let statusColor;
+        // Normalize for easier matching
+        const statusLower = item.status.toLowerCase();
+
+        if (statusLower.includes('open') || statusLower.includes('apply')) {
+            statusColor = '#22c55e'; // Green
+        } else if (statusLower.includes('soon') || statusLower.includes('check')) {
+            statusColor = '#f59e0b'; // Yellow/Orange
+        } else {
+            statusColor = '#ef4444'; // Red (Closed) by default
+        }
+
         card.innerHTML = `
             <div class="card-header">
                 <div>
@@ -268,7 +281,7 @@ function renderCards(data) {
                 <div class="info-item">
                     <i class="fa-solid fa-indian-rupee-sign"></i> ${item.stipend}
                 </div>
-                <div class="info-item" style="color: ${item.status === 'Open' ? '#22c55e' : '#ef4444'}">
+                <div class="info-item" style="color: ${statusColor}">
                     <i class="fa-solid fa-circle-check"></i> ${item.status}
                 </div>
             </div>
