@@ -165,6 +165,61 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://www.outreachy.org",
         type: "Internship"
+    },
+    {
+        title: "Deloitte Internship 2026",
+        company: "Deloitte India",
+        tags: ["Internship", "Consulting", "Tech"],
+        location: "Hyderabad / Bangalore / Pune",
+        duration: "Jan - June 2026",
+        stipend: "Competitive + PPO",
+        status: "Check Careers",
+        link: "https://www2.deloitte.com/in/en/pages/careers/articles/life-at-deloitte-india-careers.html",
+        type: "Internship"
+    },
+    {
+        title: "Morgan Stanley Summer Analyst",
+        company: "Morgan Stanley",
+        tags: ["Internship", "Finance", "Tech"],
+        location: "Mumbai / Bangalore",
+        duration: "May - July 2026",
+        stipend: "₹87k - ₹1.2L/month",
+        status: "Open",
+        link: "https://www.morganstanley.com/people-opportunities/students-graduates",
+        type: "Internship"
+    },
+    {
+        title: "Intuit Summer Internship 2026",
+        company: "Intuit",
+        tags: ["Internship", "SDE", "Product"],
+        location: "Bangalore",
+        duration: "Summer 2026",
+        stipend: "₹80k - ₹1L/month",
+        status: "Coming Soon",
+        link: "https://jobs.intuit.com/job-search-results/?keyword=Intern&location=India",
+        type: "Internship"
+    },
+    {
+        title: "Cisco Technical Intern 2026",
+        company: "Cisco",
+        tags: ["Internship", "Networking", "Security"],
+        location: "Bangalore",
+        duration: "Jan - June 2026",
+        stipend: "₹60k - ₹95k/month",
+        status: "Open (Job ID 1449112)",
+        link: "https://jobs.cisco.com/jobs/SearchJobs",
+        type: "Internship"
+    },
+    {
+        title: "Amazon SDE Internship 2026",
+        company: "Amazon",
+        tags: ["Internship", "SDE", "FAANG"],
+        location: "Bangalore / Hyderabad / Delhi",
+        duration: "Summer 2026 (6 Months)",
+        stipend: "₹80k - ₹1.1L/month",
+        status: "Apply ASAP",
+        link: "https://www.amazon.jobs/en/teams/internships-for-students",
+        type: "Internship"
     }
 ];
 
