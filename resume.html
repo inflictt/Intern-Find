@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InternNow - Resume Guide</title>
+    <meta name="description" content="Build an ATS-friendly resume with our free resources and templates.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .resume-hero {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            aspect-ratio: 16/9;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+        }
+
+        .resource-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .resource-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .resource-card p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="fa-solid fa-code-branch"></i> InternNow</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#internships">Internships</a></li>
+                    <li><a href="index.html#about">How it works</a></li>
+                    <li><a href="resume.html" style="color: var(--text-main);">Resume</a></li>
+                </ul>
+            </nav>
+            <div class="nav-controls">
+                <button id="themeToggle" class="btn btn-icon" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="index.html#internships" class="btn btn-primary">Browse Jobs</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="resume-hero">
+            <div class="container">
+                <h1>Build a powerful <span class="text-gradient">Resume</span></h1>
+                <p class="hero-subtitle">Follow this step-by-step guide to create an ATS-friendly resume that gets you
+                    hired.</p>
+
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/M5sNp-7bvx4" title="Resume Guide"
+                        allowfullscreen></iframe>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon"><i class="fa-solid fa-file-code"></i></div>
+                        <h3>Overleaf Template</h3>
+                        <p>The exact LaTeX template used to land offers at Amazon & Paytm.</p>
+                        <a href="https://www.overleaf.com/project" target="_blank" class="btn btn-primary">Open in
+                            Overleaf</a>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                        <h3>PDF Resume Guide</h3>
+                        <p>A comprehensive guide on what to write in each section.</p>
+                        <button class="btn btn-text" style="color: var(--text-muted); cursor: not-allowed;"
+                            title="Link coming soon">Download Guide (Coming Soon)</button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                        <h3>Sample Fresher Resume</h3>
+                        <p>See a real example of a winning fresher resume.</p>
+                        <button class="btn btn-text" style="color: var(--text-muted); cursor: not-allowed;"
+                            title="Link coming soon">View Sample (Coming Soon)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo"><i class="fa-solid fa-code-branch"></i> InternNow</a>
+                <p>Connecting talented students with amazing opportunities worldwide.</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 InternNow. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
