@@ -724,11 +724,20 @@ window.openModal = function (title) {
     document.getElementById('modalLocation').textContent = item.location;
     document.getElementById('modalDuration').textContent = item.duration;
     document.getElementById('modalStipend').textContent = item.stipend;
-    document.getElementById('modalPosted').textContent = new Date(item.postedDate).toDateString();
 
+    // Safety check for optional description fields
+    const descEl = document.getElementById('modalDescription');
+    if (descEl) descEl.textContent = item.description || "No description available yet.";
+
+    const eligEl = document.getElementById('modalEligibility');
+    if (eligEl) eligEl.textContent = item.eligibility || "Open to all relevant candidates.";
+
+    // Posted date removed from voucher layout, skipping
     // Icons
     const stipendIcon = document.getElementById('modalStipendIcon');
-    stipendIcon.className = 'fa-solid ' + getCurrencyIcon(item.stipend);
+    if (stipendIcon) { // Check existence to prevent crash
+        stipendIcon.className = 'fa-solid ' + getCurrencyIcon(item.stipend);
+    }
 
     // Tags
     const tagsContainer = document.getElementById('modalTags');
