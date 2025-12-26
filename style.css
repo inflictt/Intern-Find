@@ -851,5 +851,156 @@ footer {
 }
 
 .confirm-actions .btn {
-    flex: 1;
-}
+
+    /* --- Voucher Modal Styles --- */
+    .modal-header-voucher {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 24px;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .voucher-icon {
+        font-size: 2.5rem;
+        /* Larger icon */
+        color: var(--text-main);
+    }
+
+    .header-info h2 {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+        color: var(--text-main);
+    }
+
+    .company-badge {
+        background: var(--card-bg);
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        border: 1px solid var(--border-color);
+    }
+
+    .btn-outline-sm {
+        background: transparent;
+        /* Dark background */
+        border: 1px solid var(--border-color);
+        color: var(--text-muted);
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .btn-outline-sm:hover {
+        background: var(--card-bg);
+        /* Lighter dark */
+        color: var(--text-main);
+        border-color: var(--primary-color);
+    }
+
+    .section-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        margin-bottom: 16px;
+        display: block;
+    }
+
+    .voucher-details-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .voucher-card {
+        background: #0f0f0f;
+        /* Very dark card bg */
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .voucher-card.full-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .full-card .vc-label {
+        margin-bottom: 4px;
+    }
+
+    .full-card .vc-text {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    .vc-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .vc-icon {
+        background: #1a1a1a;
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-main);
+        font-size: 1.1rem;
+    }
+
+    .vc-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vc-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+
+    .vc-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-main);
+    }
+
+    .highlight-green {
+        color: #22c55e;
+        /* Green for "Savings"/Stipend */
+    }
+
+    .vc-sub {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    /* Light Mode Overrides for Voucher */
+    [data-theme="light"] .voucher-card {
+        background: #f3f4f6;
+        border-color: #e5e7eb;
+    }
+
+    [data-theme="light"] .vc-icon {
+        background: #e5e7eb;
+        color: #111;
+    }

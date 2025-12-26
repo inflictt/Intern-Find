@@ -684,8 +684,8 @@ if (isOpportunitiesPage) {
     // Show ALL on opportunities page
     renderCards(internshipData);
 } else {
-    // Show only 4 on Home page (User requested 3-5)
-    renderCards(internshipData.slice(0, 4));
+    // Show only 5 on Home page (User requested 5)
+    renderCards(internshipData.slice(0, 5));
 
     // Hide View All btn if searching
     if (searchBtn) {
@@ -840,10 +840,10 @@ function performSearch() {
             query === '';
 
         if (isDefaultFilters) {
-            renderCards(filtered.slice(0, 4));
-            // Also update count to show "Showing Top 4"
+            renderCards(filtered.slice(0, 5));
+            // Also update count to show "Showing Top 5"
             if (document.getElementById('resultsCount')) {
-                document.getElementById('resultsCount').textContent = `Showing 4 featured opportunities`;
+                document.getElementById('resultsCount').textContent = `Showing 5 featured opportunities`;
             }
             return;
         }
@@ -859,8 +859,23 @@ function updateResultsCount(count) {
     }
 }
 
-searchBtn.addEventListener('click', performSearch);
-searchInput.addEventListener('input', performSearch); // Real-time search
+const headerApplyBtn = document.getElementById('headerApplyBtn');
+
+// Proceed to Confirmation (New Button)
+if (headerApplyBtn) {
+    headerApplyBtn.addEventListener('click', () => {
+        detailsView.classList.add('hidden');
+        confirmView.classList.remove('hidden');
+    });
+}
+
+// Proceed to Confirmation (Old Button - kept for safety)
+if (proceedBtn) {
+    proceedBtn.addEventListener('click', () => {
+        detailsView.classList.add('hidden');
+        confirmView.classList.remove('hidden');
+    });
+}
 
 // --- Filter Buttons Logic ---
 filterBtns.forEach(btn => {

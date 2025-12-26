@@ -132,7 +132,8 @@
                 </div>
 
                 <div class="filters-summary">
-                    <span id="resultsCount" class="results-count">Showing top opportunities</span>
+                    <!-- Removing dynamic count text from here for cleaner look, or updating it -->
+                    <!-- User didn't specify dynamic count text for home, but kept "View All" -->
                     <a href="opportunities.html" id="viewAllBtn" class="btn-text"
                         style="margin-left: auto; text-decoration: underline;">View All Opportunities <i
                             class="fa-solid fa-arrow-right"></i></a>
@@ -204,54 +205,77 @@
         <div class="modal-content">
             <button class="close-modal-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
 
-            <!-- View 1: Details -->
+            <!-- View 1: Details (Voucher Style) -->
             <div id="modalDetailsView">
-                <div class="modal-header">
-                    <div id="modalIconContainer"></div>
-                    <div>
-                        <h2 id="modalTitle">Role Title</h2>
-                        <p id="modalCompany" class="text-muted">Company Name</p>
+                <!-- Modal Header: Logo + Title + Action -->
+                <div class="modal-header-voucher">
+                    <div class="header-left">
+                        <div id="modalIconContainer" class="voucher-icon"></div>
+                        <div class="header-info">
+                            <h2 id="modalTitle">Role Title</h2>
+                            <span id="modalCompany" class="company-badge">Company</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <button id="headerApplyBtn" class="btn btn-outline-sm">Launch Site <i
+                                class="fa-solid fa-arrow-up-right-from-square"></i></button>
                     </div>
                 </div>
 
-                <div class="modal-body-grid">
-                    <div class="modal-stat">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span id="modalLocation">Location</span>
-                    </div>
-                    <div class="modal-stat">
-                        <i class="fa-regular fa-calendar"></i>
-                        <span id="modalDuration">Duration</span>
-                    </div>
-                    <div class="modal-stat">
-                        <i class="fa-solid fa-money-bill-wave" id="modalStipendIcon"></i>
-                        <span id="modalStipend">Stipend</span>
-                    </div>
-                    <div class="modal-stat">
-                        <i class="fa-solid fa-clock"></i>
-                        <span id="modalPosted">Posted Date</span>
+                <div class="modal-body-voucher">
+                    <h3 class="section-label">AVAILABLE DETAILS</h3>
+
+                    <!-- Detail Cards List -->
+                    <div class="voucher-details-list">
+                        <!-- Stipend & Duration -->
+                        <div class="voucher-card">
+                            <div class="vc-left">
+                                <div class="vc-icon"><i class="fa-solid fa-money-bill-wave"></i></div>
+                                <div class="vc-info">
+                                    <span class="vc-label">Stipend / Prize</span>
+                                    <span id="modalStipend" class="vc-value highlight-green">Stipend</span>
+                                </div>
+                            </div>
+                            <div class="vc-right">
+                                <span id="modalDuration" class="vc-sub">Duration</span>
+                            </div>
+                        </div>
+
+                        <!-- Location & Eligibility -->
+                        <div class="voucher-card">
+                            <div class="vc-left">
+                                <div class="vc-icon"><i class="fa-solid fa-location-dot"></i></div>
+                                <div class="vc-info">
+                                    <span class="vc-label">Location</span>
+                                    <span id="modalLocation" class="vc-value">Location</span>
+                                </div>
+                            </div>
+                            <div class="vc-right">
+                                <!-- Reuse logic later for eligibility text if short -->
+                            </div>
+                        </div>
+
+                        <!-- Description Block -->
+                        <div class="voucher-card full-card">
+                            <span class="vc-label">Description</span>
+                            <p id="modalDescription" class="vc-text">Description...</p>
+                        </div>
+
+                        <!-- Eligibility Block -->
+                        <div class="voucher-card full-card">
+                            <span class="vc-label">Eligibility</span>
+                            <p id="modalEligibility" class="vc-text">Eligibility...</p>
+                        </div>
+
+                        <!-- Tags -->
+                        <div class="modal-tags" id="modalTags" style="margin-top: 16px;">
+                            <!-- Tags injected here -->
+                        </div>
                     </div>
                 </div>
 
-                <div class="modal-details-section">
-                    <h3>Description</h3>
-                    <p id="modalDescription">Description goes here...</p>
-
-                    <h3>Eligibility</h3>
-                    <p id="modalEligibility">Eligibility goes here...</p>
-
-                    <h3>Deadline</h3>
-                    <p id="modalDeadline" class="deadline-text">Apply ASAP</p>
-                </div>
-
-                <div class="modal-tags" id="modalTags">
-                    <!-- Tags injected here -->
-                </div>
-
-                <div class="modal-actions">
-                    <button id="proceedToApplyBtn" class="btn btn-primary full-width">Apply Now <i
-                            class="fa-solid fa-arrow-up-right-from-square"></i></button>
-                </div>
+                <!-- Hidden proceed button kept for logic compatibility, logic moved to header button -->
+                <button id="proceedToApplyBtn" class="hidden"></button>
             </div>
 
             <!-- View 2: Confirmation -->
