@@ -391,13 +391,15 @@ if (savedTheme === 'light') {
     enableLightMode();
 }
 
-themeToggle.addEventListener('click', () => {
-    if (body.hasAttribute('data-theme')) {
-        disableLightMode();
-    } else {
-        enableLightMode();
-    }
-});
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        if (body.hasAttribute('data-theme')) {
+            disableLightMode();
+        } else {
+            enableLightMode();
+        }
+    });
+}
 
 function enableLightMode() {
     body.setAttribute('data-theme', 'light');
