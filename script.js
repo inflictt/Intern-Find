@@ -348,7 +348,6 @@ const internshipData = [
         link: "https://www.autodesk.com/careers",
         type: "Internship",
         postedDate: "2024-12-10"
-    }    postedDate: "2023-11-18"
     }
 ];
 
@@ -393,6 +392,9 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const companyFilter = document.getElementById('companyFilter');
+const sortSelect = document.getElementById('sortSelect');
+const resultsCount = document.getElementById('resultsCount');
+const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
 
 // State for filters
@@ -676,6 +678,13 @@ filterBtns.forEach(btn => {
 if (companyFilter) {
     companyFilter.addEventListener('change', (e) => {
         currentFilters.company = e.target.value;
+        performSearch();
+    });
+}
+
+if (sortSelect) {
+    sortSelect.addEventListener('change', (e) => {
+        currentFilters.sort = e.target.value;
         performSearch();
     });
 }
