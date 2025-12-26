@@ -19,14 +19,18 @@
 }
 
 [data-theme="light"] {
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --card-hover: #f1f5f9;
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
+    --bg-color: #ffffff;
+    --card-bg: #f8f9fa;
+    --card-hover: #ffffff;
+    --primary-color: #000000;
+    /* Classic Black for primary actions */
+    --primary-hover: #333333;
+    --text-main: #111111;
+    --text-muted: #555555;
+    --border-color: #dddddd;
+    --radius-md: 8px;
+    /* Sharper corners */
+    --radius-lg: 12px;
 }
 
 * {
@@ -42,6 +46,27 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ... (previous styles) ... */
+
+.filter-select {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    transition: var(--transition);
+    min-width: 200px;
+}
+
+.filter-select:hover,
+.filter-select:focus {
+    border-color: var(--primary-color);
+    color: var(--text-main);
 }
 
 /* ... existing styles ... */

@@ -286,6 +286,17 @@ const internshipData = [
         status: "Open",
         link: "https://www.ibm.com/in-en/careers",
         type: "Internship"
+    },
+    {
+        title: "AI for Bharat Nationwide Program",
+        company: "AWS / Hack2skill",
+        tags: ["Hackathon", "AI", "Workshops"],
+        location: "Online",
+        duration: "Two Phases",
+        stipend: "₹40 Lakh Prize Pool",
+        status: "Open",
+        link: "https://vision.hack2skill.com/event/ai-for-bharat",
+        type: "Hackathon"
     }
 ];
 
@@ -465,13 +476,29 @@ function isFuzzyMatch(text, query) {
 }
 
 
-
+const companyFilter = document.getElementById('companyFilter');
 
 // State for filters
 let currentFilters = {
     type: 'all',
-    status: 'all' // not strictly used yet but good for future extensibility if we make status buttons
+    status: 'all',
+    company: 'all'
 };
+
+// Populate Company Dropdown
+function populateCompanyDropdown() {
+    if (!companyFilter) return;
+
+    const companies = [...new Set(internshipData.map(item => item.company))].sort();
+
+    companies.forEach(company => {
+        const option = document.createElement('option');
+        option.value = company;
+        option.textContent = company;
+        companyFilter.appendChild(option);
+    });
+}
+populateCompanyDropdown();
 
 // Initial Render
 renderCards(internshipData);
@@ -481,21 +508,8 @@ function performSearch() {
     const query = searchInput.value.trim();
 
     const filtered = internshipData.filter(item => {
-        // Filter by Type first
-        if (currentFilters.type !== 'all' && item.type !== currentFilters.type) {
-            // Handle special 'India'/'Global' logic if they were kept as types, but here UI uses distinct buttons
-            // For strict type matching (Internship vs Hackathon):
-            if (currentFilters.type === 'Internship' || currentFilters.type === 'Hackathon') {
-                if (item.type !== currentFilters.type) return false;
-            }
-            // Handle Status Filtering from the status buttons
-            if (['Open', 'Coming Soon', 'Closed'].includes(currentFilters.type)) {
-                // reset logic: type status buttons are storing their value in `type` var in this simple implementation? 
-                // No, let's fix the storage logic below.
-            }
-        }
-
         // Multi-facet filtering logic
+
         // 1. Check Type Filter
         const typeMatch = (currentFilters.type === 'all') ||
             (item.type === currentFilters.type);
@@ -511,7 +525,11 @@ function performSearch() {
             else if (filterS === 'closed') statusMatch = s.includes('closed');
         }
 
-        // 3. Search Query
+        // 3. Check Company Filter
+        const companyMatch = (currentFilters.company === 'all') ||
+            (item.company === currentFilters.company);
+
+        // 4. Search Query
         let searchMatch = true;
         if (query) {
             searchMatch = isFuzzyMatch(item.title, query) ||
@@ -519,7 +537,7 @@ function performSearch() {
                 item.tags.some(tag => isFuzzyMatch(tag, query));
         }
 
-        return typeMatch && statusMatch && searchMatch;
+        return typeMatch && statusMatch && companyMatch && searchMatch;
     });
 
     renderCards(filtered);
@@ -549,6 +567,14 @@ filterBtns.forEach(btn => {
         performSearch();
     });
 });
+
+// --- Company Dropdown Logic ---
+if (companyFilter) {
+    companyFilter.addEventListener('change', (e) => {
+        currentFilters.company = e.target.value;
+        performSearch();
+    });
+}
 
 // Category Buttons Logic
 document.querySelectorAll('.tag-btn').forEach(btn => {
