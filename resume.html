@@ -45,10 +45,10 @@
         .resource-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
+            border-radius: 12px;
             padding: 32px;
             text-align: center;
-            transition: var(--transition);
+            transition: 0.3s ease;
         }
 
         .resource-card:hover {
@@ -117,170 +117,21 @@
                     </div>
 
                     <div class="resource-card">
-                        <div class="resource-icon"><i class="fa-solid fa-file-pdf"></i></div>
-                        <h3>PDF Resume Guide</h3>
-                        <p>A comprehensive guide on what to write in each section.</p>
-                        <a href="#" class="btn btn-outline" onclick="alert('Link will be updated once provided!')"><i
-                                class="fa-solid fa-download"></i> Download PDF</a>
+                        <div class="resource-icon"><i class="fa-solid fa-file-lines"></i></div>
+                        <h3>Resume Guide</h3>
+                        <p>Comprehensive steps on what to write in each section.</p>
+                        <a href="https://docs.google.com/document/d/11xRDFgSJZALUBuRmfIyPvvFqfpchkN2WtroZa2nUedo/edit?usp=sharing"
+                            target="_blank" class="btn btn-outline"><i
+                                class="fa-solid fa-arrow-up-right-from-square"></i> Open Guide</a>
                     </div>
 
                     <div class="resource-card">
-                        <div class="resource-icon"><i class="fa-solid fa-user-graduate"></i></div>
-                        <h3>Sample Fresher Resume</h3>
-                        <p>See a real example of a winning fresher resume.</p>
-                        <a href="#" class="btn btn-outline" onclick="alert('Link will be updated once provided!')"><i
-                                class="fa-solid fa-eye"></i> View Sample</a>
+                        <div class="resource-icon"><i class="fa-solid fa-code"></i></div>
+                        <h3>Sample LaTeX Code</h3>
+                        <p>Real-world example code of a winning resume.</p>
+                        <a href="https://www.overleaf.com/read/cqfvyzdhjqxs#65ce95" target="_blank"
+                            class="btn btn-outline"><i class="fa-solid fa-eye"></i> View Sample</a>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Comprehensive Guide Section -->
-        <section class="guide-section">
-            <div class="container">
-                <div class="guide-header">
-                    <h2>How to Create an ATS-Friendly Resume</h2>
-                    <p>Complete Step-by-Step Guide using Overleaf (LaTeX)</p>
-                </div>
-
-                <div class="guide-step">
-                    <h3><i class="fa-solid fa-wrench"></i> Step 1: Tools Required</h3>
-                    <p>We will use <strong>Overleaf.com</strong> – a free online LaTeX editor.</p>
-                    <div class="step-content">
-                        <h4>✅ How to set up Overleaf:</h4>
-                        <ol>
-                            <li>Go to <a href="https://www.overleaf.com" target="_blank">overleaf.com</a></li>
-                            <li>Click on "Register" (top right corner).</li>
-                            <li>Sign up using your Google account or email.</li>
-                            <li>Once signed in, click on "New Project" > "Blank Project".</li>
-                            <li>Give your project a name like "Data Analyst Resume".</li>
-                        </ol>
-                        <p class="note"><i class="fa-solid fa-lock"></i> Overleaf autosaves your progress, and no
-                            software installation is required!</p>
-                    </div>
-                </div>
-
-                <div class="guide-step">
-                    <h3><i class="fa-solid fa-layer-group"></i> Step 2: Resume Structure</h3>
-                    <p>Your resume should have these 7 key sections:</p>
-                    <div class="tags-row">
-                        <span class="step-tag">1. Header</span>
-                        <span class="step-tag">2. Summary</span>
-                        <span class="step-tag">3. Skills</span>
-                        <span class="step-tag">4. Experience</span>
-                        <span class="step-tag">5. Projects</span>
-                        <span class="step-tag">6. Awards</span>
-                        <span class="step-tag">7. Education</span>
-                    </div>
-                </div>
-
-                <div class="guide-step">
-                    <h3><i class="fa-solid fa-pen-nib"></i> Step 3: Section-by-Section Content</h3>
-
-                    <!-- Header -->
-                    <div class="resume-section-block">
-                        <h4>1️⃣ Header</h4>
-                        <p>Top section containing your name, designation, phone, email, and LinkedIn.</p>
-                        <div class="code-preview">
-                            <strong>Shakra Shamim</strong><br>
-                            Data Analyst<br>
-                            📞 +91-9919XXXXXX | ✉️ shakrashamim09@gmail.com | 🔗 linkedin.com/in/shakrashamim
-                        </div>
-                    </div>
-
-                    <!-- Summary -->
-                    <div class="resume-section-block">
-                        <h4>2️⃣ Summary</h4>
-                        <p>Your elevator pitch in 2–3 lines. Summarize skills and goals.</p>
-                        <div class="code-preview">
-                            Data Analyst with a strong foundation in SQL, Python, Excel, and Power BI. Skilled in
-                            cleaning, analyzing, and visualizing data to generate insights and support data-driven
-                            decision-making. Interested in collaborating on meaningful analytical work in fast-paced
-                            environments.
-                        </div>
-                    </div>
-
-                    <!-- Skills -->
-                    <div class="resume-section-block">
-                        <h4>3️⃣ Skills</h4>
-                        <p>Group similar tools for readability.</p>
-                        <div class="code-preview">
-                            <strong>Programming & Querying:</strong> SQL, Python<br>
-                            <strong>Data Visualization:</strong> Advanced MS Excel, Power BI, Tableau<br>
-                            <strong>Analytical Abilities:</strong> Data Cleaning, EDA, Insight Generation, Descriptive
-                            Statistics
-                        </div>
-                    </div>
-
-                    <!-- Experience -->
-                    <div class="resume-section-block">
-                        <h4>4️⃣ Experience</h4>
-                        <p>Internships or freelance/remote roles. Focus on impact and quantification.</p>
-                        <div class="code-preview">
-                            <strong>Data Analyst Intern</strong><br>
-                            <em>Dataview Analytics (Remote) | April 2025 – June 2025</em><br>
-                            Tools: Excel, SQL, Power BI<br>
-                            • Processed and standardized a dataset of over 1,00,000 rows from multiple regions.<br>
-                            • Designed smart Excel templates saving 40% reporting time across 4 departments.<br>
-                            • Developed Power BI dashboards to visualize revenue trends and customer mix.<br>
-                            • Collaborated with 4 analysts and 2 senior managers to define 6 KPIs.
-                        </div>
-                    </div>
-
-                    <!-- Projects -->
-                    <div class="resume-section-block">
-                        <h4>5️⃣ Projects</h4>
-                        <p>Choose 2 impactful projects. Highlight tools.</p>
-                        <div class="code-preview">
-                            <strong>Customer Churn Analysis | Python</strong><br>
-                            <em>March 2025 – April 2025</em><br>
-                            • Analyzed behavior of 7,043 telecom customers to identify churn patterns.<br>
-                            • Generated 11 visualizations to highlight churn-prone segments.<br>
-                            • Revealed 38% of churned users were on short-term monthly plans.<br><br>
-
-                            <strong>Sales Dashboard for Regional Performance | SQL, Power BI</strong><br>
-                            <em>February 2025 – March 2025</em><br>
-                            • Queried and joined 3 sales-related tables (25,000+ rows).<br>
-                            • Built 10 dynamic KPIs and slicers in Power BI.<br>
-                            • Detected a 14% sales drop post-festival in the South region.
-                        </div>
-                    </div>
-
-                    <!-- Awards -->
-                    <div class="resume-section-block">
-                        <h4>6️⃣ Awards & Certifications</h4>
-                        <div class="code-preview">
-                            • Google Data Analytics Certificate – Coursera (2024): Completed 8 case studies.<br>
-                            • Top 5% in SQL Hackerrank Challenge – 2024: Ranked among top 150 of 3,000+
-                            participants.<br>
-                            • Best Final Year Project – 2025: Analyzed performance of 6 departments.
-                        </div>
-                    </div>
-
-                    <!-- Education -->
-                    <div class="resume-section-block">
-                        <h4>7️⃣ Education</h4>
-                        <div class="code-preview">
-                            <strong>B.Sc. Information Technology</strong><br>
-                            Marwari College, Ranchi<br>
-                            Graduated: 2025 | CGPA: 8.2 / 10
-                        </div>
-                    </div>
-                </div>
-
-                <div class="guide-step bg-highlight">
-                    <h3>✅ Bonus Tips for ATS-Friendly Resume</h3>
-                    <ul class="check-list">
-                        <li><i class="fa-solid fa-check"></i> No Tables/Columns/Images in LaTeX (our template handles
-                            this).</li>
-                        <li><i class="fa-solid fa-check"></i> Use simple fonts and clear headings.</li>
-                        <li><i class="fa-solid fa-check"></i> Use keywords from job descriptions (SQL, Data Cleaning,
-                            Power BI).</li>
-                        <li><i class="fa-solid fa-check"></i> Use measurable metrics ("Increased efficiency by 30%").
-                        </li>
-                        <li><i class="fa-solid fa-check"></i> Save as PDF (Overleaf → Download PDF).</li>
-                        <li><i class="fa-solid fa-check"></i> Keep resume to 1 page only.</li>
-                    </ul>
                 </div>
             </div>
         </section>
