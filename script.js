@@ -491,11 +491,12 @@ let currentFilters = {
     sort: 'latest' // latest, oldest, stipend-high, stipend-low
 };
 
-function renderCards(data) {
-    grid.innerHTML = '';
+function renderCards(data, container = grid) {
+    if (!container) return;
+    container.innerHTML = '';
 
     if (data.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No opportunities found matching your criteria.</p>';
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 20px;">No opportunities found matching your criteria.</p>';
         return;
     }
 
@@ -707,13 +708,49 @@ if (isOpportunitiesPage) {
     // Show only 5 on Home page (User requested 5)
     renderCards(internshipData.slice(0, 5));
 
-    // --- Home Page Search Redirect Logic ---
-    const handleHomeSearch = () => {
-        const query = searchInput ? searchInput.value.trim() : '';
-        if (query) {
-            window.location.href = `opportunities.html?search=${encodeURIComponent(query)}`;
+    // --- Home Page Search Modal Logic ---
+    const searchModal = document.getElementById('searchModal');
+    const closeSearchModalBtn = document.getElementById('closeSearchModalBtn');
+    const searchResultsGrid = document.getElementById('searchResultsGrid');
+    const searchQueryDisplay = document.getElementById('searchQueryDisplay');
+
+    const handleHomeSearch = (overrideQuery) => {
+        const query = overrideQuery || (searchInput ? searchInput.value.trim() : '');
+        if (!query) return;
+
+        // Filter Logic
+        const filtered = internshipData.filter(item => {
+            const q = query.toLowerCase();
+            return isFuzzyMatch(item.title, q) ||
+                isFuzzyMatch(item.company, q) ||
+                isFuzzyMatch(item.location, q) ||
+                item.tags.some(tag => isFuzzyMatch(tag, q));
+        });
+
+        // Populate Modal
+        if (searchQueryDisplay) searchQueryDisplay.textContent = query;
+        renderCards(filtered, searchResultsGrid);
+
+        // Show Modal
+        if (searchModal) {
+            searchModal.classList.remove('hidden');
+            // Force reflow
+            void searchModal.offsetWidth;
+            searchModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
     };
+
+    // Close Logic
+    if (closeSearchModalBtn) {
+        closeSearchModalBtn.addEventListener('click', () => {
+            searchModal.classList.remove('active');
+            setTimeout(() => {
+                searchModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }, 300);
+        });
+    }
 
     if (searchBtn) {
         searchBtn.addEventListener('click', (e) => {
@@ -737,8 +774,12 @@ if (isOpportunitiesPage) {
         btn.addEventListener('click', () => {
             const category = btn.dataset.category;
             if (category) {
-                window.location.href = `opportunities.html?search=${encodeURIComponent(category)}`;
+                handleHomeSearch(category);
             }
+        });
+    });
+    window.location.href = `opportunities.html?search=${encodeURIComponent(category)}`;
+}
         });
     });
 
