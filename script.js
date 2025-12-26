@@ -252,8 +252,10 @@ function renderCards(data) {
             statusColor = '#22c55e'; // Green
         } else if (statusLower.includes('soon') || statusLower.includes('check')) {
             statusColor = '#f59e0b'; // Yellow/Orange
+        } else if (statusLower.includes('closed')) {
+            statusColor = '#ef4444'; // Red
         } else {
-            statusColor = '#ef4444'; // Red (Closed) by default
+            statusColor = '#ef4444'; // Default to Red
         }
 
         card.innerHTML = `
