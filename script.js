@@ -476,6 +476,10 @@ function isFuzzyMatch(text, query) {
 }
 
 
+const grid = document.getElementById('internship-grid');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const filterBtns = document.querySelectorAll('.filter-btn');
 const companyFilter = document.getElementById('companyFilter');
 
 // State for filters
