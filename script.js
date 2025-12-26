@@ -393,9 +393,7 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const companyFilter = document.getElementById('companyFilter');
-const sortSelect = document.getElementById('sortSelect');
-const resultsCount = document.getElementById('resultsCount');
-const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
 
 // State for filters
 let currentFilters = {
@@ -682,14 +680,7 @@ if (companyFilter) {
     });
 }
 
-// Category Buttons Logic
-document.querySelectorAll('.tag-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const category = e.target.dataset.category;
-        searchInput.value = category;
-        performSearch();
-    });
-});
+
 
 // Clear Filters Logic
 if (clearFiltersBtn) {
