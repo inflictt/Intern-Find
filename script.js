@@ -1343,6 +1343,10 @@ function addMessage(text, sender, actions = []) {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+// Chat State Variables
+let chatState = 'IDLE';
+let failureCount = 0;
+
 function handleChat() {
     const text = chatInput.value.trim().toLowerCase();
     if (!text) return;
