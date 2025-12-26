@@ -25,7 +25,12 @@
                     <li><a href="#about">How it works</a></li>
                 </ul>
             </nav>
-            <a href="#internships" class="btn btn-primary">Browse Jobs</a>
+            <div class="nav-controls">
+                <button id="themeToggle" class="btn btn-icon" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <a href="#internships" class="btn btn-primary">Browse Jobs</a>
+            </div>
         </div>
     </header>
 
@@ -85,11 +90,20 @@
                 </div>
 
                 <div class="filters-bar">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="Internship">Internships</button>
-                    <button class="filter-btn" data-filter="Hackathon">Hackathons</button>
-                    <button class="filter-btn" data-filter="Global">Global</button>
-                    <button class="filter-btn" data-filter="India">India</button>
+                    <div class="filter-group">
+                        <span class="filter-label">Type:</span>
+                        <button class="filter-btn active" data-filter="all" data-type="type">All</button>
+                        <button class="filter-btn" data-filter="Internship" data-type="type">Internships</button>
+                        <button class="filter-btn" data-filter="Hackathon" data-type="type">Hackathons</button>
+                    </div>
+                </div>
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <span class="filter-label">Status:</span>
+                        <button class="filter-btn" data-filter="Open" data-type="status">Open</button>
+                        <button class="filter-btn" data-filter="Coming Soon" data-type="status">Coming Soon</button>
+                        <button class="filter-btn" data-filter="Closed" data-type="status">Closed</button>
+                    </div>
                 </div>
 
                 <div id="internship-grid" class="internship-grid">

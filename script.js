@@ -380,52 +380,184 @@ renderCards([
 ]);
 */
 
+// --- Theme Toggle Logic ---
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const icon = themeToggle.querySelector('i');
+
+// Check local storage or system preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+    enableLightMode();
+}
+
+themeToggle.addEventListener('click', () => {
+    if (body.hasAttribute('data-theme')) {
+        disableLightMode();
+    } else {
+        enableLightMode();
+    }
+});
+
+function enableLightMode() {
+    body.setAttribute('data-theme', 'light');
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+    localStorage.setItem('theme', 'light');
+}
+
+function disableLightMode() {
+    body.removeAttribute('data-theme');
+    icon.classList.remove('fa-sun');
+    icon.classList.add('fa-moon');
+    localStorage.setItem('theme', 'dark');
+}
+
+
+// --- Fuzzy Search Logic (Levenshtein Distance) ---
+function levenshtein(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+
+    const matrix = [];
+
+    // increment along the first column of each row
+    for (let i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+
+    // increment each column in the first row
+    for (let j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    // Fill in the rest of the matrix
+    for (let i = 1; i <= b.length; i++) {
+        for (let j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) == a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(
+                    matrix[i - 1][j - 1] + 1, // substitution
+                    Math.min(
+                        matrix[i][j - 1] + 1, // insertion
+                        matrix[i - 1][j] + 1 // deletion
+                    )
+                );
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
+
+function isFuzzyMatch(text, query) {
+    text = text.toLowerCase();
+    query = query.toLowerCase();
+    if (text.includes(query)) return true;
+
+    // Allow for some typos based on length
+    const distance = levenshtein(text, query);
+    const threshold = Math.max(3, Math.floor(query.length * 0.4)); // Adaptive threshold
+    return distance <= threshold;
+}
+
+
+const grid = document.getElementById('internship-grid');
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const filterBtns = document.querySelectorAll('.filter-btn');
+
+// State for filters
+let currentFilters = {
+    type: 'all',
+    status: 'all' // not strictly used yet but good for future extensibility if we make status buttons
+};
+
 // Initial Render
 renderCards(internshipData);
 
-// Basic Search Logic
-searchBtn.addEventListener('click', () => {
-    const query = searchInput.value.toLowerCase();
-    const filtered = internshipData.filter(item =>
-        item.title.toLowerCase().includes(query) ||
-        item.company.toLowerCase().includes(query) ||
-        item.tags.some(tag => tag.toLowerCase().includes(query))
-    );
+// --- Search Logic ---
+function performSearch() {
+    const query = searchInput.value.trim();
+
+    const filtered = internshipData.filter(item => {
+        // Filter by Type first
+        if (currentFilters.type !== 'all' && item.type !== currentFilters.type) {
+            // Handle special 'India'/'Global' logic if they were kept as types, but here UI uses distinct buttons
+            // For strict type matching (Internship vs Hackathon):
+            if (currentFilters.type === 'Internship' || currentFilters.type === 'Hackathon') {
+                if (item.type !== currentFilters.type) return false;
+            }
+            // Handle Status Filtering from the status buttons
+            if (['Open', 'Coming Soon', 'Closed'].includes(currentFilters.type)) {
+                // reset logic: type status buttons are storing their value in `type` var in this simple implementation? 
+                // No, let's fix the storage logic below.
+            }
+        }
+
+        // Multi-facet filtering logic
+        // 1. Check Type Filter
+        const typeMatch = (currentFilters.type === 'all') ||
+            (item.type === currentFilters.type);
+
+        // 2. Check Status Filter
+        let statusMatch = true;
+        if (currentFilters.status !== 'all') {
+            const s = item.status.toLowerCase();
+            const filterS = currentFilters.status.toLowerCase();
+
+            if (filterS === 'open') statusMatch = s.includes('open') || s.includes('apply');
+            else if (filterS === 'coming soon') statusMatch = s.includes('soon') || s.includes('check');
+            else if (filterS === 'closed') statusMatch = s.includes('closed');
+        }
+
+        // 3. Search Query
+        let searchMatch = true;
+        if (query) {
+            searchMatch = isFuzzyMatch(item.title, query) ||
+                isFuzzyMatch(item.company, query) ||
+                item.tags.some(tag => isFuzzyMatch(tag, query));
+        }
+
+        return typeMatch && statusMatch && searchMatch;
+    });
+
     renderCards(filtered);
+}
+
+searchBtn.addEventListener('click', performSearch);
+searchInput.addEventListener('input', performSearch); // Real-time search
+
+// --- Filter Buttons Logic ---
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const filterType = btn.dataset.type; // 'type' or 'status'
+        const filterValue = btn.dataset.filter;
+
+        // Update Active State within group
+        const group = btn.parentElement;
+        group.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Update State
+        if (filterType === 'type') {
+            currentFilters.type = filterValue;
+        } else if (filterType === 'status') {
+            currentFilters.status = filterValue;
+        }
+
+        performSearch();
+    });
 });
 
 // Category Buttons Logic
 document.querySelectorAll('.tag-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         const category = e.target.dataset.category;
-        searchInput.value = category; // Visual feedback
-        const filtered = internshipData.filter(item =>
-            item.tags.some(tag => tag.includes(category)) ||
-            item.title.includes(category)
-        );
-        renderCards(filtered);
+        searchInput.value = category;
+        performSearch();
     });
 });
 
-// Tab Filters Logic
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all
-        filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active to clicked
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter;
-
-        if (filter === 'all') {
-            renderCards(internshipData);
-        } else if (filter === 'Global' || filter === 'India') {
-            const filtered = internshipData.filter(item => item.location.includes(filter));
-            renderCards(filtered);
-        } else {
-            const filtered = internshipData.filter(item => item.type === filter || item.tags.includes(filter));
-            renderCards(filtered);
-        }
-    });
-});
 
