@@ -18,7 +18,7 @@ const internshipData = [
         tags: ["Hackathon", "Coding", "India"],
         location: "India (Online Rounds)",
         duration: "Feb - July 2026",
-        stipend: "PPO / Cash Awards",
+        stipend: "PPO + ₹2L Prize (Winner)",
         status: "Coming Soon",
         link: "https://www.infosys.com/careers/hackwithinfy.html",
         type: "Hackathon"
@@ -29,7 +29,7 @@ const internshipData = [
         tags: ["Internship", "FTE", "Finance"],
         location: "Bangalore / Hyderabad / Pune",
         duration: "Summer 2026",
-        stipend: "High Stipend + FTE Offer",
+        stipend: "₹1,00,000/mo + FTE Offer",
         status: "Coming Soon",
         link: "https://www.goldmansachs.com/careers",
         type: "Internship"
@@ -40,7 +40,7 @@ const internshipData = [
         tags: ["Hackathon", "Retail Tech", "Innovation"],
         location: "India (Online + Bangalore)",
         duration: "June - Sept 2025",
-        stipend: "₹2.9L Prize Pool + Interviews",
+        stipend: "₹2.9L Winning Prize + Interviews",
         status: "Closed",
         link: "https://walmart.converge.tech/content/converge/en_in/sparkathon.html",
         type: "Hackathon"
@@ -51,7 +51,7 @@ const internshipData = [
         tags: ["Hackathon", "Social Good", "Hiring"],
         location: "India (Mumbai/Bangalore/Hyd)",
         duration: "March - July 2026",
-        stipend: "Internship / FTE Opportunity",
+        stipend: "Internship + FTE Opportunity",
         status: "Coming Soon",
         link: "https://careers.jpmorgan.com/US/en/students/programs/code-for-good",
         type: "Hackathon"
@@ -62,7 +62,7 @@ const internshipData = [
         tags: ["Hackathon", "Innovation", "National"],
         location: "Pan India",
         duration: "June - Dec 2026",
-        stipend: "₹1 Lakh Prize",
+        stipend: "₹1.5 Lakh Winning Prize/team",
         status: "Coming Soon",
         link: "https://sih.gov.in",
         type: "Hackathon"
@@ -73,7 +73,7 @@ const internshipData = [
         tags: ["Hackathon", "E-commerce", "Robotics"],
         location: "India (Online + Bangalore)",
         duration: "June - Aug 2025",
-        stipend: "PPO + Cash Prizes",
+        stipend: "PPO + ₹1.5L Prize (Rank 1)",
         status: "Coming Soon",
         link: "https://unstop.com/hackathons",
         type: "Hackathon"
@@ -95,7 +95,7 @@ const internshipData = [
         tags: ["Internship", "Remote", "Ruby"],
         location: "Remote / Canada / USA",
         duration: "Summer 2026",
-        stipend: "Competitive Salary",
+        stipend: "Competitive Salary (USD/CAD)",
         status: "Open",
         link: "https://www.shopify.com/careers/interns",
         type: "Internship"
@@ -128,7 +128,7 @@ const internshipData = [
         tags: ["Hackathon", "Functional Programming", "Hiring"],
         location: "Bangalore (Online Round 1)",
         duration: "March - May 2026",
-        stipend: "Internship + PPO",
+        stipend: "₹40k/mo Internship + ₹21-27 LPA FTE",
         status: "Coming Soon",
         link: "https://juspay.io/careers",
         type: "Hackathon"
@@ -139,7 +139,7 @@ const internshipData = [
         tags: ["Open Source", "Global", "Mentorship"],
         location: "Remote",
         duration: "May - Aug 2026",
-        stipend: "$1500 - $3000 (varies)",
+        stipend: "$1500 - $3000+ (PPP Adjusted)",
         status: "Coming Soon",
         link: "https://summerofcode.withgoogle.com",
         type: "Internship"
@@ -150,7 +150,7 @@ const internshipData = [
         tags: ["Fellowship", "Open Source", "Remote"],
         location: "Remote",
         duration: "12 Weeks (Rolling)",
-        stipend: "Educational Stipend",
+        stipend: "Up to $5,000 (PPP Adjusted)",
         status: "Open",
         link: "https://fellowship.mlh.io",
         type: "Internship"
@@ -161,7 +161,7 @@ const internshipData = [
         tags: ["Internship", "Diversity", "Open Source"],
         location: "Remote",
         duration: "May - Aug 2026",
-        stipend: "$7,000 Total",
+        stipend: "$7,000 Total ($3k + $4k)",
         status: "Coming Soon",
         link: "https://www.outreachy.org",
         type: "Internship"
