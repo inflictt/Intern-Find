@@ -778,10 +778,7 @@ if (isOpportunitiesPage) {
             }
         });
     });
-    window.location.href = `opportunities.html?search=${encodeURIComponent(category)}`;
-}
-        });
-    });
+
 
 }
 
