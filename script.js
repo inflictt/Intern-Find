@@ -1356,33 +1356,62 @@ function handleChat() {
         { text: "Check High Stipend", handler: () => { handleHomeSearch('stipend'); } }
     ];
 
-    // 1. Check for specific company existence (Fuzzy Match for Typos!)
-    // We check if any company name fuzzy matches the input text
-    const foundCompany = internshipData.find(item => {
-        // Check if user text fuzzy matches company name
-        // OR if company name is essentially inside the text
+    // Advanced Fuzzy Logic
+    let bestMatch = null;
+    let minDistance = Infinity;
+
+    internshipData.forEach(item => {
         const companyName = item.company.toLowerCase();
-        return isFuzzyMatch(companyName, text) || text.includes(companyName);
+        if (text.includes(companyName)) {
+            bestMatch = item;
+            minDistance = 0;
+        } else {
+            const dist = levenshtein(text, companyName);
+            if (dist < minDistance) {
+                minDistance = dist;
+                bestMatch = item;
+            }
+        }
     });
 
-    if (foundCompany) {
-        response = `Yes! We have an opening for **${foundCompany.company}** (${foundCompany.title}). <br>Status: <b>${foundCompany.status}</b>.`;
-        actions = [
-            { text: `Apply to ${foundCompany.company}`, handler: () => { window.openModal(foundCompany.title); } },
-            { text: "Search Similar", handler: () => { handleHomeSearch(foundCompany.type); } }
-        ];
+    if (bestMatch) {
+        const nameLen = bestMatch.company.length;
+        // Relaxed threshold: Allow ~45% difference (e.g. "amaznm" vs "amazon" is 2 diff, 6 len. 2 <= 2.7 -> Match)
+        const threshold = Math.max(2, Math.floor(nameLen * 0.45));
+
+        if (minDistance <= threshold) {
+            // Good Match
+            response = `Yes! We have an opening for **${bestMatch.company}** (${bestMatch.title}). <br>Status: <b>${bestMatch.status}</b>.`;
+            actions = [
+                { text: `Apply to ${bestMatch.company}`, handler: () => { window.openModal(bestMatch.title); } },
+                { text: "Search Similar", handler: () => { handleHomeSearch(bestMatch.type); } }
+            ];
+        } else if (minDistance <= threshold + 2) {
+            // "Did you mean?" Suggestion
+            response = `I couldn't find "${text}", but did you mean **${bestMatch.company}**?`;
+            actions = [
+                { text: `Yes, ${bestMatch.company}`, handler: () => { chatInput.value = bestMatch.company; handleChat(); } },
+                { text: "No, Search All", handler: () => { handleHomeSearch('all'); } }
+            ];
+        }
     }
-    // 2. Common Conversational Intents
-    else if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
+
+    // Common Conversational Intents (Override if no strong company match)
+    if ((!bestMatch || minDistance > 0) && (text.includes('hello') || text.includes('hi') || text.includes('hey'))) {
         response = "Hello! 👋 I can help you find internships. Try typing a company name like 'Google' or 'Amazon'!";
         actions = [
             { text: "Show All Jobs", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } },
             { text: "Hackathons 🏆", handler: () => { handleHomeSearch('Hackathon'); } }
         ];
     }
-    else if (['yes', 'yeah', 'sure', 'yup', 'okay'].some(word => text.includes(word))) {
-        response = "Great! You can start by using the Search bar to find specific roles, or browse the latest cards.";
-        actions = [{ text: "Open Search", handler: () => { document.getElementById('searchBtn').click(); } }];
+    else if (['yes', 'yeah', 'sure', 'yup', 'okay', 'no', 'nope'].some(word => text.includes(word))) {
+        if (text.includes('no') || text.includes('nope')) {
+            response = "Okay! Let me know if you need anything else. You can browse all jobs below.";
+            actions = [{ text: "Browse All", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } }];
+        } else {
+            response = "Great! You can start by using the Search bar to find specific roles, or browse the latest cards.";
+            actions = [{ text: "Open Search", handler: () => { document.getElementById('searchBtn').click(); } }];
+        }
     }
     else if (text.includes('stipend') || text.includes('salary') || text.includes('pay') || text.includes('money')) {
         response = "Stipends range from 10k to 1.5L+. Check specific cards for details. Amazon pays ~1.1L!";
