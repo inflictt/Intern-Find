@@ -7,7 +7,7 @@ const internshipData = [
         tags: ["Hackathon", "AI", "Global"],
         location: "Global (Remote/Hybrid)",
         duration: "Oct 2025 - May 2026",
-        stipend: "$100,000 Prize + Mentorship",
+        stipend: "100,000 USD Prize + Mentorship",
         status: "Open",
         link: "https://imaginecup.microsoft.com",
         type: "Hackathon",
@@ -116,7 +116,7 @@ const internshipData = [
         tags: ["Internship", "Open Source", "Remote"],
         location: "Remote",
         duration: "Rolling (12 weeks)",
-        stipend: "$500 - $1000/month",
+        stipend: "500 - 1000 USD/month",
         status: "Open",
         link: "https://education.github.com/students/octernships",
         type: "Internship",
@@ -320,7 +320,7 @@ const internshipData = [
         tags: ["Hackathon", "AI", "Workshops"],
         location: "Online",
         duration: "Two Phases",
-        stipend: "₹40 Lakh Prize Pool",
+        stipend: "40 Lakh Prize Pool",
         status: "Open",
         link: "https://vision.hack2skill.com/event/ai-for-bharat",
         type: "Hackathon",
@@ -379,12 +379,19 @@ const internshipData = [
 // Helper to get currency icon
 function getCurrencyIcon(stipend) {
     const s = stipend.toLowerCase();
+
+    // Non-monetary rewards
+    if (s.includes('internship +') || s.includes('mentorship') && !s.match(/\d/)) {
+        return 'fa-gift';
+    }
+
     if (s.includes('$') || s.includes('usd')) return 'fa-dollar-sign';
     if (s.includes('€') || s.includes('eur')) return 'fa-euro-sign';
     if (s.includes('£') || s.includes('gbp')) return 'fa-pound-sign';
     if (s.includes('yen') || s.includes('jpy')) return 'fa-yen-sign';
-    if (s.includes('₹') || s.includes('inr')) return 'fa-indian-rupee-sign';
-    return 'fa-indian-rupee-sign'; // Default to Rupee as requested
+    if (s.includes('₹') || s.includes('inr') || s.includes('lakh') || s.includes('crore')) return 'fa-indian-rupee-sign';
+
+    return 'fa-indian-rupee-sign'; // Default to Rupee
 }
 
 // Helper to parse stipend value for sorting (Returns annual estimate in INR)
@@ -495,13 +502,15 @@ function renderCards(data) {
             
             <div class="card-footer">
                 <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
-                <a href="${item.link}" target="_blank" class="btn btn-primary apply-btn">View Details</a>
+                <button onclick="openModal('${item.title}')" class="btn btn-primary apply-btn">View Details</button>
             </div>
         `;
 
         grid.appendChild(card);
     });
 }
+// Note: We'll use title as ID for simplicity in this MVP, 
+// ideally would use a unique ID field. for safety we'll fuzzy match in openModal if needed.
 
 // Initial placeholder render (will be cleared when real data comes)
 /*
@@ -625,16 +634,87 @@ populateCompanyDropdown();
 // Initial Render
 renderCards(internshipData);
 
+// --- Modal Logic ---
+const modal = document.getElementById('internshipModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const detailsView = document.getElementById('modalDetailsView');
+const confirmView = document.getElementById('modalConfirmView');
+const proceedBtn = document.getElementById('proceedToApplyBtn');
+const confirmRedirectBtn = document.getElementById('confirmRedirectBtn');
+const cancelRedirectBtn = document.getElementById('cancelRedirectBtn');
+
+let currentInternshipLink = '';
+
+// Open Modal
+window.openModal = function (title) {
+    const item = internshipData.find(i => i.title === title);
+    if (!item) return;
+
+    currentInternshipLink = item.link;
+
+    // Reset View
+    detailsView.classList.remove('hidden');
+    confirmView.classList.add('hidden');
+
+    // Populate Data
+    document.getElementById('modalTitle').textContent = item.title;
+    document.getElementById('modalCompany').textContent = item.company;
+    document.getElementById('modalLocation').textContent = item.location;
+    document.getElementById('modalDuration').textContent = item.duration;
+    document.getElementById('modalStipend').textContent = item.stipend;
+    document.getElementById('modalPosted').textContent = new Date(item.postedDate).toDateString();
+
+    // Icons
+    const stipendIcon = document.getElementById('modalStipendIcon');
+    stipendIcon.className = 'fa-solid ' + getCurrencyIcon(item.stipend);
+
+    // Tags
+    const tagsContainer = document.getElementById('modalTags');
+    tagsContainer.innerHTML = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+
+    // Show Modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
+};
+
+// Close Modal
+function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+closeModalBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+});
+
+// Proceed to Confirmation
+proceedBtn.addEventListener('click', () => {
+    detailsView.classList.add('hidden');
+    confirmView.classList.remove('hidden');
+});
+
+// Confirm Redirect
+confirmRedirectBtn.addEventListener('click', () => {
+    window.open(currentInternshipLink, '_blank');
+    closeModal();
+});
+
+// Cancel Redirect
+cancelRedirectBtn.addEventListener('click', () => {
+    // Return to details view
+    confirmView.classList.add('hidden');
+    detailsView.classList.remove('hidden');
+});
+
 // --- Search Logic ---
 function performSearch() {
     const query = searchInput.value.trim();
-
     const filtered = internshipData.filter(item => {
         // Multi-facet filtering logic
 
         // 1. Check Type Filter
-        const typeMatch = (currentFilters.type === 'all') ||
-            (item.type === currentFilters.type);
+        const typeMatch = (currentFilters.type === 'all') || (item.type === currentFilters.type);
 
         // 2. Check Status Filter
         let statusMatch = true;

@@ -202,6 +202,63 @@
     </footer>
 
     <!-- Version 1.1: Forces update for Filters & Dark Mode -->
+    <!-- Internship Detail Modal -->
+    <div id="internshipModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+
+            <!-- View 1: Details -->
+            <div id="modalDetailsView">
+                <div class="modal-header">
+                    <div id="modalIconContainer"></div>
+                    <div>
+                        <h2 id="modalTitle">Role Title</h2>
+                        <p id="modalCompany" class="text-muted">Company Name</p>
+                    </div>
+                </div>
+
+                <div class="modal-body-grid">
+                    <div class="modal-stat">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span id="modalLocation">Location</span>
+                    </div>
+                    <div class="modal-stat">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span id="modalDuration">Duration</span>
+                    </div>
+                    <div class="modal-stat">
+                        <i class="fa-solid fa-money-bill-wave" id="modalStipendIcon"></i>
+                        <span id="modalStipend">Stipend</span>
+                    </div>
+                    <div class="modal-stat">
+                        <i class="fa-solid fa-clock"></i>
+                        <span id="modalPosted">Posted Date</span>
+                    </div>
+                </div>
+
+                <div class="modal-tags" id="modalTags">
+                    <!-- Tags injected here -->
+                </div>
+
+                <div class="modal-actions">
+                    <button id="proceedToApplyBtn" class="btn btn-primary full-width">Apply Now <i
+                            class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                </div>
+            </div>
+
+            <!-- View 2: Confirmation -->
+            <div id="modalConfirmView" class="hidden text-center">
+                <div class="confirm-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <h3>External Redirect</h3>
+                <p>You are regarding to leave InternNow to visit the official application page.</p>
+                <div class="confirm-actions">
+                    <button id="cancelRedirectBtn" class="btn btn-outline">Go Back</button>
+                    <button id="confirmRedirectBtn" class="btn btn-primary">Yes, Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
