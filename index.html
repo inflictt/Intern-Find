@@ -311,6 +311,45 @@
         </div>
     </div>
 
+    <!-- Tools & Widgets -->
+    <div class="fab-container">
+        <button id="fabFeedback" class="fab-btn" title="Feedback"><i class="fa-solid fa-comment-dots"></i></button>
+        <button id="fabChat" class="fab-btn" title="Help Chat"><i class="fa-solid fa-robot"></i></button>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header-simple">
+                <h3>Submit Feedback</h3>
+                <button id="closeFeedbackBtn" class="close-simple"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="feedback-form">
+                <textarea id="feedbackInput" placeholder="Tell us what you think or report a bug..."
+                    rows="5"></textarea>
+                <div class="form-actions">
+                    <button id="submitFeedbackBtn" class="btn btn-primary">Send Feedback</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Bot Widget -->
+    <div id="chatWidget" class="chat-widget hidden">
+        <div class="chat-header">
+            <h4>InternBot Helper</h4>
+            <button id="closeChatBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-msg bot">Hi! I can help you find internships or answer FAQs. Ask me anything!</div>
+            <!-- Messages go here -->
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Ask a question...">
+            <button id="sendChatBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 

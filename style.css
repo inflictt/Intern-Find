@@ -1065,3 +1065,222 @@ footer {
     background: #000;
     color: #fff;
 }
+
+/* --- FAB and Widgets --- */
+.fab-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1100;
+}
+
+.fab-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.fab-btn:hover {
+    transform: scale(1.1);
+    background: var(--primary-hover);
+}
+
+/* Chat Widget */
+.chat-widget {
+    position: fixed;
+    bottom: 100px;
+    right: 24px;
+    width: 350px;
+    height: 450px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    z-index: 1100;
+    overflow: hidden;
+}
+
+.chat-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.chat-msg {
+    padding: 8px 12px;
+    border-radius: 8px;
+    max-width: 80%;
+    font-size: 0.9rem;
+}
+
+.chat-msg.bot {
+    background: rgba(255, 255, 255, 0.1);
+    align-self: flex-start;
+}
+
+[data-theme="light"] .chat-msg.bot {
+    background: #f3f4f6;
+}
+
+.chat-msg.user {
+    background: var(--primary-color);
+    color: white;
+    align-self: flex-end;
+}
+
+.chat-input-area {
+    padding: 12px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-main);
+}
+
+#sendChatBtn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Feedback Modal - Simple Header */
+.modal-header-simple {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.close-simple {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.feedback-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-main);
+    resize: vertical;
+}
+
+
+/* --- Search Results List View (Professional) --- */
+.search-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.search-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(4px);
+    border-color: var(--primary-color);
+}
+
+[data-theme="light"] .search-item {
+    background: #fff;
+    border-color: #eee;
+}
+
+[data-theme="light"] .search-item:hover {
+    background: #f9fafb;
+    border-color: var(--primary-color);
+}
+
+.search-item-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.company-icon-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.search-info h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+    color: var(--text-main);
+}
+
+.search-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-item-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-icon-sm {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
+    cursor: pointer;
+}

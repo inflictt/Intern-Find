@@ -2,6 +2,51 @@
 
 const internshipData = [
     {
+        title: "Google STEP Intern 2026",
+        company: "Google",
+        tags: ["Internship", "Diversity", "First Year"],
+        location: "Bangalore / Hyderabad",
+        duration: "Summer 2026",
+        stipend: "Competitive + Perks",
+        status: "Open",
+        link: "https://buildyourfuture.withgoogle.com/programs/step",
+        type: "Internship",
+        postedDate: "2024-12-28",
+        description: "Program for 1st/2nd-year CS students to work on real software projects. Focus on personal and professional development.",
+        eligibility: "First and Second year undergraduate students. Historically underrepresented groups in tech encouraged.",
+        deadline: "Jan 2026"
+    },
+    {
+        title: "Microsoft Explore Intern 2026",
+        company: "Microsoft",
+        tags: ["Internship", "Rotational", "First Year"],
+        location: "Hyderabad / Bangalore",
+        duration: "Summer 2026",
+        stipend: "Competitive + Benefits",
+        status: "Open",
+        link: "https://careers.microsoft.com/students/us/en/explore-program",
+        type: "Internship",
+        postedDate: "2024-12-28",
+        description: "Rotational program across software engineering and program management. Designed to help students explore different roles.",
+        eligibility: "First or Second year students enrolled in a bachelor's degree program.",
+        deadline: "Feb 2026"
+    },
+    {
+        title: "Meta University 2026",
+        company: "Meta",
+        tags: ["Internship", "Education", "Diversity"],
+        location: "Remote / Menlo Park",
+        duration: "10 Weeks",
+        stipend: "Paid Internship",
+        status: "Coming Soon",
+        link: "https://www.metacareers.com/students",
+        type: "Internship",
+        postedDate: "2024-12-28",
+        description: "10-week immersive program for underrepresented students in tech. Includes coding bootcamps and project work.",
+        eligibility: "First and Second year college students.",
+        deadline: "Spring 2026"
+    },
+    {
         title: "Microsoft Imagine Cup 2026",
         company: "Microsoft",
         tags: ["Hackathon", "AI", "Global"],
@@ -13,7 +58,7 @@ const internshipData = [
         type: "Hackathon",
         postedDate: "2024-12-20",
         description: "Microsoft Imagine Cup is the premier global student technology competition. Build AI-driven solutions with Microsoft Cloud technologies to address real-world challenges.",
-        eligibility: "Students aged 16+ enrolled in an accredited institution. Teams of 1-4 members.",
+        eligibility: "Students aged 16+ enrolled in an accredited institution (School/University). Teams of 1-4 members. No coding experience required for some tracks.",
         deadline: "May 2026"
     },
 
@@ -29,7 +74,7 @@ const internshipData = [
         type: "Hackathon",
         postedDate: "2024-12-15",
         description: "Infosys HackWithInfy is a coding competition for engineering students. Top performers get pre-placement interviews (PPIs) and cash prizes.",
-        eligibility: "B.E./B.Tech/M.E./M.Tech students graduating in 2026.",
+        eligibility: "B.E./B.Tech/M.E./M.Tech students graduating in 2026. Minimum 60% or 6 CGPA throughout academics.",
         deadline: "July 2026"
     },
     {
@@ -42,7 +87,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://www.goldmansachs.com/careers",
         type: "Internship",
-        postedDate: "2024-12-18"
+        postedDate: "2024-12-18",
+        description: "Goldman Sachs Engineering Campus Hiring is a premier opportunity to join their global engineering teams.",
+        eligibility: "Pre-final year B.Tech/Dual Degree students (2026 Batch). Strong DSA and Quant skills.",
+        deadline: "Apply ASAP"
     },
     {
         title: "Walmart Sparkathon",
@@ -56,7 +104,7 @@ const internshipData = [
         type: "Hackathon",
         postedDate: "2024-11-10",
         description: "Walmart Sparkathon involves building innovative retail tech solutions. Winners get huge cash prizes and interview opportunities.",
-        eligibility: "Open to all engineering students across India in teams of 3-4.",
+        eligibility: "Open to all engineering students across India in teams of 3-4. All members must be from same college.",
         deadline: "Sept 2025"
     },
     {
@@ -129,7 +177,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.shopify.com/careers/interns",
         type: "Internship",
-        postedDate: "2024-12-22"
+        postedDate: "2024-12-22",
+        description: "Shopify internships are remote-first. Work on high-scale e-commerce systems used by millions.",
+        eligibility: "Undergraduate students graduating in 2026 or later. Experience with Ruby/Rails or React is proficient.",
+        deadline: "Feb 2026"
     },
     {
         title: "GitHub Octernships",
@@ -171,7 +222,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://juspay.io/careers",
         type: "Hackathon",
-        postedDate: "2024-12-08"
+        postedDate: "2024-12-08",
+        description: "Juspay Hiring Challenge. Solve complex functional programming challenges.",
+        eligibility: "B.E/B.Tech students (2025/2026 Batch). Proficiency in Functional Programming (Haskell/PureScript) is a preferred.",
+        deadline: "May 2026"
     },
     {
         title: "Google Summer of Code 2026",
@@ -183,7 +237,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://summerofcode.withgoogle.com",
         type: "Internship",
-        postedDate: "2024-11-30"
+        postedDate: "2024-11-30",
+        description: "GSoC is a global program focused on bringing more student developers into open source software development.",
+        eligibility: "Students aged 18+ enrolled in a post-secondary academic program (College/University), or fresh graduates.",
+        deadline: "April 2026"
     },
     {
         title: "MLH Fellowship 2026",
@@ -219,7 +276,10 @@ const internshipData = [
         status: "Check Careers",
         link: "https://www2.deloitte.com/in/en/pages/careers/articles/life-at-deloitte-india-careers.html",
         type: "Internship",
-        postedDate: "2024-12-10"
+        postedDate: "2024-12-10",
+        description: "Deloitte India consulting and technical internships. Work on enterprise solutions.",
+        eligibility: "B.Tech/M.Tech (CS/IT/Circuital Branches) graduating in 2026. 6.5+ CGPA.",
+        deadline: "Rolling"
     },
     {
         title: "Morgan Stanley Summer Analyst",
@@ -231,7 +291,10 @@ const internshipData = [
         status: "Open",
         link: "https://www.morganstanley.com/people-opportunities/students-graduates",
         type: "Internship",
-        postedDate: "2024-12-24"
+        postedDate: "2024-12-24",
+        description: "Morgan Stanley Technology Summer Analyst Program. Work on financial technology platforms.",
+        eligibility: "Bachelors/Masters students graduating between Dec 2025 and June 2026. Strong CS fundamentals.",
+        deadline: "Apply ASAP"
     },
     {
         title: "Intuit Summer Internship 2026",
@@ -258,7 +321,10 @@ const internshipData = [
         status: "Open (Job ID 1449112)",
         link: "https://jobs.cisco.com/jobs/SearchJobs",
         type: "Internship",
-        postedDate: "2024-12-19"
+        postedDate: "2024-12-19",
+        description: "Cisco Technical Interns work on networking protocols, security, and cloud infra.",
+        eligibility: "B.E/B.Tech students (CS/IT/ECE). CGPA 7.0 and above. 2026 Batch.",
+        deadline: "Apply ASAP"
     },
     {
         title: "Amazon SDE Internship 2026",
@@ -375,7 +441,10 @@ const internshipData = [
         status: "Open",
         link: "https://vision.hack2skill.com/event/ai-for-bharat",
         type: "Hackathon",
-        postedDate: "2024-12-24"
+        postedDate: "2024-12-24",
+        description: "A nationwide AI skilling and innovation initiative by AWS and Hack2Skill.",
+        eligibility: "Open to all students and working professionals. No age limit.",
+        deadline: "Phase 1 Ending Soon"
     },
     {
         title: "OIST Research Internship Fall 2026",
@@ -387,7 +456,10 @@ const internshipData = [
         status: "Open (Apply by Apr 15)",
         link: "https://admissions.oist.jp/apply-research-internship",
         type: "Internship",
-        postedDate: "2024-12-23"
+        postedDate: "2024-12-23",
+        description: "OIST Research Internship Program (Japan). Fully funded research opportunity in STEM fields.",
+        eligibility: "Excellent students in final 2 years of Undergraduate or Masters program (STEM).",
+        deadline: "Apr 15 2026"
     },
     {
         title: "Autodesk Internship 2026",
@@ -491,6 +563,23 @@ let currentFilters = {
     sort: 'latest' // latest, oldest, stipend-high, stipend-low
 };
 
+const getCompanyLogo = (company) => {
+    const slugMap = {
+        "goldman sachs": "goldmansachs", "jpmorgan chase": "jpmorgan", "govt of india": "india",
+        "walmart global tech": "walmart", "deloitte india": "deloitte", "taylor & francis group": "taylorandfrancis",
+        "aws / hack2skill": "amazonaws", "oist japan": "japan", "major league hacking": "mlh", "google": "google"
+    };
+    let slug = company.toLowerCase().trim();
+    if (slugMap[slug]) slug = slugMap[slug];
+    else slug = slug.replace(/[^a-z0-9]/g, '');
+
+    const initial = company.charAt(0);
+    return `<img src="https://cdn.simpleicons.org/${slug}" alt="${company}" 
+                 class="company-logo-img" 
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">${initial}</div>`;
+};
+
 function renderCards(data, container = grid) {
     if (!container) return;
     container.innerHTML = '';
@@ -527,10 +616,13 @@ function renderCards(data, container = grid) {
 
         card.innerHTML = `
             <div class="card-header">
-                <div>
-                    <h3 class="role-title">${item.title}</h3>
-                    <div class="company-name">
-                        <i class="fa-solid fa-building"></i> ${item.company}
+                <div style="display:flex; gap:12px; align-items:center;">
+                    <div class="company-logo-wrapper" style="width:40px; height:40px; border-radius:8px; overflow:hidden; background:var(--bg-color); display:flex; align-items:center; justify-content:center; border:1px solid var(--border-color);">
+                        ${getCompanyLogo(item.company)}
+                    </div>
+                    <div>
+                        <h3 class="role-title">${item.title}</h3>
+                        <div class="company-name" style="margin-top:2px;">${item.company}</div>
                     </div>
                 </div>
                 ${item.type === 'Hackathon' ? '<i class="fa-solid fa-trophy" style="color: gold;"></i>' : '<i class="fa-solid fa-briefcase"></i>'}
@@ -729,7 +821,7 @@ if (isOpportunitiesPage) {
 
         // Populate Modal
         if (searchQueryDisplay) searchQueryDisplay.textContent = query;
-        renderCards(filtered, searchResultsGrid);
+        renderSearchResults(filtered, searchResultsGrid);
 
         // Show Modal
         if (searchModal) {
@@ -1040,6 +1132,160 @@ if (clearFiltersBtn) {
 
 // Initial Render (Use performSearch to respect default 'Open' filter)
 performSearch();
+
+// --- Render Search Results (List View) ---
+function renderSearchResults(data, container) {
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (data.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-cloud-moon" style="font-size: 3rem; margin-bottom: 16px; opacity: 0.5;"></i>
+                <p>No matches found.</p>
+                <p style="font-size: 0.85rem;">Try "Amazon", "Hackathon", or "Internship"</p>
+            </div>
+        `;
+        return;
+    }
+
+    const list = document.createElement('div');
+    list.className = 'search-list';
+
+    data.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'search-item';
+
+        // Status Badge Logic
+        let statusClass = 'status-badge';
+        const s = item.status.toLowerCase();
+        if (s.includes('open')) statusClass += ' status-open';
+        else if (s.includes('closed')) statusClass += ' status-closed';
+        else statusClass += ' status-pending';
+
+        const logoHTML = getCompanyLogo(item.company);
+
+        row.innerHTML = `
+            <div class="search-item-left">
+                <div class="company-icon-sm" style="background:transparent; padding:0;">${logoHTML}</div>
+                <div class="search-info">
+                    <h4>${item.title}</h4>
+                    <span class="search-meta"><i class="fa-solid fa-building"></i> ${item.company} &bull; ${item.location}</span>
+                </div>
+            </div>
+            <div class="search-item-right">
+                <span class="${statusClass}">${item.status}</span>
+                <button class="btn-icon-sm"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        `;
+
+        // Interaction
+        row.addEventListener('click', () => {
+            // Close search modal
+            const searchModal = document.getElementById('searchModal');
+            if (searchModal) searchModal.classList.remove('active');
+            setTimeout(() => {
+                if (searchModal) searchModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                // Open Details Modal
+                window.openModal(item.title);
+            }, 200);
+        });
+
+        list.appendChild(row);
+    });
+
+    container.appendChild(list);
+}
+
+// --- Widget Logic (Feedback & Chat) ---
+const fabFeedback = document.getElementById('fabFeedback');
+const feedbackModal = document.getElementById('feedbackModal');
+const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
+const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+const feedbackInput = document.getElementById('feedbackInput');
+
+if (fabFeedback && feedbackModal) {
+    fabFeedback.addEventListener('click', () => {
+        feedbackModal.classList.remove('hidden');
+    });
+    closeFeedbackBtn.addEventListener('click', () => {
+        feedbackModal.classList.add('hidden');
+    });
+    submitFeedbackBtn.addEventListener('click', () => {
+        const text = feedbackInput.value.trim();
+        if (text) {
+            alert("Thank you for your feedback! We have received it.");
+            feedbackInput.value = '';
+            feedbackModal.classList.add('hidden');
+        }
+    });
+}
+
+// --- Chat Bot Logic ---
+const fabChat = document.getElementById('fabChat');
+const chatWidget = document.getElementById('chatWidget');
+const closeChatBtn = document.getElementById('closeChatBtn');
+const chatInput = document.getElementById('chatInput');
+const sendChatBtn = document.getElementById('sendChatBtn');
+const chatBody = document.getElementById('chatBody');
+
+const botResponses = {
+    "hello": "Hi there! How can I assist you today?",
+    "hi": "Hello! Looking for an internship?",
+    "internship": "You can find internships by clicking 'Browse Jobs' or scrolling to the opportunities section.",
+    "hackathon": "We feature hackathons from Microsoft, government bodies, and top tech firms. Filter by 'Hackathon' type!",
+    "stipend": "Stipends vary by company. We list them clearly on each opportunity card.",
+    "resume": "Need resume help? Check out our Resume section for templates and tips.",
+    "contact": "You can reach us at support@internnow.com",
+    "default": "I'm not sure about that. Try asking about internships, hackathons, or stipends!"
+};
+
+function addMessage(text, sender) {
+    if (!chatBody) return;
+    const msg = document.createElement('div');
+    msg.className = `chat-msg ${sender}`;
+    msg.textContent = text;
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function handleChat() {
+    const text = chatInput.value.trim().toLowerCase();
+    if (!text) return;
+
+    addMessage(chatInput.value, 'user'); // Original case
+    chatInput.value = '';
+
+    // Simple matching
+    let response = botResponses["default"];
+    for (const key in botResponses) {
+        if (text.includes(key)) {
+            response = botResponses[key];
+            break;
+        }
+    }
+
+    setTimeout(() => {
+        addMessage(response, 'bot');
+    }, 500);
+}
+
+if (fabChat && chatWidget) {
+    fabChat.addEventListener('click', () => {
+        chatWidget.classList.toggle('hidden');
+    });
+    closeChatBtn.addEventListener('click', () => {
+        chatWidget.classList.add('hidden');
+    });
+
+    if (sendChatBtn) sendChatBtn.addEventListener('click', handleChat);
+    if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleChat();
+        });
+    }
+}
 
 
 
