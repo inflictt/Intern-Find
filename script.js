@@ -830,10 +830,24 @@ function performSearch() {
         filtered.sort((a, b) => parseStipendValue(a.stipend) - parseStipendValue(b.stipend));
     }
 
-    // If on Home Page and NO filters/text are active, limit to 6
-    // But if filters ARE active involved, show all matches?
-    // User request: "Show only 6 opportunities on the main page INITIALLY"
-    // Interpretation: Search results can show more.
+    // If on Home Page and NO filters/text are active, limit to 4
+    // Defaults: type='all', status='Open', company='all', query=''
+    if (!isOpportunitiesPage) {
+        const isDefaultFilters =
+            currentFilters.type === 'all' &&
+            currentFilters.status === 'Open' &&
+            currentFilters.company === 'all' &&
+            query === '';
+
+        if (isDefaultFilters) {
+            renderCards(filtered.slice(0, 4));
+            // Also update count to show "Showing Top 4"
+            if (document.getElementById('resultsCount')) {
+                document.getElementById('resultsCount').textContent = `Showing 4 featured opportunities`;
+            }
+            return;
+        }
+    }
 
     renderCards(filtered);
     updateResultsCount(filtered.length);
