@@ -1354,6 +1354,21 @@ function handleChat() {
     addMessage(chatInput.value, 'user');
     chatInput.value = '';
 
+    // --- STATE MACHINE HANDLER ---
+    if (chatState === 'AWAITING_CHOICE') {
+        chatState = 'IDLE';
+        if (['yes', 'yeah', 'sure', 'yup', 'show'].some(w => text.includes(w))) {
+            addMessage("Great! You can browse internships below or search by company.", 'bot', [
+                { text: "Browse All", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } },
+                { text: "Search Amazon", handler: () => { chatInput.value = "Amazon"; handleChat(); } }
+            ]);
+            return;
+        } else if (text.includes('no') || text.includes('nope')) {
+            addMessage("No problem! Let me know if you need anything else.", 'bot');
+            return;
+        }
+    }
+
     let response = "I'm not sure about that. Try asking about **internships**, **stipends**, or a specific company like **Amazon**.";
     let actions = [
         { text: "Browse Internships", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } },
@@ -1402,10 +1417,11 @@ function handleChat() {
 
     // Common Conversational Intents (Override if no strong company match)
     if ((!bestMatch || minDistance > 0) && (text.includes('hello') || text.includes('hi') || text.includes('hey'))) {
-        response = "Hello! 👋 I can help you find internships. Try typing a company name like 'Google' or 'Amazon'!";
+        response = "Hello! 👋 Looking for an internship?";
+        chatState = 'AWAITING_CHOICE';
         actions = [
-            { text: "Show All Jobs", handler: () => { window.scrollTo({ top: document.getElementById('internships').offsetTop - 100, behavior: 'smooth' }); } },
-            { text: "Hackathons 🏆", handler: () => { handleHomeSearch('Hackathon'); } }
+            { text: "Yes, show me", handler: () => { chatInput.value = "Yes"; handleChat(); } },
+            { text: "No, just browsing", handler: () => { chatInput.value = "No"; handleChat(); } }
         ];
     }
     else if (['yes', 'yeah', 'sure', 'yup', 'okay', 'no', 'nope'].some(word => text.includes(word))) {
