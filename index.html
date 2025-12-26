@@ -23,6 +23,7 @@
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#internships">Internships</a></li>
                     <li><a href="#about">How it works</a></li>
+                    <li><a href="#">Resume</a></li>
                 </ul>
             </nav>
             <div class="nav-controls">
@@ -38,7 +39,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <div class="container hero-content">
-                <div class="badge">🚀 Connecting talent with opportunity</div>
+
                 <h1>Find your next <span class="text-gradient">internship</span></h1>
                 <p class="hero-subtitle">Discover curated internship opportunities and hackathons from top tech
                     companies. Start building your career today.</p>
@@ -89,32 +90,33 @@
                     <p>Hand-picked opportunities top global companies</p>
                 </div>
 
-                <div class="filters-bar">
-                    <div class="filter-group">
+                <div class="filters-container">
+                    <div class="filter-row">
                         <span class="filter-label">Type:</span>
-                        <button class="filter-btn active" data-filter="all" data-type="type">All</button>
-                        <button class="filter-btn" data-filter="Internship" data-type="type">Internships</button>
-                        <button class="filter-btn" data-filter="Hackathon" data-type="type">Hackathons</button>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all" data-type="type">All</button>
+                            <button class="filter-btn" data-filter="Internship" data-type="type">Internships</button>
+                            <button class="filter-btn" data-filter="Hackathon" data-type="type">Hackathons</button>
+                        </div>
                     </div>
-                </div>
-                <div class="filters-bar">
-                    <div class="filter-group">
-                        <span class="filter-label">Status:</span>
-                        <button class="filter-btn active" data-filter="Open" data-type="status">Open</button>
-                        <button class="filter-btn" data-filter="Coming Soon" data-type="status">Coming Soon</button>
-                        <button class="filter-btn" data-filter="Closed" data-type="status">Closed</button>
-                    </div>
-                </div>
 
-                <div class="filters-bar">
-                    <div class="filter-group">
-                        <span class="filter-label">Company:</span>
-                        <select id="companyFilter" class="filter-select">
-                            <option value="all">All Companies</option>
-                            <!-- Options will be populated by JS -->
-                        </select>
+                    <div class="filter-row">
+                        <span class="filter-label">Status:</span>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="Open" data-type="status">Open</button>
+                            <button class="filter-btn" data-filter="Coming Soon" data-type="status">Coming Soon</button>
+                            <button class="filter-btn" data-filter="Closed" data-type="status">Closed</button>
+                        </div>
                     </div>
-                    <div class="filters-bar">
+
+                    <div class="filter-row dropdowns-row">
+                        <div class="filter-group">
+                            <span class="filter-label">Company:</span>
+                            <select id="companyFilter" class="filter-select">
+                                <option value="all">All Companies</option>
+                                <!-- Populate via JS -->
+                            </select>
+                        </div>
                         <div class="filter-group">
                             <span class="filter-label">Sort By:</span>
                             <select id="sortSelect" class="filter-select">
@@ -125,18 +127,24 @@
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <div class="filters-summary">
-                        <span id="resultsCount" class="results-count">Showing all opportunities</span>
-                        <button id="clearFiltersBtn" class="btn-text">Clear Filters</button>
-                    </div>
+                <div class="filters-summary">
+                    <span id="resultsCount" class="results-count">Showing all opportunities</span>
+                    <button id="clearFiltersBtn" class="btn-text">Clear Filters</button>
+                </div>
 
-                    <div id="internship-grid" class="internship-grid">
-                        <!-- Cards will be injected here by JS -->
-                        <div class="card skeleton-card"></div>
-                        <div class="card skeleton-card"></div>
-                        <div class="card skeleton-card"></div>
-                    </div>
+                <div id="internship-grid" class="internship-grid">
+                    <!-- Cards will be injected here by JS -->
+                    <div class="card skeleton-card"></div>
+                    <div class="card skeleton-card"></div>
+                    <div class="card skeleton-card"></div>
+                </div>
+                <div id="internship-grid" class="internship-grid">
+                    <!-- Cards will be injected here by JS -->
+                    <div class="card skeleton-card"></div>
+                    <div class="card skeleton-card"></div>
+                    <div class="card skeleton-card"></div>
                 </div>
         </section>
 
