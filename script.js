@@ -285,7 +285,10 @@ const internshipData = [
         status: "Open (Apply by Jan 17)",
         link: "https://careers.taylorandfrancisgroup.com/jobs",
         type: "Internship",
-        postedDate: "2024-12-21"
+        postedDate: "2024-12-21",
+        description: "Work on digital learning platforms and academic publishing tech. Innovative environment.",
+        eligibility: "Final or pre-final year students.",
+        deadline: "Jan 17 2025"
     },
     {
         title: "Cred Internship 2026",
@@ -297,7 +300,10 @@ const internshipData = [
         status: "Coming Soon",
         link: "https://careers.cred.club/",
         type: "Internship",
-        postedDate: "2024-12-16"
+        postedDate: "2024-12-16",
+        description: "CRED backend interns build high-scale financial systems. Requires strong problem-solving skills and coding capability.",
+        eligibility: "Passionate builders. Past internship experience is a bonus.",
+        deadline: "Apply ASAP"
     },
     {
         title: "Securonix SECUROTHON 2025",
