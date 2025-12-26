@@ -403,6 +403,21 @@ ul {
 .dropdowns-row {
     width: 100%;
     justify-content: center;
+    flex-wrap: nowrap;
+    /* Force side-by-side */
+}
+
+@media (max-width: 600px) {
+    .dropdowns-row {
+        flex-wrap: wrap;
+        /* Only wrap on very small screens */
+    }
+
+    .filter-select {
+        min-width: 140px;
+        /* Allow smaller width on mobile */
+        flex: 1;
+    }
 }
 
 .filter-group {

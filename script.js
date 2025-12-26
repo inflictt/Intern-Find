@@ -14,6 +14,30 @@ const internshipData = [
         postedDate: "2024-12-20"
     },
     {
+        title: "Atlassian Women in Tech Internship",
+        company: "Atlassian",
+        tags: ["Internship", "Women in Tech", "SDE"],
+        location: "Bangalore / Remote",
+        duration: "May - July 2025",
+        stipend: "₹1,20,000/mo + Perks",
+        status: "Open",
+        link: "https://www.atlassian.com/company/careers/students",
+        type: "Women in Tech",
+        postedDate: "2024-12-24"
+    },
+    {
+        title: "NXP Women in Tech Program",
+        company: "NXP Semiconductors",
+        tags: ["Internship", "Women in Tech", "Core"],
+        location: "Noida / Bangalore",
+        duration: "1 Year Program",
+        stipend: "₹50,000 Scholarship + Internship",
+        status: "Coming Soon",
+        link: "https://www.nxp.com/company/about-nxp/careers",
+        type: "Women in Tech",
+        postedDate: "2024-12-25"
+    },
+    {
         title: "HackWithInfy 2026",
         company: "Infosys",
         tags: ["Hackathon", "Coding", "India"],
