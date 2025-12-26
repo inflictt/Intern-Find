@@ -200,6 +200,25 @@
     </footer>
 
     <!-- Version 1.1: Forces update for Filters & Dark Mode -->
+    <!-- Search Results Modal -->
+    <div id="searchModal" class="modal-overlay hidden">
+        <div class="modal-content" style="max-width: 800px; width: 95%;">
+            <button id="closeSearchModalBtn" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="modal-header-voucher"
+                style="border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;">
+                <div class="header-info">
+                    <h2>Search Results</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Found matches for "<span
+                            id="searchQueryDisplay">...</span>"</p>
+                </div>
+            </div>
+            <div id="searchResultsGrid" class="internship-grid"
+                style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+                <!-- Results populated via JS -->
+            </div>
+        </div>
+    </div>
+
     <!-- Internship Detail Modal -->
     <div id="internshipModal" class="modal-overlay hidden">
         <div class="modal-content">
