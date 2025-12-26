@@ -383,7 +383,7 @@ function getCurrencyIcon(stipend) {
     if (s.includes('£') || s.includes('gbp')) return 'fa-pound-sign';
     if (s.includes('yen') || s.includes('jpy')) return 'fa-yen-sign';
     if (s.includes('₹') || s.includes('inr')) return 'fa-indian-rupee-sign';
-    return 'fa-money-bill-wave'; // Default
+    return 'fa-indian-rupee-sign'; // Default to Rupee as requested
 }
 
 // Helper to parse stipend value for sorting (Returns annual estimate in INR)
