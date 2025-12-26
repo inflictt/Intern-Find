@@ -91,6 +91,14 @@
                 </div>
 
                 <div class="filters-container">
+                    <!-- Smart Filters (Advanced) -->
+                    <div class="quick-filters"
+                        style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                        <button class="filter-chip" onclick="handleHomeSearch('stipend')">💰 High Stipend</button>
+                        <button class="filter-chip" onclick="handleHomeSearch('Amazon')">🏢 FAANG Only</button>
+                        <button class="filter-chip" onclick="handleHomeSearch('Closing Soon')">⏳ Closing Soon</button>
+                    </div>
+
                     <div class="filter-row">
                         <span class="filter-label">Type:</span>
                         <div class="filter-buttons">
@@ -357,6 +365,9 @@
             <button id="sendChatBtn"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
 
     <script src="script.js"></script>
 </body>

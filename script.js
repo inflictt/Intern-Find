@@ -824,28 +824,52 @@ if (isOpportunitiesPage) {
     const searchSortSelect = document.getElementById('searchSortSelect');
 
     const handleHomeSearch = (overrideQuery) => {
-        const query = overrideQuery || (searchInput ? searchInput.value.trim() : '');
-        if (!query && !overrideQuery) return; // Allow empty if just sorting? No, modal needs query.
+        let query = overrideQuery || (searchInput ? searchInput.value.trim() : '');
+
+        // Smart Filter Logic
+        let showAll = false;
+        if (query === 'stipend') {
+            if (searchSortSelect) searchSortSelect.value = 'stipend-high';
+            query = '';
+            showAll = true;
+        } else if (query === 'Closing Soon') {
+            // Just a text search for now or handled by specific filter if implemented
+        }
+
+        // Ghosting Fix: Hide if empty and not showing a filter result
+        if (!query && !showAll) {
+            if (searchModal) {
+                searchModal.classList.remove('active');
+                setTimeout(() => searchModal.classList.add('hidden'), 300);
+                document.body.style.overflow = '';
+            }
+            return;
+        }
 
         // Filter Logic
-        let filtered = internshipData.filter(item => {
-            const q = query.toLowerCase();
-            return isFuzzyMatch(item.title, q) ||
-                isFuzzyMatch(item.company, q) ||
-                isFuzzyMatch(item.location, q) ||
-                item.tags.some(tag => isFuzzyMatch(tag, q));
-        });
+        let filtered = internshipData;
+        if (query) {
+            filtered = internshipData.filter(item => {
+                const q = query.toLowerCase();
+                return isFuzzyMatch(item.title, q) ||
+                    isFuzzyMatch(item.company, q) ||
+                    isFuzzyMatch(item.location, q) ||
+                    item.tags.some(tag => isFuzzyMatch(tag, q));
+            });
+        }
 
         // Sorting Logic
         const sortMode = searchSortSelect ? searchSortSelect.value : 'relevance';
         if (sortMode === 'latest') {
             filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
-        } else if (sortMode === 'stipend') {
+        } else if (sortMode === 'stipend-high') {
             filtered.sort((a, b) => parseStipendValue(b.stipend) - parseStipendValue(a.stipend));
+        } else if (sortMode === 'stipend-low') { // Handle low stipend too
+            filtered.sort((a, b) => parseStipendValue(a.stipend) - parseStipendValue(b.stipend));
         }
 
         // Populate Modal
-        if (searchQueryDisplay) searchQueryDisplay.textContent = query;
+        if (searchQueryDisplay) searchQueryDisplay.textContent = query || "All Opportunities";
         renderSearchResults(filtered, searchResultsGrid);
 
         // Show Modal
@@ -883,22 +907,27 @@ if (isOpportunitiesPage) {
                 handleHomeSearch();
             }
         });
-    }
-
-    if (searchSortSelect) {
-        searchSortSelect.addEventListener('change', () => handleHomeSearch());
-    }
-
-    // Handle "Popular" Tag Buttons on Home
-    const tagBtns = document.querySelectorAll('.tag-btn');
-    tagBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const category = btn.dataset.category;
-            if (category) {
-                handleHomeSearch(category);
-            }
+        // Real-time search for Home Page (Fixing Ghosting interaction)
+        searchInput.addEventListener('input', () => {
+            handleHomeSearch();
         });
     });
+}
+
+if (searchSortSelect) {
+    searchSortSelect.addEventListener('change', () => handleHomeSearch());
+}
+
+// Handle "Popular" Tag Buttons on Home
+const tagBtns = document.querySelectorAll('.tag-btn');
+tagBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const category = btn.dataset.category;
+        if (category) {
+            handleHomeSearch(category);
+        }
+    });
+});
 
 
 }
@@ -1346,10 +1375,16 @@ function addMessage(text, sender, actions = []) {
 // Chat State Variables
 let chatState = 'IDLE';
 let failureCount = 0;
+let isChatBusy = false; // Debounce flag
 
 function handleChat() {
+    if (isChatBusy) return;
+
     const text = chatInput.value.trim().toLowerCase();
     if (!text) return;
+
+    isChatBusy = true;
+    setTimeout(() => isChatBusy = false, 1000); // 1s cooldown
 
     addMessage(chatInput.value, 'user');
     chatInput.value = '';
@@ -1476,3 +1511,31 @@ if (fabChat && chatWidget) {
 
 
 
+// Toast Notification
+function showToast(message) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.innerHTML = `<i class="fa-solid fa-bell"></i> <span>${message}</span>`;
+
+    container.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => toast.classList.add('show'));
+
+    // Remove after 4s
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+// Initial Toast
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        // Only show if not visited recently (mock logic)
+        showToast("New: Uber She++ just went live! Check it out.");
+    }, 2000);
+});
