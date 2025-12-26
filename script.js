@@ -330,15 +330,15 @@ const internshipData = [
         title: "Amazon SDE Internship 2026",
         company: "Amazon",
         tags: ["Internship", "SDE", "FAANG"],
-        location: "Bangalore / Hyderabad / Delhi",
-        duration: "Summer 2026 (6 Months)",
-        stipend: "80k - 1.1L/month",
+        location: "Bangalore / Hyderabad / Pune / Chennai",
+        duration: "Summer (10-12 Weeks) or 6 Months",
+        stipend: "1,10,000/month + Relocation",
         status: "Apply ASAP",
-        link: "https://www.amazon.jobs/en/teams/internships-for-students",
+        link: "https://www.amazon.jobs/",
         type: "Internship",
         postedDate: "2024-12-25",
         description: "Amazon SDE Interns get to solve complex technical challenges at scale. Pipeline to full-time SDE roles.",
-        eligibility: "Pursuing B.Tech/M.Tech in CS. Knowledge of Java/C++ is a plus.",
+        eligibility: "Pursuing B.Tech/M.Tech in CS (2026/2027 grads). Strong knowledge of OS, DBMS, CN.",
         deadline: "June 2026"
     },
     {
@@ -574,7 +574,8 @@ const getCompanyLogo = (company) => {
     else slug = slug.replace(/[^a-z0-9]/g, '');
 
     const initial = company.charAt(0);
-    return `<img src="https://cdn.simpleicons.org/${slug}" alt="${company}" 
+    // Use /white for dark mode visibility. CSS will invert for light mode.
+    return `<img src="https://cdn.simpleicons.org/${slug}/white" alt="${company}" 
                  class="company-logo-img" 
                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
             <div class="company-logo-fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">${initial}</div>`;
