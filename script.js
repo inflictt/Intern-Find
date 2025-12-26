@@ -1297,19 +1297,26 @@ function handleChat() {
 
     let response = "I'm not sure about that. Try asking about **internships**, **stipends**, or a specific company like **Amazon**.";
 
-    // 1. Check for specific company existence
-    const foundCompany = internshipData.find(item => text.includes(item.company.toLowerCase()));
+    // 1. Check for specific company existence (Fuzzy Match for Typos!)
+    // We check if any company name fuzzy matches the input text
+    const foundCompany = internshipData.find(item => {
+        // Check if user text fuzzy matches company name
+        // OR if company name is essentially inside the text
+        const companyName = item.company.toLowerCase();
+        return isFuzzyMatch(companyName, text) || text.includes(companyName);
+    });
+
     if (foundCompany) {
         response = `Yes! We have an opening for **${foundCompany.company}** (${foundCompany.title}). <br>Status: <b>${foundCompany.status}</b>. Search for "${foundCompany.company}" to apply!`;
     }
     // 2. Common Conversational Intents
     else if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
-        response = "Hello! 👋 I can help you find internships. Try typing a company name!";
+        response = "Hello! 👋 I can help you find internships. Try typing a company name like 'Google' or 'Amazon'!";
     }
-    else if (text === 'yes' || text.includes('sure') || text.includes('okay')) {
+    else if (['yes', 'yeah', 'sure', 'yup', 'okay'].some(word => text.includes(word))) {
         response = "Great! You can start by using the Search bar to find specific roles, or browse the latest cards.";
     }
-    else if (text.includes('stipend') || text.includes('salary') || text.includes('pay')) {
+    else if (text.includes('stipend') || text.includes('salary') || text.includes('pay') || text.includes('money')) {
         response = "Stipends range from 10k to 1.5L+. Check specific cards for details. Amazon pays ~1.1L!";
     }
     else if (text.includes('resume') || text.includes('cv')) {
