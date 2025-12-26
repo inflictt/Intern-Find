@@ -853,9 +853,7 @@ footer {
     margin-top: 24px;
 }
 
-.confirm-actions .btn {
-    /* This rule was empty and incorrectly contained other styles. */
-}
+
 
 /* --- Premium Voucher Modal Styles --- */
 .modal-header-voucher {

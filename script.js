@@ -688,12 +688,8 @@ if (isOpportunitiesPage) {
     renderCards(internshipData.slice(0, 5));
 
     // Hide View All btn if searching
-    if (searchBtn) {
-        searchBtn.addEventListener('click', () => {
-            // If search is active, we might want to show all matches or keep limiting? 
-            // For simple UX, let's allow search to show matches from FULL list using performSearch
-        });
-    }
+    // Search listener handled via dedicated redirect logic below
+
 }
 
 // --- Modal Logic ---
