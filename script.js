@@ -580,14 +580,7 @@ function isFuzzyMatch(text, query) {
 }
 
 
-const companyFilter = document.getElementById('companyFilter');
 
-// State for filters
-let currentFilters = {
-    type: 'all',
-    status: 'Open',
-    company: 'all'
-};
 
 // Populate Company Dropdown
 function populateCompanyDropdown() {
@@ -680,8 +673,7 @@ filterBtns.forEach(btn => {
 });
 
 // --- Company Dropdown Logic ---
-const resultsCount = document.getElementById('resultsCount');
-const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
 
 if (companyFilter) {
     companyFilter.addEventListener('change', (e) => {
@@ -726,13 +718,6 @@ if (clearFiltersBtn) {
 // Initial Render (Use performSearch to respect default 'Open' filter)
 performSearch();
 
-// Category Buttons Logic
-document.querySelectorAll('.tag-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const category = e.target.dataset.category;
-        searchInput.value = category;
-        performSearch();
-    });
-});
+
 
 
