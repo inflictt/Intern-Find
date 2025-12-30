@@ -2132,11 +2132,11 @@ if (generalSubmitFeedbackBtn) {
                     if (generalFeedbackSuccess) generalFeedbackSuccess.classList.remove('hidden');
                     generalSubmitFeedbackBtn.style.display = 'none';
 
-                    // Auto close after 2s
+                    // Auto close after 5s
                     setTimeout(() => {
                         if (generalFeedbackModal) generalFeedbackModal.classList.add('hidden');
                         resetGeneralFeedbackForm();
-                    }, 2000);
+                    }, 5000);
                 })
                 .catch((err) => {
                     console.error('EmailJS Error:', err);
