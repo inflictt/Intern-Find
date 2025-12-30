@@ -1897,9 +1897,33 @@ function handleChat() {
     }, 5000);
 }
 
+// --- Chatbot / Coming Soon Logic ---
+// fabChat is already declared above
+const comingSoonModal = document.getElementById('comingSoonModal');
+const closeComingSoonModal = document.getElementById('closeComingSoonModal');
+const closeComingSoonBtn = document.getElementById('closeComingSoonBtn');
+
 if (fabChat) {
     fabChat.addEventListener('click', () => {
-        alert('AI Chatbot Coming Soon!\n\nWe\'re building an intelligent assistant to help you find the perfect internship. Stay tuned!');
+        if (comingSoonModal) {
+            comingSoonModal.classList.remove('hidden');
+        } else {
+            // Fallback if modal not present yet
+            alert("🚀 AI Chatbot Coming Soon!\n\nWe're building an intelligent assistant to help you find the perfect internship. Stay tuned!");
+        }
+    });
+}
+
+function hideComingSoon() {
+    if (comingSoonModal) comingSoonModal.classList.add('hidden');
+}
+
+if (closeComingSoonModal) closeComingSoonModal.addEventListener('click', hideComingSoon);
+if (closeComingSoonBtn) closeComingSoonBtn.addEventListener('click', hideComingSoon);
+// Close on outside click
+if (comingSoonModal) {
+    comingSoonModal.addEventListener('click', (e) => {
+        if (e.target === comingSoonModal) hideComingSoon();
     });
 }
 
