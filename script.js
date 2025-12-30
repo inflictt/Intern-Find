@@ -1641,8 +1641,10 @@ if (isOpportunitiesPage) {
     performSearch();
 } else {
     // Limited render for home page
-    const filtered = executeSearchLogic('');
-    renderMainSearchResults(filtered, '');
+    if (typeof grid !== 'undefined' && grid) {
+        const filtered = executeSearchLogic('');
+        renderMainSearchResults(filtered, '');
+    }
 }
 
 // --- Render Search Results (List View) ---
@@ -2151,7 +2153,7 @@ if (generalSubmitFeedbackBtn) {
             setTimeout(() => {
                 if (generalFeedbackModal) generalFeedbackModal.classList.add('hidden');
                 resetGeneralFeedbackForm();
-            }, 2000);
+            }, 5000);
         }
     });
 }
