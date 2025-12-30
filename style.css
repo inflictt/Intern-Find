@@ -242,10 +242,32 @@ ul {
 
 /* Hero Section */
 .hero-section {
-    padding-top: 140px;
-    padding-bottom: 80px;
+    padding: 100px 0 60px;
     text-align: center;
-    background: radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.15), transparent 40%);
+    background: radial-gradient(circle at top, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+    transition: padding 0.5s ease, min-height 0.5s ease;
+}
+
+.btn-hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 40px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-hero-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+}
+
+.btn-hero-cta i {
+    font-size: 1.1rem;
 }
 
 .badge {

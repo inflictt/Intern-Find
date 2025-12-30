@@ -53,21 +53,9 @@
                 <p class="hero-subtitle">Discover curated internship opportunities and hackathons from top tech
                     companies. Start building your career today.</p>
 
-                <div class="search-container">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="searchInput"
-                        placeholder="Search internships (e.g., 'Google', 'Hackathon')..." autocomplete="off">
-                    <button class="btn btn-primary" id="searchBtn">Search</button>
-                    <!-- Floating Results Dropdown -->
-                    <div id="searchDropdown" class="search-dropdown hidden"></div>
-                </div>
-
-                <div class="tags-container">
-                    <span>Popular:</span>
-                    <button class="tag-btn" data-category="Software Engineering">Software Engineering</button>
-                    <button class="tag-btn" data-category="Data Science">Data Science</button>
-                    <button class="tag-btn" data-category="Hackathon">Hackathons</button>
-                </div>
+                <a href="opportunities.html" class="btn btn-primary btn-hero-cta">
+                    <i class="fa-solid fa-rocket"></i> Explore All Opportunities
+                </a>
             </div>
         </section>
 
@@ -150,12 +138,10 @@
                     </div>
                 </div>
 
-                <div class="filters-summary">
-                    <!-- Removing dynamic count text from here for cleaner look, or updating it -->
-                    <!-- User didn't specify dynamic count text for home, but kept "View All" -->
-                    <a href="opportunities.html" id="viewAllBtn" class="btn-text"
-                        style="margin-left: auto; text-decoration: underline;">View All Opportunities <i
-                            class="fa-solid fa-arrow-right"></i></a>
+                <div class="filters-summary" style="justify-content: center; margin-top: 30px;">
+                    <a href="opportunities.html" class="btn btn-primary btn-hero-cta">
+                        <i class="fa-solid fa-arrow-right"></i> View All Opportunities
+                    </a>
                 </div>
 
                 <!-- Active Filters & Summary -->
