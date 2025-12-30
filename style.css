@@ -260,11 +260,18 @@ ul {
 }
 
 .hero-section h1 {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 24px;
-    letter-spacing: -1px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: font-size 0.5s ease;
+}
+
+.hero-section.hero-results-active h1 {
+    font-size: 2rem;
 }
 
 .text-gradient {
@@ -274,11 +281,18 @@ ul {
     -webkit-text-fill-color: transparent;
 }
 
-.hero-subtitle {
+.hero-section p {
     font-size: 1.25rem;
     color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto 40px;
+    transition: opacity 0.5s ease, margin-bottom 0.5s ease;
+}
+
+.hero-section.hero-results-active p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    opacity: 0.7;
 }
 
 .search-container {
@@ -291,6 +305,8 @@ ul {
     display: flex;
     align-items: center;
     transition: var(--transition);
+    position: relative;
+    /* Anchor for dropdown */
 }
 
 .search-container:focus-within {
@@ -311,6 +327,92 @@ ul {
     padding: 8px 0;
     flex: 1;
     outline: none;
+}
+
+/* --- Floating Search Results --- */
+.search-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    max-height: 480px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-dropdown.hidden {
+    display: none;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sr-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: white;
+    padding: 4px;
+    object-fit: contain;
+}
+
+.sr-info {
+    flex: 1;
+}
+
+.sr-title {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.sr-company {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.sr-no-results {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.sr-view-all {
+    padding: 12px;
+    text-align: center;
+    background: rgba(59, 130, 246, 0.05);
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-top: 1px solid var(--border-color);
+}
+
+.sr-view-all:hover {
+    background: rgba(59, 130, 246, 0.1);
+    text-decoration: underline;
 }
 
 .tags-container {
@@ -854,6 +956,51 @@ footer {
     margin-top: 24px;
 }
 
+.filter-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .filter-buttons {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: -8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .filter-buttons::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .filter-buttons::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+    .dropdowns-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+
+    .filter-select {
+        width: 100%;
+        min-width: unset !important;
+    }
+}
 
 
 /* --- Premium Voucher Modal Styles --- */
@@ -1435,6 +1582,15 @@ footer {
     margin-left: 8px;
     opacity: 0;
     animation: fadeIn 0.3s forwards;
+}
+
+.filter-chip i {
+    margin-left: 8px;
+    opacity: 0.6;
+    cursor: pointer;
+    /* Increase hit area */
+    padding: 10px;
+    margin: -10px -10px -10px 0;
 }
 
 .typing-dot {

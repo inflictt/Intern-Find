@@ -5,9 +5,9 @@ const internshipData = [
         title: "Google STEP Intern 2026",
         company: "Google",
         tags: ["Internship", "Paid", "Summer", "Software"],
-        location: "On-site (Bangalore or Hyderabad)",
-        duration: "10-12 Weeks (May - July 2026)",
-        stipend: "₹ 80,000 - 1L / month + Benefits",
+        location: "On-site (Bangalore/Hyderabad)",
+        duration: "10-12 Wks (May-July)",
+        stipend: "₹ 80,000 - 1L / mo",
         status: "Open",
         link: "https://buildyourfuture.withgoogle.com/programs/step",
         type: "Internship",
@@ -21,8 +21,8 @@ const internshipData = [
         company: "Microsoft",
         tags: ["Internship", "Paid", "Rotational", "Software"],
         location: "Hyderabad / Bangalore",
-        duration: "12 Weeks (Summer 2026)",
-        stipend: "₹ 1.25L / month + Relocation",
+        duration: "12 Wks (Summer 2026)",
+        stipend: "₹ 1.25L / mo",
         status: "Open",
         link: "https://careers.microsoft.com/students/us/en/explore-program",
         type: "Internship",
@@ -36,7 +36,7 @@ const internshipData = [
         company: "Meta",
         tags: ["Internship", "Paid", "Diversity"],
         location: "Remote / Menlo Park (Hybrid)",
-        duration: "10 Weeks (June - Aug 2026)",
+        duration: "10 Wks (Summer 2026)",
         stipend: "High Competitive Stipend",
         status: "Coming Soon",
         link: "https://www.metacareers.com/students",
@@ -57,8 +57,8 @@ const internshipData = [
         link: "https://imaginecup.microsoft.com",
         type: "Hackathon",
         postedDate: "2024-12-20",
-        description: "Microsoft Imagine Cup is the premier global student technology competition. Build AI-driven solutions with Microsoft Cloud technologies to address real-world challenges.",
-        eligibility: "Students aged 16+ enrolled in an accredited institution (School/University). Teams of 1-4 members. No coding experience required for some tracks.",
+        description: "Microsoft Imagine Cup: Global student competition for AI solutions.",
+        eligibility: "Students 16+. Teams 1-4. Real-world challenges.",
         deadline: "May 2026"
     },
 
@@ -83,8 +83,8 @@ const internshipData = [
         tags: ["Internship", "FTE", "Finance"],
         location: "Bangalore / Hyderabad / Pune",
         duration: "Summer 2026",
-        stipend: "1,00,000/mo + FTE Offer",
-        status: "Coming Soon",
+        stipend: "₹ 1,00,000 / mo",
+        status: "Open",
         link: "https://www.goldmansachs.com/careers",
         type: "Internship",
         postedDate: "2024-12-18",
@@ -287,7 +287,7 @@ const internshipData = [
         tags: ["Internship", "Finance", "Tech"],
         location: "Mumbai / Bangalore",
         duration: "May - July 2026",
-        stipend: "87k - 1.2L/month",
+        stipend: "₹ 87,000 - 1.2L / mo",
         status: "Open",
         link: "https://www.morganstanley.com/people-opportunities/students-graduates",
         type: "Internship",
@@ -302,8 +302,8 @@ const internshipData = [
         tags: ["Internship", "SDE", "Product"],
         location: "Bangalore",
         duration: "Summer 2026",
-        stipend: "80k - 1L/month",
-        status: "Coming Soon",
+        stipend: "₹ 80,000 - 1L / mo",
+        status: "Open",
         link: "https://jobs.intuit.com/job-search-results/?keyword=Intern&location=India",
         type: "Internship",
         postedDate: "2024-12-12",
@@ -317,8 +317,8 @@ const internshipData = [
         tags: ["Internship", "Networking", "Security"],
         location: "Bangalore",
         duration: "Jan - June 2026",
-        stipend: "60k - 95k/month",
-        status: "Open (Job ID 1449112)",
+        stipend: "₹ 60,000 - 95,000 / mo",
+        status: "Open",
         link: "https://jobs.cisco.com/jobs/SearchJobs",
         type: "Internship",
         postedDate: "2024-12-19",
@@ -331,9 +331,9 @@ const internshipData = [
         company: "Amazon",
         tags: ["Internship", "SDE", "FAANG"],
         location: "Bangalore / Hyderabad / Pune / Chennai",
-        duration: "Summer (10-12 Weeks) or 6 Months",
-        stipend: "1,10,000/month + Relocation",
-        status: "Apply ASAP",
+        duration: "10-12 Wks",
+        stipend: "₹ 1,10,000 / mo",
+        status: "Open",
         link: "https://www.amazon.jobs/",
         type: "Internship",
         postedDate: "2024-12-25",
@@ -362,7 +362,7 @@ const internshipData = [
         tags: ["Internship", "Backend", "Web"],
         location: "Bangalore",
         duration: "Summer 2026",
-        stipend: "30k - 50k/month",
+        stipend: "₹ 30,000 - 50,000 / mo",
         status: "Coming Soon",
         link: "https://careers.cred.club/",
         type: "Internship",
@@ -377,7 +377,7 @@ const internshipData = [
         tags: ["Internship", "Cybersecurity", "SDE"],
         location: "Bangalore / Pune",
         duration: "Jan - May 2026",
-        stipend: "50,000/month",
+        stipend: "₹ 50,000 / mo",
         status: "Open",
         link: "https://www.securonix.com/careers/",
         type: "Internship",
@@ -392,8 +392,8 @@ const internshipData = [
         tags: ["Internship", "Cloud", "SDE"],
         location: "Bangalore / Hyderabad / Pune",
         duration: "Summer 2026",
-        stipend: "35k - 55k/month",
-        status: "check careers",
+        stipend: "₹ 35,000 - 55,000 / mo",
+        status: "Open",
         link: "https://careers.oracle.com/",
         type: "Internship",
         postedDate: "2024-12-05",
@@ -407,7 +407,7 @@ const internshipData = [
         tags: ["Internship", "SaaS", "Cloud"],
         location: "Hyderabad",
         duration: "Summer 2026",
-        stipend: "70,000/month",
+        stipend: "₹ 70,000 / mo",
         status: "Open",
         link: "https://careers.servicenow.com/",
         type: "Internship",
@@ -422,7 +422,7 @@ const internshipData = [
         tags: ["Internship", "AI", "Cloud"],
         location: "Bangalore / Gurgaon",
         duration: "Summer 2026",
-        stipend: "30k - 43k/month",
+        stipend: "₹ 30,000 - 43,000 / mo",
         status: "Open",
         link: "https://www.ibm.com/in-en/careers",
         type: "Internship",
@@ -479,7 +479,7 @@ const internshipData = [
         tags: ["Internship", "Women in Tech", "SDE"],
         location: "Bangalore / Remote",
         duration: "May - July 2025",
-        stipend: "1,20,000/mo + Perks",
+        stipend: "₹ 1,20,000 / mo",
         status: "Open",
         link: "https://www.atlassian.com/company/careers/students",
         type: "Women in Tech",
@@ -512,12 +512,33 @@ function getCurrencyIcon(stipend) {
     }
 
     if (s.includes('$') || s.includes('usd')) return 'fa-dollar-sign';
-    if (s.includes('€') || s.includes('eur')) return 'fa-euro-sign';
-    if (s.includes('£') || s.includes('gbp')) return 'fa-pound-sign';
-    if (s.includes('yen') || s.includes('jpy')) return 'fa-yen-sign';
     if (s.includes('₹') || s.includes('inr') || s.includes('lakh') || s.includes('crore')) return 'fa-indian-rupee-sign';
 
     return 'fa-indian-rupee-sign'; // Default to Rupee
+}
+
+// Global Formatter for Stipends
+function formatStipend(s) {
+    if (!s) return "";
+    let val = s.trim();
+
+    // Normalize "1,10,000" to "1.1L" if it's a large rupee amount
+    if (val.includes(',') && val.includes('000') && !val.includes('L') && !val.includes('k')) {
+        const num = parseInt(val.replace(/[^0-9]/g, ''));
+        if (num >= 100000) {
+            val = (num / 100000).toFixed(1) + 'L';
+        }
+    }
+
+    // Ensure consistent spacing for / mo
+    val = val.replace(/\/month/g, '/ mo').replace(/\/mo/g, ' / mo').replace(/\s+\/\s+/g, ' / ');
+
+    // Add Rupee symbol if missing and it's clearly an Indian amount (includes L or big numbers)
+    if (!val.includes('₹') && !val.includes('$') && (val.includes('L') || val.match(/\d{5,}/))) {
+        val = '₹ ' + val;
+    }
+
+    return val;
 }
 
 // Helper to parse stipend value for sorting (Returns monthly estimate in INR)
@@ -562,6 +583,7 @@ function parseStipendValue(stipend) {
 const grid = document.getElementById('internship-grid');
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
+const searchDropdown = document.getElementById('searchDropdown');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const companyFilter = document.getElementById('companyFilter');
 const sortSelect = document.getElementById('sortSelect');
@@ -681,7 +703,12 @@ function renderCards(data, container = grid) {
 
         // --- HIERARCHY LOGIC (The State Machine) ---
         const isApplied = localStorage.getItem('applied_' + item.title);
-        const isUrgent = item.status.includes('ASAP') || item.deadline.includes('ASAP') || item.status.includes('Closing');
+
+        // Safety checks for properties that might be missing in some Data objects
+        const statusText = item.status || "";
+        const deadlineText = item.deadline || "Rolling Basis";
+
+        const isUrgent = statusText.includes('ASAP') || deadlineText.includes('ASAP') || statusText.includes('Closing');
 
         let cardState = 'STANDARD';
         if (isApplied) cardState = 'SUBMITTED';
@@ -697,14 +724,15 @@ function renderCards(data, container = grid) {
             btnText = 'View Application';
             btnClass = 'btn btn-ghost apply-btn';
         } else if (cardState === 'URGENT') {
-            headerHTML = `<div class="timer-urgent"><i class="fa-solid fa-fire"></i> ${item.deadline.includes('ASAP') ? 'Closing ASAP' : 'Closing Soon'}</div>`;
+            headerHTML = `<div class="timer-urgent"><i class="fa-solid fa-fire"></i> ${deadlineText.includes('ASAP') ? 'Closing ASAP' : 'Closing Soon'}</div>`;
             btnText = 'Apply Now';
         } else {
-            headerHTML = `<div class="timer-standard"><i class="fa-regular fa-clock"></i> ${item.deadline}</div>`;
+            headerHTML = `<div class="timer-standard"><i class="fa-regular fa-clock"></i> ${deadlineText}</div>`;
         }
 
-        const tagsHtml = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
-        const currencyIconClass = getCurrencyIcon(item.stipend);
+        const itemTags = item.tags || [];
+        const tagsHtml = itemTags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+        const currencyIconClass = getCurrencyIcon(item.stipend || "");
 
         card.innerHTML = `
             <div class="card-header">
@@ -732,7 +760,7 @@ function renderCards(data, container = grid) {
                      <i class="fa-regular fa-calendar"></i> ${item.duration}
                 </div>
                 <div class="info-item">
-                    <i class="fa-solid ${currencyIconClass}"></i> ${item.stipend}
+                    <i class="fa-solid ${currencyIconClass}"></i> ${formatStipend(item.stipend)}
                 </div>
             </div>
             
@@ -863,31 +891,120 @@ populateCompanyDropdown();
 // Initial Render Logic based on Page
 const isOpportunitiesPage = window.location.pathname.includes('opportunities.html');
 
-if (isOpportunitiesPage) {
-    // Show ALL on opportunities page
-    renderCards(internshipData);
+// --- Advanced Floating Search Logic (Global) ---
+if (searchInput && searchDropdown) {
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim().toLowerCase();
 
-    // 1. Check for URL params to auto-search
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchParam = urlParams.get('search');
+        if (!query) {
+            searchDropdown.classList.add('hidden');
+            searchDropdown.innerHTML = '';
+            return;
+        }
 
-    if (searchParam && searchInput) {
-        searchInput.value = decodeURIComponent(searchParam);
-        // Trigger search immediately
-        performSearch();
-    }
+        // Filter Data
+        const filtered = internshipData.filter(item =>
+            item.title.toLowerCase().includes(query) ||
+            item.company.toLowerCase().includes(query) ||
+            item.tags.some(t => t.toLowerCase().includes(query))
+        );
 
-    // 2. Normal Search Listeners for Opportunities Page
-    if (searchBtn) searchBtn.addEventListener('click', performSearch);
+        renderSearchDropdown(filtered, query);
+    });
 
-    if (searchInput) {
-        searchInput.addEventListener('input', performSearch); // Real-time
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') e.preventDefault();
+    // Handle Enter Key / Button
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            // Reset filters to broaden search results
+            currentFilters.type = 'all';
+            currentFilters.company = 'all';
+            if (companyFilter) companyFilter.value = 'all';
+            updateActiveButtons();
+
+            performSearch();
+            searchDropdown.classList.add('hidden');
+        }
+    });
+
+    if (searchBtn) {
+        searchBtn.addEventListener('click', () => {
+            // Reset filters to broaden search results
+            currentFilters.type = 'all';
+            currentFilters.company = 'all';
+            if (companyFilter) companyFilter.value = 'all';
+            updateActiveButtons();
+
+            performSearch();
+            searchDropdown.classList.add('hidden');
         });
     }
+}
+
+function renderSearchDropdown(results, query) {
+    if (!searchDropdown) return;
+    searchDropdown.innerHTML = '';
+    searchDropdown.classList.remove('hidden');
+
+    if (results.length === 0) {
+        searchDropdown.innerHTML = `<div class="sr-no-results">No internships found for "${query}"</div>`;
+        return;
+    }
+
+    // Limit to 6 results for the dropdown
+    const displayResults = results.slice(0, 6);
+
+    displayResults.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'search-result-item';
+
+        const logoHtml = getCompanyLogo(item);
+
+        itemEl.innerHTML = `
+            <div style="width: 24px; height: 24px; display:flex; align-items:center; justify-content:center;">${logoHtml}</div>
+            <div class="sr-info">
+                <div class="sr-title">${item.title}</div>
+                <div class="sr-company">${item.company}</div>
+            </div>
+        `;
+
+        itemEl.addEventListener('click', () => {
+            openModal(item.title);
+            searchDropdown.classList.add('hidden');
+            searchInput.value = item.title;
+        });
+
+        searchDropdown.appendChild(itemEl);
+    });
+
+    if (results.length > 6) {
+        const viewAllEl = document.createElement('div');
+        viewAllEl.className = 'sr-view-all';
+        viewAllEl.innerHTML = `See all ${results.length} results for "${query}"`;
+        viewAllEl.addEventListener('click', () => {
+            performSearch();
+            searchDropdown.classList.add('hidden');
+        });
+        searchDropdown.appendChild(viewAllEl);
+    }
+}
+
+// Close dropdown on click outside
+document.addEventListener('click', (e) => {
+    if (searchDropdown && !searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+        searchDropdown.classList.add('hidden');
+    }
+});
+
+// Initial Render Logic based on Page
+if (isOpportunitiesPage) {
+    renderCards(internshipData);
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    if (searchParam && searchInput) {
+        searchInput.value = decodeURIComponent(searchParam);
+        performSearch();
+    }
 } else {
-    // Show only 5 on Home page (User requested 5)
     renderCards(internshipData.slice(0, 5));
 
     // --- Home Page Search Modal Logic ---
@@ -928,17 +1045,20 @@ if (isOpportunitiesPage) {
         }
 
         // Filter Logic
-        let filtered = internshipData;
-        if (query) {
-            filtered = internshipData.filter(item => {
+        let filtered = internshipData.filter(item => {
+            // 1. Check Global Type Filter
+            if (currentFilters.type !== 'all' && item.type !== currentFilters.type) return false;
+
+            // 2. Check Query
+            if (query) {
                 const q = query.toLowerCase();
                 return isFuzzyMatch(item.title, q) ||
                     isFuzzyMatch(item.company, q) ||
                     isFuzzyMatch(item.location, q) ||
                     item.tags.some(tag => isFuzzyMatch(tag, q));
-            });
-        }
-
+            }
+            return true;
+        });
         // Sorting Logic
         const sortMode = searchSortSelect ? searchSortSelect.value : 'relevance';
         if (sortMode === 'latest') {
@@ -1068,7 +1188,7 @@ window.openModal = function (title) {
     document.getElementById('modalCompany').textContent = item.company;
     document.getElementById('modalLocation').textContent = item.location;
     document.getElementById('modalDuration').textContent = item.duration;
-    document.getElementById('modalStipend').textContent = item.stipend;
+    document.getElementById('modalStipend').textContent = formatStipend(item.stipend);
 
     // Safety check for optional description fields
     const descEl = document.getElementById('modalDescription');
@@ -1086,7 +1206,8 @@ window.openModal = function (title) {
 
     // Tags
     const tagsContainer = document.getElementById('modalTags');
-    tagsContainer.innerHTML = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+    const itemTags = item.tags || [];
+    tagsContainer.innerHTML = itemTags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
 
     // Show Modal
     modal.classList.remove('hidden'); // Fix: Remove hidden class
@@ -1144,11 +1265,18 @@ cancelRedirectBtn.addEventListener('click', () => {
 let searchTimeout;
 
 function performSearch() {
-    // 1. Show Feedback UI Start
     const query = searchInput.value.trim();
-    showSearchingUI(query);
 
-    // 2. Delay for UX Feel (300-500ms)
+    // If on Home Page, handle via redirection or modal
+    if (!isOpportunitiesPage && typeof handleHomeSearch === 'function') {
+        handleHomeSearch(query);
+        return;
+    }
+
+    // Standard Opportunities Page Logic
+    showSearchingUI(query);
+    updateURLParams();
+
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
         const filtered = executeSearchLogic(query);
@@ -1345,6 +1473,14 @@ function renderMainSearchResults(filtered, query) {
         }
     }
 
+    // Hero Shrink State
+    const isFiltered = query !== '' || currentFilters.type !== 'all' || currentFilters.company !== 'all';
+    const hero = document.querySelector('.hero-section');
+    if (hero) {
+        if (isFiltered) hero.classList.add('hero-results-active');
+        else hero.classList.remove('hero-results-active');
+    }
+
     renderCards(filtered);
     updateResultsCount(filtered.length);
     hideSearchingUI();
@@ -1398,6 +1534,56 @@ filterBtns.forEach(btn => {
         performSearch();
     });
 });
+
+// --- Dynamic Filter Population ---
+function populateCompanyFilter() {
+    if (!companyFilter) return;
+
+    const companies = [...new Set(internshipData.map(item => item.company))].sort();
+
+    // Clear and add "All"
+    companyFilter.innerHTML = '<option value="all">All Companies</option>';
+
+    companies.forEach(company => {
+        const option = document.createElement('option');
+        option.value = company;
+        option.textContent = company;
+        companyFilter.appendChild(option);
+    });
+}
+
+// --- URL State Synchronization ---
+function updateURLParams() {
+    if (!isOpportunitiesPage) return;
+
+    const params = new URLSearchParams();
+    if (searchInput.value.trim()) params.set('search', searchInput.value.trim());
+    if (currentFilters.type !== 'all') params.set('type', currentFilters.type);
+    if (currentFilters.status !== 'all') params.set('status', currentFilters.status);
+    if (currentFilters.company !== 'all') params.set('company', currentFilters.company);
+    if (currentFilters.sort !== 'latest') params.set('sort', currentFilters.sort);
+
+    const newURL = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+    window.history.replaceState({}, '', newURL);
+}
+
+function syncFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has('search')) searchInput.value = decodeURIComponent(params.get('search'));
+    if (params.has('type')) currentFilters.type = params.get('type');
+    if (params.has('status')) currentFilters.status = params.get('status');
+    if (params.has('company')) {
+        currentFilters.company = params.get('company');
+        if (companyFilter) companyFilter.value = currentFilters.company;
+    }
+    if (params.has('sort')) {
+        currentFilters.sort = params.get('sort');
+        if (sortSelect) sortSelect.value = currentFilters.sort;
+    }
+
+    updateActiveButtons();
+}
 
 // --- Company Dropdown Logic ---
 
@@ -1456,8 +1642,16 @@ function updateActiveButtons() {
     });
 }
 
-// Initial Render (Use performSearch to respect default 'Open' filter)
-performSearch();
+// Initial Render Logic
+if (isOpportunitiesPage) {
+    populateCompanyFilter();
+    syncFiltersFromURL();
+    performSearch();
+} else {
+    // Limited render for home page
+    const filtered = executeSearchLogic('');
+    renderMainSearchResults(filtered, '');
+}
 
 // --- Render Search Results (List View) ---
 function renderSearchResults(data, container) {
