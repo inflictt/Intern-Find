@@ -1897,20 +1897,10 @@ function handleChat() {
     }, 500);
 }
 
-if (fabChat && chatWidget) {
+if (fabChat) {
     fabChat.addEventListener('click', () => {
-        chatWidget.classList.toggle('hidden');
+        alert('🚀 AI Chatbot Coming Soon!\n\nWe\'re building an intelligent assistant to help you find the perfect internship. Stay tuned!');
     });
-    closeChatBtn.addEventListener('click', () => {
-        chatWidget.classList.add('hidden');
-    });
-
-    if (sendChatBtn) sendChatBtn.addEventListener('click', handleChat);
-    if (chatInput) {
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handleChat();
-        });
-    }
 }
 
 
