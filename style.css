@@ -1040,33 +1040,54 @@ footer {
     color: #22c55e;
 }
 
-/* Strategic Feature: Urgency & Applied Badges */
-.urgency-badge {
-    background: rgba(239, 68, 68, 0.2);
-    color: #f87171;
-    border: 1px solid #ef4444;
-    font-size: 0.7rem;
-    padding: 2px 8px;
-    border-radius: 12px;
-    margin-left: 8px;
-    font-weight: 600;
-    display: inline-block;
+/* --- Card State Machine Elements --- */
+.timer-standard {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
 }
 
-.applied-badge {
-    background: rgba(34, 197, 94, 0.2);
-    color: #4ade80;
-    border: 1px solid #22c55e;
-    font-size: 0.75rem;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-weight: 600;
-    margin-top: 8px;
+.timer-urgent {
+    color: #ef4444;
+    /* Vibe Red */
+    font-size: 0.85rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
     gap: 6px;
-    width: fit-content;
 }
+
+.timer-submitted {
+    color: #22c55e;
+    /* Success Green */
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Footer Button State Overrides */
+.btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: default;
+    /* Less clickable feel */
+    transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--text-main);
+}
+
+
+/* Badges removed in favor of Header State Machine */
+
 
 .vc-sub {
     font-size: 0.95rem;
@@ -1379,7 +1400,8 @@ footer {
     transition: all 0.2s ease;
 }
 
-transform: translateY(-2px);
+.chat-action-chip:hover {
+    transform: translateY(-2px);
 }
 
 /* Chat Button Hierarchy (Review Fix 5) */

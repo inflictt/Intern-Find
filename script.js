@@ -598,7 +598,7 @@ const GLOBAL_DOMAIN_MAP = {
     "Shopify": "shopify.com",
     "GitHub / Partners": "github.com",
     "Uber": "uber.com",
-    "Juspay": "juspay.in",
+    "Juspay": "juspay.io",
     "Major League Hacking": "mlh.io",
     "Outreachy": "outreachy.org",
     "Deloitte India": "deloitte.com",
@@ -609,7 +609,14 @@ const GLOBAL_DOMAIN_MAP = {
     "Taylor & Francis Group": "taylorandfrancis.com",
     "Cred": "cred.club",
     "Securonix": "securonix.com",
-    "Oracle": "oracle.com"
+    "Oracle": "oracle.com",
+    "ServiceNow": "servicenow.com",
+    "IBM": "ibm.com",
+    "AWS / Hack2skill": "aws.amazon.com",
+    "OIST Japan": "oist.jp",
+    "Autodesk": "autodesk.com",
+    "Atlassian": "atlassian.com",
+    "NXP Semiconductors": "nxp.com"
 };
 
 const getCompanyLogo = (item) => {
@@ -672,37 +679,32 @@ function renderCards(data, container = grid) {
         const card = document.createElement('div');
         card.className = 'card';
 
-        // Tags rendering
-        const tagsHtml = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+        // --- HIERARCHY LOGIC (The State Machine) ---
+        const isApplied = localStorage.getItem('applied_' + item.title);
+        const isUrgent = item.status.includes('ASAP') || item.deadline.includes('ASAP') || item.status.includes('Closing');
 
-        // Dynamic Icon
-        const currencyIconClass = getCurrencyIcon(item.stipend);
+        let cardState = 'STANDARD';
+        if (isApplied) cardState = 'SUBMITTED';
+        else if (isUrgent) cardState = 'URGENT';
 
-        // Status Color Logic
-        let statusColor;
-        // Normalize for easier matching
-        const statusLower = item.status.toLowerCase();
+        // --- Visual Elements based on State ---
+        let headerHTML = '';
+        let btnText = 'View Details';
+        let btnClass = 'btn btn-primary apply-btn';
 
-        if (statusLower.includes('open') || statusLower.includes('apply')) {
-            statusColor = '#22c55e'; // Green
-        } else if (statusLower.includes('soon') || statusLower.includes('check')) {
-            statusColor = '#f59e0b'; // Yellow/Orange
-        } else if (statusLower.includes('closed')) {
-            statusColor = '#ef4444'; // Red
+        if (cardState === 'SUBMITTED') {
+            headerHTML = `<div class="timer-submitted"><i class="fa-solid fa-circle-check"></i> Application Sent</div>`;
+            btnText = 'View Application';
+            btnClass = 'btn btn-ghost apply-btn';
+        } else if (cardState === 'URGENT') {
+            headerHTML = `<div class="timer-urgent"><i class="fa-solid fa-fire"></i> ${item.deadline.includes('ASAP') ? 'Closing ASAP' : 'Closing Soon'}</div>`;
+            btnText = 'Apply Now';
         } else {
-            statusColor = '#ef4444'; // Default to Red
+            headerHTML = `<div class="timer-standard"><i class="fa-regular fa-clock"></i> ${item.deadline}</div>`;
         }
 
-        // Urgency Logic
-        let urgencyBadge = '';
-        if (item.status.includes('ASAP') || item.deadline.includes('ASAP')) {
-            urgencyBadge = `<span class="urgency-badge"><i class="fa-solid fa-fire"></i> Closing Soon</span>`;
-        }
-
-        // Applied Logic
-        const appliedHTML = localStorage.getItem('applied_' + item.title)
-            ? `<div class="applied-badge"><i class="fa-solid fa-check"></i> Applied</div>`
-            : '';
+        const tagsHtml = item.tags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+        const currencyIconClass = getCurrencyIcon(item.stipend);
 
         card.innerHTML = `
             <div class="card-header">
@@ -715,16 +717,13 @@ function renderCards(data, container = grid) {
                         <div class="company-name" style="margin-top:2px;">${item.company}</div>
                     </div>
                 </div>
-                ${item.type === 'Hackathon' ? '<i class="fa-solid fa-trophy" style="color: gold;"></i>' : '<i class="fa-solid fa-briefcase"></i>'}
+                ${headerHTML}
             </div>
             
             <div class="card-tags">
                 ${tagsHtml}
             </div>
 
-            <!-- Countdown (Requirement 7) -->
-            ${item.status !== "Closed" ? `<div class="deadline-timer" style="font-size: 0.8rem; color: var(--accent-color); margin-bottom: 8px;"><i class="fa-regular fa-clock"></i> Ends in 15 days</div>` : ''}
-            
             <div class="card-info">
                 <div class="info-item">
                     <i class="fa-solid fa-location-dot"></i> ${item.location}
@@ -735,20 +734,14 @@ function renderCards(data, container = grid) {
                 <div class="info-item">
                     <i class="fa-solid ${currencyIconClass}"></i> ${item.stipend}
                 </div>
-                <div class="info-item" style="color: ${statusColor}">
-                    <i class="fa-solid fa-circle-check"></i> ${item.status} ${urgencyBadge}
-                </div>
             </div>
             
-            <div class="card-footer">
+            <div class="card-footer" style="justify-content: space-between; align-items: center; display: flex;">
                 <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
-                <button class="btn btn-primary apply-btn">View Details</button>
+                <button class="${btnClass}">${btnText}</button>
             </div>
-            ${appliedHTML}
         `;
 
-        // Attach Event Listener directly to the button
-        // This prevents quote escaping issues with inline onclick
         const btn = card.querySelector('.apply-btn');
         btn.addEventListener('click', () => {
             if (typeof openModal === 'function') {
