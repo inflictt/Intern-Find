@@ -1911,7 +1911,7 @@ if (fabChat) {
             comingSoonModal.classList.remove('hidden');
         } else {
             // Fallback if modal not present yet
-            alert("🚀 AI Chatbot Coming Soon!\n\nWe're building an intelligent assistant to help you find the perfect internship. Stay tuned!");
+            showToast("🚀 AI Chatbot Coming Soon!");
         }
     });
 }
@@ -1947,11 +1947,11 @@ function showToast(message) {
     // Trigger animation
     requestAnimationFrame(() => toast.classList.add('show'));
 
-    // Remove after 4s
+    // Remove after 5s
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
-    }, 4000);
+    }, 5000);
 }
 
 // Initial Toast
@@ -2001,7 +2001,7 @@ if (submitReportBtn) {
         const message = document.getElementById('reportMessage')?.value || '';
 
         if (!selectedIssue) {
-            alert('Please select an issue type.');
+            showToast('⚠️ Please select an issue type.');
             return;
         }
 
@@ -2024,15 +2024,15 @@ if (submitReportBtn) {
                     if (reportSuccess) reportSuccess.classList.remove('hidden');
                     submitReportBtn.style.display = 'none';
 
-                    // Auto close after 2s
+                    // Auto close after 5s
                     setTimeout(() => {
                         if (reportIssueModal) reportIssueModal.classList.add('hidden');
                         resetReportForm();
-                    }, 2000);
+                    }, 5000);
                 })
                 .catch((err) => {
                     console.error('EmailJS Error:', err);
-                    alert('Failed to send report. Please try again.');
+                    showToast('❌ Failed to send report. Please try again.');
                     submitReportBtn.disabled = false;
                     submitReportBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Report';
                 });
@@ -2043,7 +2043,7 @@ if (submitReportBtn) {
             setTimeout(() => {
                 if (reportIssueModal) reportIssueModal.classList.add('hidden');
                 resetReportForm();
-            }, 2000);
+            }, 5000);
         }
     });
 }
@@ -2106,12 +2106,12 @@ if (generalSubmitFeedbackBtn) {
         const sentiment = activeEmoji ? activeEmoji.textContent : '🤩';
 
         if (!message.trim()) {
-            alert('Please enter some feedback.');
+            showToast('⚠️ Please enter some feedback.');
             return;
         }
 
         if (!email.trim()) {
-            alert('Please enter your email.');
+            showToast('⚠️ Please enter your email.');
             return;
         }
 
@@ -2142,7 +2142,7 @@ if (generalSubmitFeedbackBtn) {
                 })
                 .catch((err) => {
                     console.error('EmailJS Error:', err);
-                    alert('Failed to send feedback. Please try again.');
+                    showToast('❌ Failed to send feedback. Please try again.');
                     generalSubmitFeedbackBtn.disabled = false;
                     generalSubmitFeedbackBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Feedback';
                 });
