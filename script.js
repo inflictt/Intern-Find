@@ -758,11 +758,16 @@ function renderCards(data, container = grid) {
             
             <div class="card-footer" style="justify-content: space-between; align-items: center; display: flex;">
                 <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
-                <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="${btnClass}">
-                    Apply Now <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+                <button class="${btnClass}">View Details</button>
             </div>
         `;
+
+        const btn = card.querySelector('.apply-btn');
+        btn.addEventListener('click', () => {
+            if (typeof openModal === 'function') {
+                openModal(item.title);
+            }
+        });
 
         container.appendChild(card);
     });
