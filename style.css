@@ -2248,7 +2248,8 @@ footer {
     margin-bottom: 15px;
 }
 
-.feedback-modal-content input[type="email"] {
+.feedback-modal-content input[type="email"],
+.feedback-modal-content .feedback-input {
     width: 100%;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--border-color);
@@ -2256,4 +2257,108 @@ footer {
     padding: 12px;
     color: var(--text-main);
     font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+/* Large Feedback Tab (More Visible) */
+.feedback-tab-large {
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    padding: 14px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    z-index: 9998;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: feedbackPulse 2s infinite;
+}
+
+.feedback-tab-large i {
+    font-size: 1.2rem;
+}
+
+.feedback-tab-large:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
+    animation: none;
+}
+
+@keyframes feedbackPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 8px 35px rgba(59, 130, 246, 0.7);
+    }
+}
+
+/* Quick Feedback Box (in redirect modal) */
+.quick-feedback-box {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.quick-feedback-box span {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 12px;
+}
+
+.badge-optional {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.quick-rating {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.quick-rate-btn {
+    font-size: 1.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-rate-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--primary-color);
+}
+
+.quick-rate-btn.active {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.1);
+    transform: scale(1.05);
+}
+
+/* Emoji Button Active State */
+.emoji-btn.active {
+    border-color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.15);
+    transform: scale(1.1);
 }

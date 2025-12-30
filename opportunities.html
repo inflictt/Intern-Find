@@ -316,11 +316,22 @@
                 <button id="proceedToApplyBtn" class="hidden"></button>
             </div>
 
-            <!-- View 2: Confirmation -->
+            <!-- View 2: Confirmation with Quick Feedback -->
             <div id="modalConfirmView" class="hidden text-center">
                 <div class="confirm-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
                 <h3>External Redirect</h3>
                 <p>You are about to leave InternNow to visit the official application page.</p>
+
+                <!-- Quick Feedback Before Leaving -->
+                <div class="quick-feedback-box">
+                    <span>Quick feedback before you go? <span class="badge-optional">optional</span></span>
+                    <div class="quick-rating">
+                        <button class="quick-rate-btn" data-rating="👎">👎</button>
+                        <button class="quick-rate-btn active" data-rating="👍">👍</button>
+                        <button class="quick-rate-btn" data-rating="🔥">🔥</button>
+                    </div>
+                </div>
+
                 <div class="confirm-actions">
                     <button id="cancelRedirectBtn" class="btn btn-outline">Go Back</button>
                     <button id="confirmRedirectBtn" class="btn btn-primary">Yes, Continue</button>
@@ -409,8 +420,9 @@
         </div>
     </div>
 
-    <!-- Floating Feedback Tab (Right Edge) -->
-    <div id="feedbackTab" class="feedback-tab">
+    <!-- Floating Feedback Tab (Right Edge) - Big & Visible -->
+    <div id="feedbackTab" class="feedback-tab-large">
+        <i class="fa-solid fa-comment-dots"></i>
         <span>Feedback</span>
     </div>
 
@@ -418,27 +430,31 @@
     <div id="feedbackModal" class="feedback-modal hidden">
         <div class="feedback-modal-content">
             <button class="feedback-close-btn" id="closeFeedbackModal"><i class="fa-solid fa-xmark"></i></button>
-            <h3>Help us improve InternNow</h3>
+            <h3><i class="fa-solid fa-comments" style="color: var(--primary-color);"></i> Help us improve InternNow</h3>
 
             <div class="sentiment-bar">
-                <span>How is your experience?</span>
+                <span>How is your experience? <span style="color: #ef4444;">*</span></span>
                 <div class="emoji-options">
                     <button class="emoji-btn" data-sentiment="negative">😡</button>
                     <button class="emoji-btn" data-sentiment="neutral">😐</button>
-                    <button class="emoji-btn" data-sentiment="positive">🤩</button>
+                    <button class="emoji-btn active" data-sentiment="positive">🤩</button>
                 </div>
             </div>
 
-            <select id="feedbackCategory" class="feedback-select">
-                <option value="">Select category...</option>
+            <input type="text" id="feedbackName" class="feedback-input" placeholder="Your Name" value="Anonymous User"
+                required>
+
+            <select id="feedbackCategory" class="feedback-select" required>
+                <option value="General Feedback" selected>General Feedback</option>
                 <option value="Feature Request">Feature Request</option>
                 <option value="Bug Report">Bug Report</option>
                 <option value="Other">Other</option>
             </select>
 
-            <textarea id="feedbackMessage" placeholder="I wish this site had..." rows="3"></textarea>
+            <textarea id="feedbackMessage" placeholder="Great site for finding internships!" rows="3"
+                required>Great site for finding internships!</textarea>
 
-            <input type="email" id="feedbackEmail" placeholder="Your email (optional, for reply)">
+            <input type="email" id="feedbackEmail" class="feedback-input" placeholder="Your email (for reply)" required>
 
             <button id="submitFeedbackBtn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
                 <i class="fa-solid fa-paper-plane"></i> Send Feedback

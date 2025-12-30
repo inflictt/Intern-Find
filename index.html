@@ -281,25 +281,7 @@
 
     <!-- Tools & Widgets -->
     <div class="fab-container">
-        <button id="fabFeedback" class="fab-btn" title="Feedback"><i class="fa-solid fa-comment-dots"></i></button>
         <button id="fabChat" class="fab-btn" title="Help Chat"><i class="fa-solid fa-robot"></i></button>
-    </div>
-
-    <!-- Feedback Modal -->
-    <div id="feedbackModal" class="modal-overlay hidden">
-        <div class="modal-content" style="max-width: 500px;">
-            <div class="modal-header-simple">
-                <h3>Submit Feedback</h3>
-                <button id="closeFeedbackBtn" class="close-simple"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="feedback-form">
-                <textarea id="feedbackInput" placeholder="Tell us what you think or report a bug..."
-                    rows="5"></textarea>
-                <div class="form-actions">
-                    <button id="submitFeedbackBtn" class="btn btn-primary">Send Feedback</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Chat Bot Widget -->
@@ -340,6 +322,61 @@
 
     <!-- Mini Card Tray for Previews -->
     <div id="miniTray" class="mini-tray"></div>
+
+    <!-- Floating Feedback Tab (Big & Visible) -->
+    <div id="feedbackTab" class="feedback-tab-large">
+        <i class="fa-solid fa-comment-dots"></i>
+        <span>Feedback</span>
+    </div>
+
+    <!-- General Feedback Modal -->
+    <div id="feedbackModal" class="feedback-modal hidden">
+        <div class="feedback-modal-content">
+            <button class="feedback-close-btn" id="closeFeedbackModal"><i class="fa-solid fa-xmark"></i></button>
+            <h3><i class="fa-solid fa-comments" style="color: var(--primary-color);"></i> Help us improve InternNow</h3>
+
+            <div class="sentiment-bar">
+                <span>How is your experience? <span style="color: #ef4444;">*</span></span>
+                <div class="emoji-options">
+                    <button class="emoji-btn" data-sentiment="negative">😡</button>
+                    <button class="emoji-btn" data-sentiment="neutral">😐</button>
+                    <button class="emoji-btn active" data-sentiment="positive">🤩</button>
+                </div>
+            </div>
+
+            <input type="text" id="feedbackName" class="feedback-input" placeholder="Your Name" value="Anonymous User"
+                required>
+
+            <select id="feedbackCategory" class="feedback-select" required>
+                <option value="General Feedback" selected>General Feedback</option>
+                <option value="Feature Request">Feature Request</option>
+                <option value="Bug Report">Bug Report</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <textarea id="feedbackMessage" placeholder="Great site for finding internships!" rows="3"
+                required>Great site for finding internships!</textarea>
+
+            <input type="email" id="feedbackEmail" class="feedback-input" placeholder="Your email (for reply)" required>
+
+            <button id="submitFeedbackBtn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
+                <i class="fa-solid fa-paper-plane"></i> Send Feedback
+            </button>
+
+            <div id="feedbackSuccess" class="feedback-success hidden">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Thanks for your feedback!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init("hqY1ejX4oFf5xHVXj");
+        })();
+    </script>
 
     <script src="script.js"></script>
 </body>

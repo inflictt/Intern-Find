@@ -2091,8 +2091,8 @@ if (generalCloseFeedbackModal) {
 // Emoji selection
 emojiButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-        emojiButtons.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+        emojiButtons.forEach(b => b.classList.remove('selected', 'active'));
+        btn.classList.add('selected', 'active');
         selectedSentiment = btn.dataset.sentiment;
     });
 });
@@ -2100,21 +2100,31 @@ emojiButtons.forEach(btn => {
 // Submit Feedback via EmailJS
 if (generalSubmitFeedbackBtn) {
     generalSubmitFeedbackBtn.addEventListener('click', () => {
-        const category = document.getElementById('feedbackCategory')?.value || '';
+        const name = document.getElementById('feedbackName')?.value || 'Anonymous';
+        const category = document.getElementById('feedbackCategory')?.value || 'General Feedback';
         const message = document.getElementById('feedbackMessage')?.value || '';
         const email = document.getElementById('feedbackEmail')?.value || '';
+
+        // Get sentiment from active emoji button
+        const activeEmoji = document.querySelector('.emoji-btn.active');
+        const sentiment = activeEmoji ? activeEmoji.textContent : '🤩';
 
         if (!message.trim()) {
             alert('Please enter some feedback.');
             return;
         }
 
+        if (!email.trim()) {
+            alert('Please enter your email.');
+            return;
+        }
+
         // Prepare email params
         const templateParams = {
-            context: `[${selectedSentiment || 'neutral'}] ${category || 'General'}`,
-            issue_type: category || 'General Feedback',
+            context: `[${sentiment}] ${name} - ${category}`,
+            issue_type: category,
             message: message,
-            user_email: email || 'No email provided'
+            user_email: email
         };
 
         // Send via EmailJS
@@ -2154,12 +2164,18 @@ if (generalSubmitFeedbackBtn) {
 
 function resetGeneralFeedbackForm() {
     emojiButtons.forEach(b => b.classList.remove('selected'));
-    selectedSentiment = '';
+    // Re-select positive emoji as default
+    const positiveEmoji = document.querySelector('.emoji-btn[data-sentiment="positive"]');
+    if (positiveEmoji) positiveEmoji.classList.add('active');
+
+    selectedSentiment = 'positive';
+    const feedbackNameEl = document.getElementById('feedbackName');
     const feedbackCategoryEl = document.getElementById('feedbackCategory');
     const feedbackMessageEl = document.getElementById('feedbackMessage');
     const feedbackEmailEl = document.getElementById('feedbackEmail');
-    if (feedbackCategoryEl) feedbackCategoryEl.value = '';
-    if (feedbackMessageEl) feedbackMessageEl.value = '';
+    if (feedbackNameEl) feedbackNameEl.value = 'Anonymous User';
+    if (feedbackCategoryEl) feedbackCategoryEl.value = 'General Feedback';
+    if (feedbackMessageEl) feedbackMessageEl.value = 'Great site for finding internships!';
     if (feedbackEmailEl) feedbackEmailEl.value = '';
     if (generalFeedbackSuccess) generalFeedbackSuccess.classList.add('hidden');
     if (generalSubmitFeedbackBtn) {
@@ -2167,4 +2183,39 @@ function resetGeneralFeedbackForm() {
         generalSubmitFeedbackBtn.disabled = false;
         generalSubmitFeedbackBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Feedback';
     }
+}
+
+// Quick Rating Buttons (in redirect modal)
+const quickRateBtns = document.querySelectorAll('.quick-rate-btn');
+let selectedQuickRating = '👍'; // Default
+
+quickRateBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        quickRateBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedQuickRating = btn.dataset.rating;
+    });
+});
+
+// Send quick rating when confirming redirect
+const confirmRedirectBtnOriginal = document.getElementById('confirmRedirectBtn');
+if (confirmRedirectBtnOriginal) {
+    confirmRedirectBtnOriginal.addEventListener('click', () => {
+        // Send quick rating via EmailJS
+        if (typeof emailjs !== 'undefined' && selectedQuickRating) {
+            const jobTitle = document.getElementById('modalTitle')?.textContent || 'Unknown Job';
+            const company = document.getElementById('modalCompany')?.textContent || 'Unknown';
+
+            emailjs.send('service_j7zfiag', 'template_q9zlru6', {
+                context: `Quick Rating: ${selectedQuickRating} for ${jobTitle} - ${company}`,
+                issue_type: 'Quick Rating',
+                message: `User rated ${selectedQuickRating} before applying to ${jobTitle} at ${company}`,
+                user_email: 'Quick Rating (No Email)'
+            }).then(() => {
+                console.log('Quick rating sent successfully');
+            }).catch(err => {
+                console.log('Quick rating failed:', err);
+            });
+        }
+    });
 }
