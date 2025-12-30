@@ -2022,7 +2022,7 @@ if (submitReportBtn) {
             submitReportBtn.disabled = true;
             submitReportBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-            emailjs.send('service_kyc3h0c', 'template_s39av5y', templateParams)
+            emailjs.send('service_j7zfiag', 'template_q9zlru6', templateParams)
                 .then(() => {
                     // Show success
                     if (reportSuccess) reportSuccess.classList.remove('hidden');
@@ -2122,7 +2122,7 @@ if (generalSubmitFeedbackBtn) {
             generalSubmitFeedbackBtn.disabled = true;
             generalSubmitFeedbackBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
 
-            emailjs.send('service_kyc3h0c', 'template_s39av5y', templateParams)
+            emailjs.send('service_j7zfiag', 'template_q9zlru6', templateParams)
                 .then(() => {
                     // Show success
                     if (generalFeedbackSuccess) generalFeedbackSuccess.classList.remove('hidden');
