@@ -1184,10 +1184,10 @@ window.openModal = function (title) {
 
     // Safety check for optional description fields
     const descEl = document.getElementById('modalDescription');
-    if (descEl) descEl.textContent = item.description || "No description available yet.";
+    if (descEl) descEl.innerHTML = item.description || "No description available yet.";
 
     const eligEl = document.getElementById('modalEligibility');
-    if (eligEl) eligEl.textContent = item.eligibility || "Open to all relevant candidates.";
+    if (eligEl) eligEl.innerHTML = item.eligibility || "Open to all relevant candidates.";
 
     // Posted date removed from voucher layout, skipping
     // Icons
