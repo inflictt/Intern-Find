@@ -242,7 +242,10 @@
                             <span id="modalCompany" class="company-badge">Company</span>
                         </div>
                     </div>
-                    <div class="header-right">
+                    <div class="header-right" style="display: flex; gap: 10px; align-items: center;">
+                        <button id="reportIssueBtn" class="btn-report" title="Report an issue with this listing">
+                            <i class="fa-solid fa-flag"></i> Report
+                        </button>
                         <button id="headerApplyBtn" class="btn btn-outline-sm"
                             title="Opens external company career site">Apply Now <i
                                 class="fa-solid fa-arrow-up-right-from-square"></i></button>
@@ -370,6 +373,91 @@
 
     <!-- Mini Card Tray for Previews -->
     <div id="miniTray" class="mini-tray"></div>
+
+    <!-- Report Issue Modal (Contextual) -->
+    <div id="reportIssueModal" class="report-modal hidden">
+        <div class="report-modal-content">
+            <button class="report-close-btn" id="closeReportModal"><i class="fa-solid fa-xmark"></i></button>
+            <h3><i class="fa-solid fa-flag" style="color: #ef4444;"></i> Report Issue</h3>
+            <p id="reportContext" style="color: var(--text-muted); margin-bottom: 15px;">Google STEP Intern 2026</p>
+
+            <div class="report-options">
+                <label class="report-option">
+                    <input type="radio" name="issueType" value="Link is broken / 404">
+                    <span><i class="fa-solid fa-link-slash"></i> Link is broken / 404</span>
+                </label>
+                <label class="report-option">
+                    <input type="radio" name="issueType" value="Job is expired / Closed">
+                    <span><i class="fa-solid fa-calendar-xmark"></i> Job is expired / Closed</span>
+                </label>
+                <label class="report-option">
+                    <input type="radio" name="issueType" value="Information is incorrect">
+                    <span><i class="fa-solid fa-circle-exclamation"></i> Information is incorrect (Stipend/Date)</span>
+                </label>
+            </div>
+
+            <textarea id="reportMessage" placeholder="Additional details (optional)..." rows="2"></textarea>
+
+            <button id="submitReportBtn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
+                <i class="fa-solid fa-paper-plane"></i> Submit Report
+            </button>
+
+            <div id="reportSuccess" class="report-success hidden">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Thanks! We'll look into it.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Feedback Tab (Right Edge) -->
+    <div id="feedbackTab" class="feedback-tab">
+        <span>Feedback</span>
+    </div>
+
+    <!-- General Feedback Modal -->
+    <div id="feedbackModal" class="feedback-modal hidden">
+        <div class="feedback-modal-content">
+            <button class="feedback-close-btn" id="closeFeedbackModal"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Help us improve InternNow</h3>
+
+            <div class="sentiment-bar">
+                <span>How is your experience?</span>
+                <div class="emoji-options">
+                    <button class="emoji-btn" data-sentiment="negative">😡</button>
+                    <button class="emoji-btn" data-sentiment="neutral">😐</button>
+                    <button class="emoji-btn" data-sentiment="positive">🤩</button>
+                </div>
+            </div>
+
+            <select id="feedbackCategory" class="feedback-select">
+                <option value="">Select category...</option>
+                <option value="Feature Request">Feature Request</option>
+                <option value="Bug Report">Bug Report</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <textarea id="feedbackMessage" placeholder="I wish this site had..." rows="3"></textarea>
+
+            <input type="email" id="feedbackEmail" placeholder="Your email (optional, for reply)">
+
+            <button id="submitFeedbackBtn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">
+                <i class="fa-solid fa-paper-plane"></i> Send Feedback
+            </button>
+
+            <div id="feedbackSuccess" class="feedback-success hidden">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Thanks for your feedback!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function () {
+            emailjs.init("9KYYZp5_PrpfT952I");
+        })();
+    </script>
 
     <script src="script.js"></script>
 </body>

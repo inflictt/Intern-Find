@@ -1965,3 +1965,206 @@ window.addEventListener('load', () => {
         showToast("New: Uber She++ just went live! Check it out.");
     }, 2000);
 });
+
+// ===== FEEDBACK SYSTEM LOGIC =====
+
+// Track current context for reports
+let currentReportContext = '';
+
+// Report Issue Modal Toggle
+const reportIssueBtn = document.getElementById('reportIssueBtn');
+const reportIssueModal = document.getElementById('reportIssueModal');
+const closeReportModal = document.getElementById('closeReportModal');
+const submitReportBtn = document.getElementById('submitReportBtn');
+const reportContext = document.getElementById('reportContext');
+const reportSuccess = document.getElementById('reportSuccess');
+
+if (reportIssueBtn) {
+    reportIssueBtn.addEventListener('click', () => {
+        // Get context from current modal
+        const title = document.getElementById('modalTitle')?.textContent || 'Unknown';
+        const company = document.getElementById('modalCompany')?.textContent || 'Unknown';
+        currentReportContext = `${title} - ${company}`;
+        if (reportContext) reportContext.textContent = currentReportContext;
+
+        if (reportIssueModal) reportIssueModal.classList.remove('hidden');
+    });
+}
+
+if (closeReportModal) {
+    closeReportModal.addEventListener('click', () => {
+        if (reportIssueModal) reportIssueModal.classList.add('hidden');
+        resetReportForm();
+    });
+}
+
+// Submit Report via EmailJS
+if (submitReportBtn) {
+    submitReportBtn.addEventListener('click', () => {
+        const selectedIssue = document.querySelector('input[name="issueType"]:checked');
+        const message = document.getElementById('reportMessage')?.value || '';
+
+        if (!selectedIssue) {
+            alert('Please select an issue type.');
+            return;
+        }
+
+        // Prepare email params
+        const templateParams = {
+            context: currentReportContext,
+            issue_type: selectedIssue.value,
+            message: message || 'No additional details provided.',
+            user_email: 'Anonymous Report'
+        };
+
+        // Send via EmailJS
+        if (typeof emailjs !== 'undefined') {
+            submitReportBtn.disabled = true;
+            submitReportBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+            emailjs.send('service_kyc3h0c', 'template_s39av5y', templateParams)
+                .then(() => {
+                    // Show success
+                    if (reportSuccess) reportSuccess.classList.remove('hidden');
+                    submitReportBtn.style.display = 'none';
+
+                    // Auto close after 2s
+                    setTimeout(() => {
+                        if (reportIssueModal) reportIssueModal.classList.add('hidden');
+                        resetReportForm();
+                    }, 2000);
+                })
+                .catch((err) => {
+                    console.error('EmailJS Error:', err);
+                    alert('Failed to send report. Please try again.');
+                    submitReportBtn.disabled = false;
+                    submitReportBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Report';
+                });
+        } else {
+            console.log('EmailJS not loaded. Mock submission:', templateParams);
+            if (reportSuccess) reportSuccess.classList.remove('hidden');
+            submitReportBtn.style.display = 'none';
+            setTimeout(() => {
+                if (reportIssueModal) reportIssueModal.classList.add('hidden');
+                resetReportForm();
+            }, 2000);
+        }
+    });
+}
+
+function resetReportForm() {
+    const radios = document.querySelectorAll('input[name="issueType"]');
+    radios.forEach(r => r.checked = false);
+    const reportMessage = document.getElementById('reportMessage');
+    if (reportMessage) reportMessage.value = '';
+    if (reportSuccess) reportSuccess.classList.add('hidden');
+    if (submitReportBtn) {
+        submitReportBtn.style.display = 'block';
+        submitReportBtn.disabled = false;
+        submitReportBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Report';
+    }
+}
+
+// Feedback Tab & Modal (General Site Feedback)
+const feedbackTabTrigger = document.getElementById('feedbackTab');
+const generalFeedbackModal = document.getElementById('feedbackModal');
+const generalCloseFeedbackModal = document.getElementById('closeFeedbackModal');
+const generalSubmitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+const generalFeedbackSuccess = document.getElementById('feedbackSuccess');
+const emojiButtons = document.querySelectorAll('.emoji-btn');
+
+let selectedSentiment = '';
+
+if (feedbackTabTrigger) {
+    feedbackTabTrigger.addEventListener('click', () => {
+        if (generalFeedbackModal) generalFeedbackModal.classList.remove('hidden');
+    });
+}
+
+if (generalCloseFeedbackModal) {
+    generalCloseFeedbackModal.addEventListener('click', () => {
+        if (generalFeedbackModal) generalFeedbackModal.classList.add('hidden');
+        resetGeneralFeedbackForm();
+    });
+}
+
+// Emoji selection
+emojiButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        emojiButtons.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedSentiment = btn.dataset.sentiment;
+    });
+});
+
+// Submit Feedback via EmailJS
+if (generalSubmitFeedbackBtn) {
+    generalSubmitFeedbackBtn.addEventListener('click', () => {
+        const category = document.getElementById('feedbackCategory')?.value || '';
+        const message = document.getElementById('feedbackMessage')?.value || '';
+        const email = document.getElementById('feedbackEmail')?.value || '';
+
+        if (!message.trim()) {
+            alert('Please enter some feedback.');
+            return;
+        }
+
+        // Prepare email params
+        const templateParams = {
+            context: `[${selectedSentiment || 'neutral'}] ${category || 'General'}`,
+            issue_type: category || 'General Feedback',
+            message: message,
+            user_email: email || 'No email provided'
+        };
+
+        // Send via EmailJS
+        if (typeof emailjs !== 'undefined') {
+            generalSubmitFeedbackBtn.disabled = true;
+            generalSubmitFeedbackBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+            emailjs.send('service_kyc3h0c', 'template_s39av5y', templateParams)
+                .then(() => {
+                    // Show success
+                    if (generalFeedbackSuccess) generalFeedbackSuccess.classList.remove('hidden');
+                    generalSubmitFeedbackBtn.style.display = 'none';
+
+                    // Auto close after 2s
+                    setTimeout(() => {
+                        if (generalFeedbackModal) generalFeedbackModal.classList.add('hidden');
+                        resetGeneralFeedbackForm();
+                    }, 2000);
+                })
+                .catch((err) => {
+                    console.error('EmailJS Error:', err);
+                    alert('Failed to send feedback. Please try again.');
+                    generalSubmitFeedbackBtn.disabled = false;
+                    generalSubmitFeedbackBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Feedback';
+                });
+        } else {
+            console.log('EmailJS not loaded. Mock submission:', templateParams);
+            if (generalFeedbackSuccess) generalFeedbackSuccess.classList.remove('hidden');
+            generalSubmitFeedbackBtn.style.display = 'none';
+            setTimeout(() => {
+                if (generalFeedbackModal) generalFeedbackModal.classList.add('hidden');
+                resetGeneralFeedbackForm();
+            }, 2000);
+        }
+    });
+}
+
+function resetGeneralFeedbackForm() {
+    emojiButtons.forEach(b => b.classList.remove('selected'));
+    selectedSentiment = '';
+    const feedbackCategoryEl = document.getElementById('feedbackCategory');
+    const feedbackMessageEl = document.getElementById('feedbackMessage');
+    const feedbackEmailEl = document.getElementById('feedbackEmail');
+    if (feedbackCategoryEl) feedbackCategoryEl.value = '';
+    if (feedbackMessageEl) feedbackMessageEl.value = '';
+    if (feedbackEmailEl) feedbackEmailEl.value = '';
+    if (generalFeedbackSuccess) generalFeedbackSuccess.classList.add('hidden');
+    if (generalSubmitFeedbackBtn) {
+        generalSubmitFeedbackBtn.style.display = 'block';
+        generalSubmitFeedbackBtn.disabled = false;
+        generalSubmitFeedbackBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Feedback';
+    }
+}
