@@ -1435,7 +1435,7 @@ function getCompanyLogoDomain(item) {
 
 function renderMainSearchResults(filtered, query) {
     // --- Sort Logic ---
-    const sortValue = sortSelect.value;
+    const sortValue = sortSelect ? sortSelect.value : 'latest';
     if (sortValue === 'latest') {
         filtered.sort((a, b) => new Date(b.postedDate) - new Date(a.postedDate));
     } else if (sortValue === 'oldest') {
