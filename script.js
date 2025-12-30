@@ -1894,12 +1894,12 @@ function handleChat() {
 
     setTimeout(() => {
         addMessage(response, 'bot', actions);
-    }, 500);
+    }, 5000);
 }
 
 if (fabChat) {
     fabChat.addEventListener('click', () => {
-        alert('🚀 AI Chatbot Coming Soon!\n\nWe\'re building an intelligent assistant to help you find the perfect internship. Stay tuned!');
+        alert('AI Chatbot Coming Soon!\n\nWe\'re building an intelligent assistant to help you find the perfect internship. Stay tuned!');
     });
 }
 
