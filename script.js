@@ -1724,28 +1724,8 @@ function renderSearchResults(data, container) {
 }
 
 // --- Widget Logic (Feedback & Chat) ---
-const fabFeedback = document.getElementById('fabFeedback');
-const feedbackModal = document.getElementById('feedbackModal');
-const closeFeedbackBtn = document.getElementById('closeFeedbackBtn');
-const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
-const feedbackInput = document.getElementById('feedbackInput');
-
-if (fabFeedback && feedbackModal) {
-    fabFeedback.addEventListener('click', () => {
-        feedbackModal.classList.remove('hidden');
-    });
-    closeFeedbackBtn.addEventListener('click', () => {
-        feedbackModal.classList.add('hidden');
-    });
-    submitFeedbackBtn.addEventListener('click', () => {
-        const text = feedbackInput.value.trim();
-        if (text) {
-            alert("Thank you for your feedback! We have received it.");
-            feedbackInput.value = '';
-            feedbackModal.classList.add('hidden');
-        }
-    });
-}
+// Note: Feedback now handled by feedbackTabTrigger in the Feedback System section below
+// Legacy fabFeedback removed to avoid conflicts
 
 // --- Chat Bot Logic ---
 const fabChat = document.getElementById('fabChat');

@@ -2263,22 +2263,23 @@ footer {
 /* Large Feedback Tab (More Visible) */
 .feedback-tab-large {
     position: fixed;
-    right: 20px;
-    bottom: 100px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    right: 30px;
+    bottom: 90px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
     color: white;
-    padding: 14px 24px;
+    padding: 16px 28px;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    z-index: 9998;
+    font-size: 1rem;
+    font-weight: 700;
+    z-index: 9999;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5), 0 0 0 4px rgba(59, 130, 246, 0.2);
     display: flex;
     align-items: center;
     gap: 10px;
     animation: feedbackPulse 2s infinite;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .feedback-tab-large i {
