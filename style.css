@@ -270,6 +270,23 @@ ul {
     font-size: 1.1rem;
 }
 
+/* Urgent Button Styling */
+.btn-urgent {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border: none;
+}
+
+.btn-urgent:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px);
+}
+
+/* Visited Link State (Subtle indicator for clicked links) */
+.apply-btn:visited {
+    opacity: 0.8;
+}
+
 .badge {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-color);

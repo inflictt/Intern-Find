@@ -701,31 +701,23 @@ function renderCards(data, container = grid) {
         const card = document.createElement('div');
         card.className = 'card';
 
-        // --- HIERARCHY LOGIC (The State Machine) ---
-        const isApplied = localStorage.getItem('applied_' + item.title);
-
-        // Safety checks for properties that might be missing in some Data objects
-        const statusText = item.status || "";
+        // --- AGGREGATOR LOGIC (Only 2 States: Standard or Urgent) ---
         const deadlineText = item.deadline || "Rolling Basis";
+        const statusText = item.status || "";
 
-        const isUrgent = statusText.includes('ASAP') || deadlineText.includes('ASAP') || statusText.includes('Closing');
-
-        let cardState = 'STANDARD';
-        if (isApplied) cardState = 'SUBMITTED';
-        else if (isUrgent) cardState = 'URGENT';
+        // Check if urgent (ASAP, Closing Soon, or deadline < 7 days)
+        const isUrgent = statusText.includes('ASAP') ||
+            deadlineText.includes('ASAP') ||
+            statusText.includes('Closing') ||
+            deadlineText.includes('Soon');
 
         // --- Visual Elements based on State ---
         let headerHTML = '';
-        let btnText = 'View Details';
         let btnClass = 'btn btn-primary apply-btn';
 
-        if (cardState === 'SUBMITTED') {
-            headerHTML = `<div class="timer-submitted"><i class="fa-solid fa-circle-check"></i> Application Sent</div>`;
-            btnText = 'View Application';
-            btnClass = 'btn btn-ghost apply-btn';
-        } else if (cardState === 'URGENT') {
-            headerHTML = `<div class="timer-urgent"><i class="fa-solid fa-fire"></i> ${deadlineText.includes('ASAP') ? 'Closing ASAP' : 'Closing Soon'}</div>`;
-            btnText = 'Apply Now';
+        if (isUrgent) {
+            headerHTML = `<div class="timer-urgent"><i class="fa-solid fa-fire"></i> Closing Soon</div>`;
+            btnClass = 'btn btn-urgent apply-btn';
         } else {
             headerHTML = `<div class="timer-standard"><i class="fa-regular fa-clock"></i> ${deadlineText}</div>`;
         }
@@ -766,16 +758,11 @@ function renderCards(data, container = grid) {
             
             <div class="card-footer" style="justify-content: space-between; align-items: center; display: flex;">
                 <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
-                <button class="${btnClass}">${btnText}</button>
+                <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="${btnClass}">
+                    Apply Now <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
             </div>
         `;
-
-        const btn = card.querySelector('.apply-btn');
-        btn.addEventListener('click', () => {
-            if (typeof openModal === 'function') {
-                openModal(item.title);
-            }
-        });
 
         container.appendChild(card);
     });
