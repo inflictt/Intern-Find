@@ -997,7 +997,7 @@ if (isOpportunitiesPage) {
         performSearch();
     }
 } else {
-    renderCards(internshipData.slice(0, 5));
+    renderCards(internshipData.slice(0, 3));
 
     // --- Home Page Search Modal Logic ---
     const searchModal = document.getElementById('searchModal');

@@ -86,66 +86,8 @@
             <div class="container">
                 <div class="section-header">
                     <h2>Featured Opportunities</h2>
-                    <p>Hand-picked opportunities top global companies</p>
+                    <p>Hand-picked opportunities from top global companies</p>
                 </div>
-
-                <div class="filters-container">
-                    <!-- Smart Filters (Advanced) -->
-                    <div class="quick-filters"
-                        style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
-                        <button class="filter-chip" onclick="handleHomeSearch('stipend')">💰 High Stipend</button>
-                        <button class="filter-chip" onclick="handleHomeSearch('Amazon')">🏢 FAANG Only</button>
-                        <button class="filter-chip" onclick="handleHomeSearch('Closing Soon')">⏳ Closing Soon</button>
-                    </div>
-
-                    <div class="filter-row">
-                        <span class="filter-label">Type:</span>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" data-filter="all" data-type="type">All</button>
-                            <button class="filter-btn" data-filter="Internship" data-type="type">Internships</button>
-                            <button class="filter-btn" data-filter="Hackathon" data-type="type">Hackathons</button>
-                            <button class="filter-btn" data-filter="Women in Tech" data-type="type"><i
-                                    class="fa-solid fa-venus"></i> Women in Tech</button>
-                        </div>
-                    </div>
-
-                    <div class="filter-row">
-                        <span class="filter-label">Status:</span>
-                        <div class="filter-buttons">
-                            <button class="filter-btn active" data-filter="Open" data-type="status">Open</button>
-                            <button class="filter-btn" data-filter="Coming Soon" data-type="status">Coming Soon</button>
-                            <button class="filter-btn" data-filter="Closed" data-type="status">Closed</button>
-                        </div>
-                    </div>
-
-                    <div class="filter-row dropdowns-row">
-                        <div class="filter-group">
-                            <span class="filter-label">Company:</span>
-                            <select id="companyFilter" class="filter-select">
-                                <option value="all">All Companies</option>
-                                <!-- Populate via JS -->
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <span class="filter-label">Sort By:</span>
-                            <select id="sortSelect" class="filter-select">
-                                <option value="latest">Latest</option>
-                                <option value="oldest">Oldest</option>
-                                <option value="stipend-high">High Stipend</option>
-                                <option value="stipend-low">Low Stipend</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="filters-summary" style="justify-content: center; margin-top: 30px;">
-                    <a href="opportunities.html" class="btn btn-primary btn-hero-cta">
-                        <i class="fa-solid fa-arrow-right"></i> View All Opportunities
-                    </a>
-                </div>
-
-                <!-- Active Filters & Summary -->
-                <div class="active-filters-container" id="activeFiltersContainer"></div>
 
                 <div id="internship-grid" class="internship-grid">
                     <!-- Cards will be injected here by JS -->
@@ -154,6 +96,12 @@
                     <div class="card skeleton-card"></div>
                 </div>
 
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="opportunities.html" class="btn btn-primary btn-hero-cta">
+                        <i class="fa-solid fa-arrow-right"></i> Explore All Opportunities
+                    </a>
+                </div>
+            </div>
         </section>
 
         <!-- How it works (Simple 3 steps) -->
