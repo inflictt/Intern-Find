@@ -1,5 +1,39 @@
 // JS to render cards and handle logic
 
+// --- GLOBAL VARIABLES & HELPERS (Hoisted) ---
+let searchTimeout;
+
+// Helper: Get Company Logo URL (Clearbit)
+// Defined here to ensure it's available for all render functions
+window.getCompanyLogoUrl = function (companyName) {
+    const domainMap = {
+        'Google': 'google.com',
+        'Microsoft': 'microsoft.com',
+        'Amazon': 'amazon.com',
+        'Netflix': 'netflix.com',
+        'Meta': 'meta.com',
+        'Apple': 'apple.com',
+        'Uber': 'uber.com',
+        'Adobe': 'adobe.com',
+        'Salesforce': 'salesforce.com',
+        'Atlassian': 'atlassian.com',
+        'LinkedIn': 'linkedin.com',
+        'Goldman Sachs': 'goldmansachs.com',
+        'JPMorgan': 'jpmorgan.com',
+        'WorldQuant': 'worldquant.com',
+        'D. E. Shaw': 'deshaw.com',
+        'Arcesium': 'arcesium.com',
+        'Media.net': 'media.net',
+        'Intuit': 'intuit.com',
+        'Cisco': 'cisco.com',
+        'Oracle': 'oracle.com'
+    };
+    const domain = domainMap[companyName] || (companyName.replace(/\s+/g, '') + '.com');
+    // Use clearbit logo API
+    return `https://logo.clearbit.com/${domain}`;
+};
+
+
 const internshipData = [
     {
         title: "Google STEP Intern 2026",
@@ -518,27 +552,59 @@ function getCurrencyIcon(stipend) {
 }
 
 // Global Formatter for Stipends
+// Global Formatter for Stipends (Master Design: 80k, 1.2L)
 function formatStipend(s) {
     if (!s) return "";
-    let val = s.trim();
+    let val = s.toLowerCase().trim();
 
-    // Normalize "1,10,000" to "1.1L" if it's a large rupee amount
-    if (val.includes(',') && val.includes('000') && !val.includes('L') && !val.includes('k')) {
-        const num = parseInt(val.replace(/[^0-9]/g, ''));
+    // Preserve non-monetary text usually
+    if (val.includes('unpaid') || val.includes('prize') || val.includes('competitive')) {
+        return s; // Return original capitalized if needed, or simple string
+    }
+
+    // Extract numbers to format
+    const numbers = val.match(/(\d+,?\d*)/g);
+    if (!numbers) return s;
+
+    // Helper to format single number
+    const formatNum = (numStr) => {
+        let num = parseFloat(numStr.replace(/,/g, ''));
+        if (isNaN(num)) return numStr;
+
         if (num >= 100000) {
-            val = (num / 100000).toFixed(1) + 'L';
+            // Lakhs
+            let lakhVal = num / 100000;
+            // Remove decimal if .0, max 1 decimal place
+            return lakhVal % 1 === 0 ? `${lakhVal}L` : `${lakhVal.toFixed(1)}L`;
+        } else if (num >= 1000) {
+            // Thousands
+            let thousandVal = num / 1000;
+            return thousandVal % 1 === 0 ? `${thousandVal}k` : `${thousandVal.toFixed(1)}k`;
         }
-    }
+        return num.toString();
+    };
 
-    // Ensure consistent spacing for / mo
-    val = val.replace(/\/month/g, '/ mo').replace(/\/mo/g, ' / mo').replace(/\s+\/\s+/g, ' / ');
+    // Replace numbers in the original string with formatted versions
+    // This is tricky because replacing "80000" in "80000 - 100000" needs care.
+    // Simpler approach: If generic range "X-Y", format both.
+    // If it's a clean number string, format it.
 
-    // Add Rupee symbol if missing and it's clearly an Indian amount (includes L or big numbers)
-    if (!val.includes('₹') && !val.includes('$') && (val.includes('L') || val.match(/\d{5,}/))) {
-        val = '₹ ' + val;
-    }
+    // For now, let's try to reconstruct common patterns or just return formatting if it matches strict numeric pattern
+    // Regex replace is safer
+    let formattedVal = val.replace(/(\d+(?:,\d+)*)/g, (match) => formatNum(match));
 
-    return val;
+    // Restore currency symbols and casing
+    formattedVal = formattedVal.replace(/inr/g, '').replace(/rs\.?/g, '').replace(/₹/g, '').trim();
+
+    // Clean up " / mo"
+    formattedVal = formattedVal.replace(/\/month|\/ mo/g, ' / mo');
+
+    return formattedVal;
+
+    // Clean up " / mo"
+    formattedVal = formattedVal.replace(/\/month|\/ mo/g, ' / mo');
+
+    return formattedVal;
 }
 
 // Helper to parse stipend value for sorting (Returns monthly estimate in INR)
@@ -701,73 +767,94 @@ function renderCards(data, container = grid) {
         const card = document.createElement('div');
         card.className = 'card';
 
-        // --- AGGREGATOR LOGIC (Only 2 States: Standard or Urgent) ---
-        const deadlineText = item.deadline || "Rolling Basis";
-        const statusText = item.status || "";
+        // --- MASTER DESIGN ITERATION 3 (Exact Image Replica) ---
 
-        // Check if urgent (ASAP, Closing Soon, or deadline < 7 days)
-        const isUrgent = statusText.includes('ASAP') ||
-            deadlineText.includes('ASAP') ||
-            statusText.includes('Closing') ||
-            deadlineText.includes('Soon');
+        // 1. Data Prep
+        const postedDate = new Date(item.postedDate);
+        const postedStr = `Posted: ${postedDate.toLocaleDateString('en-US')}`;
 
-        // --- Visual Elements based on State ---
-        let headerHTML = '';
-        let btnClass = 'btn btn-primary apply-btn';
+        // Insight Badges (Reused Logic for Outer Card now)
+        const isFresher = (item.eligibility || "").toLowerCase().includes('first') || (item.eligibility || "").toLowerCase().includes('2027');
+        const isFAANG = ['Google', 'Meta', 'Microsoft', 'Amazon', 'Apple', 'Netflix'].includes(item.company);
+        const isHighPay = parseStipendValue(item.stipend) > 50000;
 
-        if (isUrgent) {
-            headerHTML = `<div class="timer-urgent"><i class="fa-solid fa-fire"></i> Closing Soon</div>`;
-            btnClass = 'btn btn-urgent apply-btn';
-        } else {
-            headerHTML = `<div class="timer-standard"><i class="fa-regular fa-clock"></i> ${deadlineText}</div>`;
-        }
+        let insightBadgesHTML = `<div class="card-tags-insight">`;
+        if (isFresher) insightBadgesHTML += `<span class="tag-insight yellow">✦ FRESHERS FRIENDLY</span>`;
+        if (!isFAANG && isHighPay) insightBadgesHTML += `<span class="tag-insight red">HIGH COMPETITION</span>`;
+        if (isFAANG) insightBadgesHTML += `<span class="tag-insight purple">✦ FAANG</span>`;
+        insightBadgesHTML += `</div>`;
 
-        const itemTags = item.tags || [];
-        const tagsHtml = itemTags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
-        const currencyIconClass = getCurrencyIcon(item.stipend || "");
-
-        card.innerHTML = `
-            <div class="card-header">
-                <div style="display:flex; gap:12px; align-items:center;">
-                    <div class="company-logo-wrapper" style="width:40px; height:40px; border-radius:8px; overflow:hidden; background:var(--bg-color); display:flex; align-items:center; justify-content:center; border:1px solid var(--border-color);">
-                        ${getCompanyLogo(item)}
-                    </div>
-                    <div>
-                        <h3 class="role-title">${item.title}</h3>
-                        <div class="company-name" style="margin-top:2px;">${item.company}</div>
-                    </div>
-                </div>
-                ${headerHTML}
+        // 2. Verified Badge (Top Left Absolute)
+        const verifiedBadgeHTML = `
+            <div class="card-verified-badge">
+                <span class="verified-dot"></span> Verified
             </div>
-            
-            <div class="card-tags">
-                ${tagsHtml}
-            </div>
+            <div class="card-menu-dots">...</div> 
+        `;
 
-            <div class="card-info">
-                <div class="info-item">
-                    <i class="fa-solid fa-location-dot"></i> ${item.location}
+        // 3. Header: Logo Box + Title + Company Pill
+        const headerHTML = `
+            <div class="card-header-v3">
+                <div class="logo-box-v3">
+                   <img src="${getCompanyLogoUrl(item.company)}" alt="${item.company}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.company)}&background=random&color=fff&size=128';">
                 </div>
-                <div class="info-item">
-                     <i class="fa-regular fa-calendar"></i> ${item.duration}
+                <div class="header-text-v3">
+                    <h3 class="job-title-v3">${item.title}</h3>
+                    <span class="company-pill-v3">${item.company}</span>
                 </div>
-                <div class="info-item">
-                    <i class="fa-solid ${currencyIconClass}"></i> ${formatStipend(item.stipend)}
-                </div>
-            </div>
-            
-            <div class="card-footer" style="justify-content: space-between; align-items: center; display: flex;">
-                <span class="posted-date">Posted: ${new Date(item.postedDate).toLocaleDateString()}</span>
-                <button class="${btnClass}">View Details</button>
             </div>
         `;
 
-        const btn = card.querySelector('.apply-btn');
-        btn.addEventListener('click', () => {
-            if (typeof openModal === 'function') {
-                openModal(item.title);
-            }
-        });
+        // 4. Info Rows (Location, Duration)
+        let locationTxt = item.location;
+        if (locationTxt.length > 25) locationTxt = locationTxt.split('/')[0] + '...';
+
+        const infoRowsHTML = `
+            <div class="info-rows-v3">
+                <div class="info-row-item">
+                    <i class="fa-solid fa-location-dot"></i> <span>${locationTxt}</span>
+                </div>
+                <div class="info-row-item">
+                    <i class="fa-regular fa-clock"></i> <span>${item.duration}</span>
+                </div>
+            </div>
+        `;
+
+        // 5. Stipend Box (Big Dark Box)
+        // 5. Stipend Box (Big Dark Box)
+        const stipendBoxHTML = `
+            <div class="stipend-box-v3">
+                <div class="stipend-val-v3">
+                    <i class="fa-solid ${getCurrencyIcon(item.stipend)}"></i> ${formatStipend(item.stipend)}
+                </div>
+            </div>
+        `;
+
+        // 6. Footer (Posted + Button)
+        const footerHTML = `
+            <div class="card-footer-v3">
+                <span class="posted-date-v3">${postedStr}</span>
+                <button class="btn-check-eligibility" onclick="openModal('${item.title.replace(/'/g, "\\'")}')">Check Eligibility</button>
+            </div>
+        `;
+
+        // 7. Bottom Source Link
+        const sourceLinkHTML = `
+             <div class="card-source-link-v3">
+                <a href="${item.link}" target="_blank">
+                    <i class="fa-solid fa-circle-check"></i> Verified Source - Careers @ ${item.company} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
+                </a>
+             </div>
+        `;
+
+        // 8. Legal Disclaimer
+        const disclaimerHTML = `
+            <div class="legal-disclaimer-v3">
+                Disclaimer: InternNow is an independent platform, not affiliated with ${item.company}. All trademarks property of their respective owners.
+            </div>
+        `;
+
+        card.innerHTML = verifiedBadgeHTML + headerHTML + insightBadgesHTML + infoRowsHTML + stipendBoxHTML + footerHTML + sourceLinkHTML + disclaimerHTML;
 
         container.appendChild(card);
     });
@@ -949,10 +1036,12 @@ function renderSearchDropdown(results, query) {
         const itemEl = document.createElement('div');
         itemEl.className = 'search-result-item';
 
-        const logoHtml = getCompanyLogo(item);
+        const logoUrl = getCompanyLogoUrl(item.company);
 
         itemEl.innerHTML = `
-            <div style="width: 24px; height: 24px; display:flex; align-items:center; justify-content:center;">${logoHtml}</div>
+            <div style="width: 24px; height: 24px; display:flex; align-items:center; justify-content:center;">
+                 <img src="${logoUrl}" alt="${item.company}" style="width:100%; height:100%; object-fit:contain;" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.company)}&background=random&color=fff&size=128';">
+            </div>
             <div class="sr-info">
                 <div class="sr-title">${item.title}</div>
                 <div class="sr-company">${item.company}</div>
@@ -997,6 +1086,7 @@ if (isOpportunitiesPage) {
         performSearch();
     }
 } else {
+    // HOME PAGE: Strict Limit to 3 Cards
     renderCards(internshipData.slice(0, 3));
 
     // --- Home Page Search Modal Logic ---
@@ -1147,72 +1237,159 @@ let currentInternshipLink = '';
 let currentInternshipTitle = '';
 
 // Open Modal
-window.openModal = function (title) {
-    const item = internshipData.find(i => i.title === title);
+// Open Modal (Master Design Upgrade)
+window.openModal = function (identifier) {
+    // identifier can be title (legacy) or id
+    const item = typeof identifier === 'number'
+        ? internshipData.find(i => i.id === identifier)
+        : internshipData.find(i => i.title === identifier);
+
     if (!item) return;
 
     currentInternshipLink = item.link;
     currentInternshipTitle = item.title;
+    currentReportContext = `Internship: ${item.title} at ${item.company} `;
 
     // Reset View
     detailsView.classList.remove('hidden');
     confirmView.classList.add('hidden');
 
-    // Populate Data
-    currentInternshipLink = item.link; // Critical: Update apply link
+    // --- CONSTRUCT MASTER LAYOUT HTML ---
 
-    // Logo Injection
-    const logoContainer = document.getElementById('modalIconContainer');
-    if (logoContainer) {
-        logoContainer.innerHTML = getCompanyLogo(item);
-        // Force larger size for modal? Or keep micro?
-        // User asked for "Micro mini logos" generally, but Modal header usually bigger. 
-        // But our helper uses specific class. We can override in CSS if needed.
-        // For now, Clearbit looks good.
-        logoContainer.style.background = 'white'; // Ensure transparency looks good if black logo
-        logoContainer.style.display = 'flex';
-        logoContainer.style.alignItems = 'center';
-        logoContainer.style.justifyContent = 'center';
-        logoContainer.style.overflow = 'hidden';
-    }
+    // --- CONSTRUCT MASTER LAYOUT HTML ---
 
-    document.getElementById('modalTitle').textContent = item.title;
-    document.getElementById('modalCompany').textContent = item.company;
-    document.getElementById('modalLocation').textContent = item.location;
-    document.getElementById('modalDuration').textContent = item.duration;
-    document.getElementById('modalStipend').textContent = formatStipend(item.stipend);
+    // --- MASTER DESIGN ITERATION 3 (Exact Image Replica) ---
 
-    // Safety check for optional description fields
-    const descEl = document.getElementById('modalDescription');
-    if (descEl) descEl.innerHTML = item.description || "No description available yet.";
+    // 1. Header (Logo, Title, Company Pill, Apply Button)
+    const headerHTML = `
+        <div class="popup-header-v3">
+            <div class="popup-header-top-row">
+                <div class="popup-logo-v3">
+                     <img src="${getCompanyLogoUrl(item.company)}" alt="${item.company}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.company)}&background=random&color=fff&size=128';">
+                </div>
+                <a href="#" onclick="showConfirmView(); return false;" class="btn-apply-v3">
+                    Apply Now <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+            
+            <div class="popup-title-row">
+                 <h2 class="popup-title-v3">${item.title}</h2>
+                 <span class="company-pill-v3">${item.company}</span>
+            </div>
+        </div>
+    `;
 
-    const eligEl = document.getElementById('modalEligibility');
-    if (eligEl) eligEl.innerHTML = item.eligibility || "Open to all relevant candidates.";
+    // 2. Insight Badges (Below Header)
+    const isFresher = (item.eligibility || "").toLowerCase().includes('first') || (item.eligibility || "").toLowerCase().includes('2027');
+    const isFAANG = ['Google', 'Meta', 'Microsoft', 'Amazon', 'Apple', 'Netflix'].includes(item.company);
+    const isHighPay = parseStipendValue(item.stipend) > 50000;
 
-    // Posted date removed from voucher layout, skipping
-    // Icons
-    const stipendIcon = document.getElementById('modalStipendIcon');
-    if (stipendIcon) { // Check existence to prevent crash
-        stipendIcon.className = 'fa-solid ' + getCurrencyIcon(item.stipend);
-    }
+    let insightBadgesHTML = `<div class="popup-tags-row-v3">`;
+    if (isFresher) insightBadgesHTML += `<span class="tag-insight yellow">✦ FRESHERS FRIENDLY</span>`;
+    insightBadgesHTML += `<span class="tag-insight red">HIGH COMPETITION</span>`; // Mock logic for visual match
+    if (isFAANG) insightBadgesHTML += `<span class="tag-insight purple">✦ FAANG</span>`;
+    insightBadgesHTML += `</div>`;
 
-    // Tags
-    const tagsContainer = document.getElementById('modalTags');
-    const itemTags = item.tags || [];
-    tagsContainer.innerHTML = itemTags.map(tag => `<span class="card-tag">${tag}</span>`).join('');
+    // 3. Middle Section: Split (Left: Eligibility, Right: Source Box)
+    const eligibilityHTML = item.eligibility ? item.eligibility.split('<br>').map(e => `<li>${e.replace(/•/g, '').trim()}</li>`).join('') : '<li>Open to relevant students.</li>';
+
+    const middleSectionHTML = `
+        <div class="popup-middle-split-v3">
+            <div class="pm-left-eligibility">
+                <div class="section-label-v3">ELIGIBILITY</div>
+                <ul class="eligibility-list-v3">
+                    ${eligibilityHTML}
+                    <li>Good academic standing</li>
+                </ul>
+            </div>
+            <div class="pm-right-source">
+                <div class="verified-source-box-v3">
+                    <div class="vs-label">VERIFIED SOURCE</div>
+                    <div class="vs-value">Careers at<br>${item.company}</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // 4. Stats Row (Horizontal Strip)
+    let displayDeadline = item.deadline || "Rolling";
+    if (displayDeadline.includes(',')) displayDeadline = displayDeadline.split(',')[0];
+
+    const statsRowHTML = `
+        <div class="popup-stats-strip-v3">
+            <div class="stat-item-v3">
+                <div class="stat-icon-v3"><i class="fa-regular fa-calendar"></i></div>
+                <div class="stat-info-v3">
+                    <div class="stat-label-v3">DEADLINE</div>
+                    <div class="stat-val-v3">${displayDeadline} <span class="highlight-yellow">12 days left</span></div>
+                </div>
+            </div>
+            <div class="stat-item-v3">
+                <div class="stat-icon-v3"><i class="fa-regular fa-clock"></i></div>
+                <div class="stat-info-v3">
+                    <div class="stat-label-v3">DURATION</div>
+                    <div class="stat-val-v3">${item.duration}</div>
+                </div>
+            </div>
+             <div class="stat-item-v3">
+                <div class="stat-icon-v3"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="stat-info-v3">
+                    <div class="stat-label-v3">LOCATION</div>
+                    <div class="stat-val-v3">${item.location}</div>
+                </div>
+            </div>
+            <div class="stat-item-v3">
+                <div class="stat-icon-v3"><i class="fa-solid ${getCurrencyIcon(item.stipend)}"></i></div>
+                <div class="stat-info-v3">
+                    <div class="stat-label-v3">STIPEND</div>
+                    <div class="stat-val-v3">${formatStipend(item.stipend)}</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // 5. Bottom Split: Selection & Work
+    const bottomSplitHTML = `
+        <div class="popup-bottom-split-v3">
+             <div class="pb-col">
+                <div class="section-label-v3">SELECTION PROCESS</div>
+                <ul class="detail-list-v3">
+                    <li>Resume Review</li>
+                    <li>Coding Challenge</li>
+                    <li>Technical Interview</li>
+                </ul>
+             </div>
+             <div class="pb-col">
+                <div class="section-label-v3">WHAT YOU'LL WORK ON</div>
+                <ul class="detail-list-v3">
+                    <li>Work on real-world software projects</li>
+                    <li>Collaborate with engineers</li>
+                    <li>Solve complex technical challenges</li>
+                </ul>
+             </div>
+        </div>
+    `;
+
+    // 6. Footer Tags (Grey Pills)
+    const footerTagsHTML = `
+        <div class="popup-footer-tags-v3">
+            <span class="footer-tag-pill">Internship</span>
+            <span class="footer-tag-pill">Paid</span>
+            <span class="footer-tag-pill">Summer</span>
+            <span class="footer-tag-pill">Software</span>
+        </div>
+    `;
+
+    // Inject
+    detailsView.innerHTML = headerHTML + insightBadgesHTML + middleSectionHTML + statsRowHTML + bottomSplitHTML + footerTagsHTML;
 
     // Show Modal
-    modal.classList.remove('hidden'); // Fix: Remove hidden class
-    // Force reflow to enable transition if needed, though usually not strictly necessary if we wait a tick
-    // but for now just removing hidden + adding active is enough to show it
-    // slightly delayed adding 'active' allows transition if display:none was used
-
-    // Use a small timeout to allow display:block to apply before opacity transition
+    modal.classList.remove('hidden');
     setTimeout(() => {
         modal.classList.add('active');
     }, 10);
+    document.body.style.overflow = 'hidden';
 
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
 };
 
 // Close Modal
@@ -1254,7 +1431,7 @@ cancelRedirectBtn.addEventListener('click', () => {
 });
 
 // --- Search Logic ---
-let searchTimeout;
+
 
 function performSearch() {
     const query = searchInput.value.trim();
@@ -1455,9 +1632,9 @@ function renderMainSearchResults(filtered, query) {
             query === '';
 
         if (isDefaultFilters) {
-            renderCards(filtered.slice(0, 5));
+            renderCards(filtered.slice(0, 3));
             if (resultsCount) {
-                resultsCount.textContent = `Showing 5 featured opportunities`;
+                resultsCount.textContent = `Showing 3 featured opportunities`;
             }
             hideSearchingUI();
             updateFilterChips(query);
@@ -2194,24 +2371,81 @@ quickRateBtns.forEach(btn => {
 });
 
 // Send quick rating when confirming redirect
-const confirmRedirectBtnOriginal = document.getElementById('confirmRedirectBtn');
-if (confirmRedirectBtnOriginal) {
-    confirmRedirectBtnOriginal.addEventListener('click', () => {
-        // Send quick rating via EmailJS
-        if (typeof emailjs !== 'undefined' && selectedQuickRating) {
-            const jobTitle = document.getElementById('modalTitle')?.textContent || 'Unknown Job';
-            const company = document.getElementById('modalCompany')?.textContent || 'Unknown';
 
-            emailjs.send('service_j7zfiag', 'template_q9zlru6', {
-                context: `Quick Rating: ${selectedQuickRating} for ${jobTitle} - ${company}`,
-                issue_type: 'Quick Rating',
-                message: `User rated ${selectedQuickRating} before applying to ${jobTitle} at ${company}`,
-                user_email: 'Quick Rating (No Email)'
-            }).then(() => {
-                console.log('Quick rating sent successfully');
-            }).catch(err => {
-                console.log('Quick rating failed:', err);
-            });
-        }
-    });
-}
+
+
+
+// --- EXTERNAL REDIRECT MODAL LOGIC (ITERATION 3) ---
+
+window.showConfirmView = function () {
+    // 1. Hide Details, Show Confirm
+    detailsView.classList.add('hidden');
+    confirmView.classList.remove('hidden');
+
+    // 2. Clear previous content and Inject New UI
+    confirmView.innerHTML = `
+        <div class="external-redirect-box">
+             <!-- Close X -->
+             <div class="redirect-close-icon" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+             </div>
+
+             <!-- Warning Icon -->
+             <div class="redirect-warning-icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+             </div>
+
+             <!-- Titles -->
+             <h2 class="redirect-title">External Redirect</h2>
+             <p class="redirect-desc">You are about to leave InternNow to visit the official application page.</p>
+
+             <!-- Feedback Section -->
+             <div class="redirect-feedback-section">
+                <div class="r-feedback-label">Quick feedback before you go? <span style="opacity:0.5; font-weight:400;">optional</span></div>
+                <div class="r-feedback-emojis">
+                    <button class="r-emoji-btn" onclick="selectRedirectFeedback(this, '👎')" title="Not interested">👎</button>
+                    <button class="r-emoji-btn" onclick="selectRedirectFeedback(this, '👍')" title="Looks good">👍</button>
+                    <button class="r-emoji-btn" onclick="selectRedirectFeedback(this, '🔥')" title="Applied!">🔥</button>
+                </div>
+             </div>
+
+             <!-- Action Buttons -->
+             <div class="redirect-actions">
+                <button class="btn-redirect-back" onclick="returnToDetails()">Go Back</button>
+                <button class="btn-redirect-continue" onclick="confirmRedirectAction()">Yes, Continue</button>
+             </div>
+        </div>
+    `;
+};
+
+// Return to Details View
+window.returnToDetails = function () {
+    confirmView.classList.add('hidden');
+    detailsView.classList.remove('hidden');
+};
+
+// Handle Emoji Selection
+window.selectRedirectFeedback = function (btn, emoji) {
+    // Remove active from all
+    const allBtns = confirmView.querySelectorAll('.r-emoji-btn');
+    allBtns.forEach(b => b.classList.remove('active'));
+
+    // Select this one
+    btn.classList.add('active');
+
+    // (Optional) Log or send feedback here if EmailJS is ready
+    console.log("Feedback Selected:", emoji);
+};
+
+// Confirm Redirect Action
+window.confirmRedirectAction = function () {
+    if (currentInternshipLink) {
+        window.open(currentInternshipLink, '_blank');
+
+        // Log Application
+        console.log("Applied to:", currentInternshipTitle);
+        // Could also trigger performSearch() to update 'Applied' status if we tracked it locally
+
+        closeModal();
+    }
+};
