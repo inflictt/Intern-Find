@@ -2252,13 +2252,27 @@ footer {
 .feedback-modal-content input[type="email"],
 .feedback-modal-content .feedback-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.1);
+    /* Lighter for visibility */
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 10px;
     padding: 12px;
     color: var(--text-main);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     margin-bottom: 15px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.feedback-modal-content input[type="email"]:focus,
+.feedback-modal-content .feedback-input:focus {
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+}
+
+.feedback-modal-content input[type="email"]::placeholder,
+.feedback-modal-content .feedback-input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
 }
 
 /* Large Feedback Tab (More Visible) */
