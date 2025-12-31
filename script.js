@@ -2149,11 +2149,21 @@ function showToast(message) {
     }, 5000);
 }
 
-// Initial Toast
+// Initial Toast (Randomized & Session Limited)
 window.addEventListener('load', () => {
+    // Fix: Prevent "annoying" repetition using session storage
+    if (sessionStorage.getItem('introToastShown')) return;
+
     setTimeout(() => {
-        // Only show if not visited recently (mock logic)
-        showToast("New: Uber She++ just went live! Check it out.");
+        // Randomize: Pick a random 'Open' opportunity
+        const openOpportunities = internshipData.filter(i => i.status === 'Open');
+        if (openOpportunities.length > 0) {
+            const randomOp = openOpportunities[Math.floor(Math.random() * openOpportunities.length)];
+            showToast(`New: ${randomOp.company} just went live! Check it out.`);
+
+            // Mark as shown for this session
+            sessionStorage.setItem('introToastShown', 'true');
+        }
     }, 2000);
 });
 
