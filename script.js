@@ -981,12 +981,8 @@ if (searchInput && searchDropdown) {
             return;
         }
 
-        // Filter Data
-        const filtered = internshipData.filter(item =>
-            item.title.toLowerCase().includes(query) ||
-            item.company.toLowerCase().includes(query) ||
-            item.tags.some(t => t.toLowerCase().includes(query))
-        );
+        // Filter Data (Use centralized logic to respect filters)
+        const filtered = executeSearchLogic(query);
 
         renderSearchDropdown(filtered, query);
     });
@@ -1112,7 +1108,7 @@ if (isOpportunitiesPage) {
 
         // Search Redirect Logic (Requirement 1)
         if (query) {
-            window.location.href = `opportunities.html?search=${encodeURIComponent(query)}`;
+            window.location.href = `opportunities.html?search=${encodeURIComponent(query)}&status=all`;
             return;
         }
 
