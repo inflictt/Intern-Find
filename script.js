@@ -1260,12 +1260,17 @@ window.openModal = function (identifier) {
     const headerHTML = `
         <div class="popup-header-v3">
             <div class="popup-header-top-row">
-                <div class="popup-logo-v3">
+            <div class="popup-logo-v3">
                      <img src="${getCompanyLogoUrl(item.company)}" alt="${item.company}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(item.company)}&background=random&color=fff&size=128';">
                 </div>
-                <a href="#" onclick="showConfirmView(); return false;" class="btn-apply-v3">
-                    Apply Now <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                </a>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <button onclick="openReportModal()" class="btn-report-issue" title="Report broken link or issue">
+                        <i class="fa-solid fa-flag"></i> <span class="hide-mobile">Report</span>
+                    </button>
+                    <a href="#" onclick="showConfirmView(); return false;" class="btn-apply-v3">
+                        Apply Now <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
             </div>
             
             <div class="popup-title-row">
@@ -1486,6 +1491,23 @@ function executeSearchLogic(query) {
 }
 
 // --- Feedback Helper Functions ---
+
+function openReportModal() {
+    const feedbackModal = document.getElementById('feedbackModal');
+    if (feedbackModal) {
+        feedbackModal.classList.remove('hidden');
+
+        // Auto-select "Bug Report"
+        const categorySelect = document.getElementById('feedbackCategory');
+        if (categorySelect) categorySelect.value = 'Bug Report';
+
+        // Pre-fill message with context
+        const messageBox = document.getElementById('feedbackMessage');
+        if (messageBox) {
+            messageBox.value = `Issue with link for: ${currentInternshipTitle}\nType of issue: (e.g. Broken Link, Expired, Wrong Info)\n`;
+        }
+    }
+}
 
 function showSearchingUI(query) {
     if (searchFeedbackOverlay) {

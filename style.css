@@ -3356,3 +3356,32 @@ footer {
 .btn-redirect-continue:hover {
     background: #2563eb;
 }
+
+/* Report Issue Button (Header) */
+.btn-report-issue {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-muted);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    height: 42px;
+    /* Match apply button height approx */
+}
+
+.btn-report-issue:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+@media (max-width: 480px) {
+    .hide-mobile {
+        display: none;
+    }
+}
